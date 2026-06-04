@@ -1,9 +1,15 @@
 import { createClient } from '@supabase/supabase-js'
+import { calculateAllCostsExtended } from './utils/calculations'
 
 const supabaseUrl = 'https://rtvprftiezzyyyqglydv.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0dnByZnRpZXp6eXl5cWdseWR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxMjQ4MDgsImV4cCI6MjA4NzcwMDgwOH0.n6x2WiM3N8Qzi3PZtlf0aHGfqdX30D7NAaAWCOV84nE'
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
+
+const withPhotosOrFallback = (data) => ({
+  ...data,
+  product_photos: data.product_photos ?? (data.photo_url ? [{ id: 'legacy', photo_url: data.photo_url, display_order: 0 }] : [])
+})
 
 // Database helper functions
 export const db = {
@@ -125,105 +131,64 @@ export const db = {
   
   // Products
   async getProducts() {
-    // Try with product_photos and bill_of_materials (new schema), fallback to old schema
-    try {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*, product_photos(*), bill_of_materials(*, materials(*, categories(name)))')
-        .order('created_at', { ascending: false })
-      if (error) {
-        // If product_photos table doesn't exist, query without it
-        if (error.message?.includes('product_photos') || error.code === 'PGRST200') {
-          const { data: fallbackData, error: fallbackError } = await supabase
-            .from('products')
-            .select('*, bill_of_materials(*, materials(*, categories(name)))')
-            .order('created_at', { ascending: false })
-          if (fallbackError) throw fallbackError
-          // Convert old photo_url to new format
-          return fallbackData.map(p => ({
-            ...p,
-            product_photos: p.photo_url ? [{ id: 'legacy', photo_url: p.photo_url, display_order: 0 }] : []
-          }))
-        }
-        throw error
-      }
-      return data
-    } catch (err) {
-      // Final fallback
-      const { data, error } = await supabase
+    const { data, error } = await supabase
+      .from('products')
+      .select('*, product_photos(*), bill_of_materials(*, materials(*, categories(name)))')
+      .order('created_at', { ascending: false })
+    if (!error) return data
+    if (error.message?.includes('product_photos') || error.code === 'PGRST200') {
+      const { data: fallbackData, error: fallbackError } = await supabase
         .from('products')
         .select('*, bill_of_materials(*, materials(*, categories(name)))')
         .order('created_at', { ascending: false })
-      if (error) throw error
-      return data.map(p => ({
-        ...p,
-        product_photos: p.photo_url ? [{ id: 'legacy', photo_url: p.photo_url, display_order: 0 }] : []
-      }))
+      if (fallbackError) throw fallbackError
+      return fallbackData.map(withPhotosOrFallback)
     }
+    throw error
   },
 
   
   async getProductById(id) {
-    // Try with product_photos (new schema), fallback to old schema
-    try {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*, bill_of_materials(*, materials(*, categories(name))), product_photos(*)')
-        .eq('id', id)
-        .single()
-      if (error) {
-        // If product_photos table doesn't exist, query without it
-        if (error.message?.includes('product_photos') || error.code === 'PGRST200') {
-          const { data: fallbackData, error: fallbackError } = await supabase
-            .from('products')
-            .select('*, bill_of_materials(*, materials(*, categories(name)))')
-            .eq('id', id)
-            .single()
-          if (fallbackError) throw fallbackError
-          // Convert old photo_url to new format
-          return {
-            ...fallbackData,
-            product_photos: fallbackData.photo_url ? [{ id: 'legacy', photo_url: fallbackData.photo_url, display_order: 0 }] : []
-          }
-        }
-        throw error
-      }
-      return data
-    } catch (err) {
-      // Final fallback
-      const { data, error } = await supabase
+    const { data, error } = await supabase
+      .from('products')
+      .select('*, bill_of_materials(*, materials(*, categories(name))), product_photos(*)')
+      .eq('id', id)
+      .single()
+    if (!error) return data
+    if (error.message?.includes('product_photos') || error.code === 'PGRST200') {
+      const { data: fallbackData, error: fallbackError } = await supabase
         .from('products')
         .select('*, bill_of_materials(*, materials(*, categories(name)))')
         .eq('id', id)
         .single()
-      if (error) throw error
-      return {
-        ...data,
-        product_photos: data.photo_url ? [{ id: 'legacy', photo_url: data.photo_url, display_order: 0 }] : []
-      }
+      if (fallbackError) throw fallbackError
+      return withPhotosOrFallback(fallbackData)
     }
+    throw error
   },
 
 
   
   async createProduct(product, bomItems) {
-    // Calculate costs
-    const totalMaterialCost = bomItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    const overheadMultiplier = 1 - (product.overhead_percentage / 100)
-    const productionCost = totalMaterialCost / overheadMultiplier
-    const marginMultiplier = 1 - (product.target_margin_percentage / 100)
-    const sellingPrice = productionCost / marginMultiplier
-    const grossProfit = sellingPrice - productionCost
-    
+    const costs = calculateAllCostsExtended(
+      bomItems,
+      product.overhead_percentage || 0,
+      product.target_margin_percentage || 0,
+      product.margin_jual_percentage || 0,
+      product.admin_marketplace_percentage || 0
+    )
+
     // Insert product
     const { data: newProduct, error: productError } = await supabase
       .from('products')
       .insert([{
         ...product,
-        total_material_cost: totalMaterialCost,
-        production_cost: productionCost,
-        estimated_selling_price: sellingPrice,
-        gross_profit_per_unit: grossProfit,
+        total_material_cost: costs.totalMaterialCost,
+        production_cost: costs.hppFinal,
+        harga_pabrik: costs.hargaPabrik,
+        estimated_selling_price: costs.hargaJual,
+        harga_marketplace: costs.hargaMarketplace,
+        gross_profit_per_unit: costs.hargaJual - costs.hppFinal,
         photo_url: product.photo_url || null
       }])
       .select()
@@ -253,23 +218,25 @@ export const db = {
   },
   
   async updateProduct(id, product, bomItems) {
-    // Calculate costs
-    const totalMaterialCost = bomItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    const overheadMultiplier = 1 - (product.overhead_percentage / 100)
-    const productionCost = totalMaterialCost / overheadMultiplier
-    const marginMultiplier = 1 - (product.target_margin_percentage / 100)
-    const sellingPrice = productionCost / marginMultiplier
-    const grossProfit = sellingPrice - productionCost
-    
+    const costs = calculateAllCostsExtended(
+      bomItems,
+      product.overhead_percentage || 0,
+      product.target_margin_percentage || 0,
+      product.margin_jual_percentage || 0,
+      product.admin_marketplace_percentage || 0
+    )
+
     // Update product
     const { data: updatedProduct, error: productError } = await supabase
       .from('products')
       .update({
         ...product,
-        total_material_cost: totalMaterialCost,
-        production_cost: productionCost,
-        estimated_selling_price: sellingPrice,
-        gross_profit_per_unit: grossProfit,
+        total_material_cost: costs.totalMaterialCost,
+        production_cost: costs.hppFinal,
+        harga_pabrik: costs.hargaPabrik,
+        estimated_selling_price: costs.hargaJual,
+        harga_marketplace: costs.hargaMarketplace,
+        gross_profit_per_unit: costs.hargaJual - costs.hppFinal,
         photo_url: product.photo_url || null,
         updated_at: new Date().toISOString()
       })

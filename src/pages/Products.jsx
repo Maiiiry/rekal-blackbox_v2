@@ -3,30 +3,21 @@ import { useData } from '../contexts/DataContext'
 import { useToast } from '../components/Toast'
 import { useConfirmation } from '../contexts/ConfirmationContext'
 import { formatRupiah } from '../utils/formatters'
-import { 
-  ShoppingBag, 
-  Plus, 
-  Search, 
-  Trash2, 
-  ArrowRight,
-  Calculator,
+import {
+  ShoppingBag,
+  Plus,
+  Search,
+  Trash2,
   Copy,
   Camera,
-  Images
+  Images,
+  TrendingUp
 } from 'lucide-react'
-
-
-
-
-
 
 const Products = () => {
   const { products, loading, errors, fetchProducts, deleteProduct } = useData()
-
   const { success, error: showError } = useToast()
   const { confirm } = useConfirmation()
-
-  
   const [searchQuery, setSearchQuery] = useState('')
   const [deletingId, setDeletingId] = useState(null)
 
@@ -34,7 +25,7 @@ const Products = () => {
     fetchProducts()
   }, [fetchProducts])
 
-  const filteredProducts = products.filter(prod => 
+  const filteredProducts = products.filter(prod =>
     prod.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
@@ -46,7 +37,7 @@ const Products = () => {
       cancelLabel: 'Batal',
       variant: 'danger'
     })
-    
+
     if (!isConfirmed) return
 
     setDeletingId(id)
@@ -60,38 +51,38 @@ const Products = () => {
     }
   }
 
+  const calcMargin = (hpp, jual) => {
+    if (!hpp || !jual || hpp <= 0) return null
+    return Math.round(((jual - hpp) / hpp) * 100)
+  }
 
   return (
-    <div className="page-container">
+    <div className="page-container pb-24">
       {/* Header */}
       <div className="page-header">
         <h1 className="page-title">Produk</h1>
         <p className="page-subtitle">Kelola produk dan hitung HPP</p>
       </div>
 
-      {/* Search & Add */}
-      <div className="flex gap-3 mb-4">
-        <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+      {/* Search Bar */}
+      <div className="mb-4">
+        <div className="relative">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari produk..."
-            className="input-field pl-10"
+            className="w-full h-12 bg-slate-800 border border-slate-600 hover:border-slate-500 focus:border-primary-500 rounded-xl pl-11 pr-4 text-white placeholder-slate-500 text-sm outline-none transition-colors shadow-sm"
           />
         </div>
-        <a href="/products/new" className="btn-primary px-4 flex items-center gap-2">
-          <Plus className="w-5 h-5" />
-        </a>
       </div>
 
       {/* Error State */}
       {errors?.products && (
         <div className="bg-accent-rose/10 border border-accent-rose/30 rounded-xl p-4 mb-4">
           <p className="text-accent-rose text-sm">{errors.products}</p>
-
-          <button 
+          <button
             onClick={fetchProducts}
             className="mt-2 text-xs text-accent-rose underline hover:no-underline"
           >
@@ -100,7 +91,7 @@ const Products = () => {
         </div>
       )}
 
-      {/* Products Grid */}
+      {/* Products List */}
       {loading.products ? (
         <div className="flex justify-center py-12">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
@@ -109,7 +100,6 @@ const Products = () => {
         <div className="empty-state">
           <ShoppingBag className="empty-state-icon" />
           <p className="empty-state-title">Belum ada produk</p>
-
           <p className="empty-state-desc">Tambahkan produk untuk menghitung HPP dan estimasi harga jual</p>
           <a href="/products/new" className="btn-primary mt-4 inline-flex items-center gap-2">
             <Plus className="w-4 h-4" />
@@ -117,103 +107,118 @@ const Products = () => {
           </a>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4">
-
+        <div className="flex flex-col gap-3">
           {filteredProducts.map(product => {
             const photos = product.product_photos || []
             const hasPhotos = photos.length > 0
-            const firstPhoto = hasPhotos ? photos.sort((a, b) => (a.display_order || 0) - (b.display_order || 0))[0] : null
-            
+            const firstPhoto = hasPhotos
+              ? photos.sort((a, b) => (a.display_order || 0) - (b.display_order || 0))[0]
+              : null
+            const margin = calcMargin(product.production_cost, product.estimated_selling_price)
+            const profit = (product.estimated_selling_price || 0) - (product.production_cost || 0)
+
             return (
-              <div 
-                key={product.id} 
-                className="group bg-slate-800/50 hover:bg-slate-800 rounded-2xl border border-slate-700/50 hover:border-primary-500/30 transition-all duration-300 overflow-hidden shadow-lg hover:shadow-xl hover:shadow-primary-500/5 flex"
+              <div
+                key={product.id}
+                className="group bg-slate-900 hover:bg-slate-800/80 rounded-2xl border border-slate-700 hover:border-primary-500/40 transition-all duration-200 overflow-hidden shadow-md flex"
               >
-                {/* Section 1: Product Image */}
-                <a href={`/products/${product.id}`} className="block relative w-32 sm:w-40 flex-shrink-0 overflow-hidden bg-slate-900">
+                {/* Foto Produk — 80x80 */}
+                <a
+                  href={`/products/${product.id}`}
+                  className="block relative flex-shrink-0 w-20 h-20 self-center ml-3 rounded-xl overflow-hidden bg-slate-800"
+                >
                   {firstPhoto ? (
                     <>
-                      <img 
-                        src={firstPhoto.photo_url} 
+                      <img
+                        src={firstPhoto.photo_url}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      {/* Photo Count Badge */}
                       {photos.length > 1 && (
-                        <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/60 backdrop-blur-sm rounded-md flex items-center gap-1 text-white text-xs">
-                          <Images className="w-3 h-3" />
+                        <div className="absolute top-1 right-1 px-1 py-0.5 bg-black/60 backdrop-blur-sm rounded flex items-center gap-0.5 text-white text-[10px]">
+                          <Images className="w-2.5 h-2.5" />
                           <span>{photos.length}</span>
                         </div>
                       )}
                     </>
                   ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 min-h-[120px]">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500/20 to-accent-violet/20 flex items-center justify-center mb-2">
-                        <Camera className="w-5 h-5 text-primary-400/60" />
-                      </div>
-                      <span className="text-slate-600 text-xs">Belum ada foto</span>
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+                      <Camera className="w-5 h-5 text-slate-600" />
                     </div>
                   )}
-                  
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </a>
 
-                {/* Section 2: Product Info */}
-                <div className="flex-1 p-3 flex flex-col justify-between min-w-0">
+                {/* Info Produk */}
+                <div className="flex-1 px-3 py-3 flex flex-col justify-between min-w-0">
                   <div>
-                    <a href={`/products/${product.id}`} className="block mb-2">
-                      <h3 className="font-semibold text-white text-base leading-tight group-hover:text-primary-400 transition-colors line-clamp-1">
+                    {/* Nama */}
+                    <a href={`/products/${product.id}`} className="block mb-1.5">
+                      <h3 className="font-bold text-white text-base leading-tight group-hover:text-primary-400 transition-colors line-clamp-1">
                         {product.name}
                       </h3>
                       {product.description && (
-                        <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{product.description}</p>
+                        <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">{product.description}</p>
                       )}
                     </a>
 
-                    {/* COGS */}
-                    <div className="flex items-center justify-between py-2 border-t border-slate-700/50">
-                      <span className="text-xs text-slate-400">HPP</span>
-                      <span className="text-sm font-semibold text-white">{formatRupiah(product.production_cost)}</span>
-                    </div>
-
-                    {/* Selling Price */}
-                    <div className="flex items-center justify-between py-2 border-t border-slate-700/50">
-                      <span className="text-xs text-slate-400">Harga Jual</span>
-                      <span className="text-sm font-semibold text-white">{formatRupiah(product.estimated_selling_price)}</span>
-                    </div>
-
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-2 mt-2">
-                    <a
-                      href={`/products/copy/${product.id}`}
-                      className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-slate-700/50 hover:bg-primary-500/20 text-slate-400 hover:text-primary-400 rounded-lg transition-all text-xs font-medium"
-                    >
-                      <Copy className="w-3.5 h-3.5" />
-                      Salin
-                    </a>
-                    <button
-                      onClick={() => handleDelete(product.id)}
-                      disabled={deletingId === product.id}
-                      className="flex items-center justify-center gap-1.5 px-2 py-1.5 bg-slate-700/50 hover:bg-accent-rose/20 text-slate-400 hover:text-accent-rose rounded-lg transition-all text-xs font-medium disabled:opacity-50"
-                    >
-                      {deletingId === product.id ? (
-                        <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-accent-rose"></div>
-                      ) : (
-                        <Trash2 className="w-3.5 h-3.5" />
+                    {/* Harga */}
+                    <div className="flex items-end gap-3">
+                      <div>
+                        <p className="text-[10px] text-slate-500 leading-none mb-0.5">HPP</p>
+                        <p className="text-sm text-slate-300 font-medium">{formatRupiah(product.production_cost)}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-slate-500 leading-none mb-0.5">Jual</p>
+                        <p className="text-base text-white font-bold">{formatRupiah(product.estimated_selling_price)}</p>
+                      </div>
+                      {margin !== null && (
+                        <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-500/15 rounded-lg">
+                          <TrendingUp className="w-3 h-3 text-emerald-400" />
+                          <span className="text-[11px] font-semibold text-emerald-400">
+                            {margin > 0 ? '+' : ''}{margin}%
+                          </span>
+                        </div>
                       )}
-                    </button>
+                    </div>
                   </div>
                 </div>
-              </div>
 
+                {/* Aksi — icon only, vertikal kanan */}
+                <div className="flex flex-col items-center justify-center gap-2 pr-3 pl-1">
+                  <a
+                    href={`/products/copy/${product.id}`}
+                    title="Salin produk"
+                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-primary-500/20 text-slate-500 hover:text-primary-400 transition-all"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                  </a>
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    disabled={deletingId === product.id}
+                    title="Hapus produk"
+                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-accent-rose/20 text-slate-500 hover:text-accent-rose transition-all disabled:opacity-40"
+                  >
+                    {deletingId === product.id ? (
+                      <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-accent-rose"></div>
+                    ) : (
+                      <Trash2 className="w-3.5 h-3.5" />
+                    )}
+                  </button>
+                </div>
+              </div>
             )
           })}
         </div>
       )}
 
+      {/* FAB Tambah Produk */}
+      <a
+        href="/products/new"
+        className="fixed bottom-24 right-5 w-14 h-14 bg-primary-600 hover:bg-primary-500 active:scale-95 rounded-2xl flex items-center justify-center shadow-xl shadow-primary-900/40 transition-all duration-200 z-20"
+        title="Tambah Produk"
+      >
+        <Plus className="w-6 h-6 text-white" />
+      </a>
     </div>
   )
 }

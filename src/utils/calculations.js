@@ -1,20 +1,7 @@
-// HPP Calculation Functions
-
-/**
- * Calculate subtotal for a material item
- * @param {number} price - Material price
- * @param {number} quantity - Material quantity
- * @returns {number} Subtotal
- */
 export const calculateSubtotal = (price, quantity) => {
   return price * quantity
 }
 
-/**
- * Calculate total material cost from BoM items
- * @param {Array} bomItems - Array of BoM items with price and quantity
- * @returns {number} Total material cost
- */
 export const calculateTotalMaterialCost = (bomItems) => {
   return bomItems.reduce((sum, item) => {
     const price = item.price || item.standard_price || 0
@@ -23,100 +10,72 @@ export const calculateTotalMaterialCost = (bomItems) => {
   }, 0)
 }
 
-/**
- * Calculate production cost (HPP)
- * Formula: productionCost = totalMaterialCost / (1 - overheadPercentage / 100)
- * @param {number} totalMaterialCost - Total material cost
- * @param {number} overheadPercentage - Overhead percentage (0-100)
- * @returns {number} Production cost
- */
-export const calculateProductionCost = (totalMaterialCost, overheadPercentage) => {
-  if (overheadPercentage >= 100) return totalMaterialCost
-  const multiplier = 1 - (overheadPercentage / 100)
-  return totalMaterialCost / multiplier
+// HPP Final = total material + overhead (overhead adalah % dari total material)
+export const calculateHppFinal = (totalMaterialCost, overheadPercentage) => {
+  return totalMaterialCost * (1 + overheadPercentage / 100)
 }
 
-/**
- * Calculate estimated selling price
- * Formula: sellingPrice = productionCost / (1 - targetMarginPercentage / 100)
- * @param {number} productionCost - Production cost
- * @param {number} targetMarginPercentage - Target margin percentage (0-100)
- * @returns {number} Estimated selling price
- */
-export const calculateSellingPrice = (productionCost, targetMarginPercentage) => {
-  if (targetMarginPercentage >= 100) return productionCost
-  const multiplier = 1 - (targetMarginPercentage / 100)
-  return productionCost / multiplier
+// Harga Pabrik = HPP Final + margin% dari harga pabrik
+export const calculateHargaPabrik = (hppFinal, marginPabrikPercentage) => {
+  if (marginPabrikPercentage >= 100) return hppFinal
+  return hppFinal / (1 - marginPabrikPercentage / 100)
 }
 
-/**
- * Calculate gross profit per unit
- * Formula: grossProfit = sellingPrice - productionCost
- * @param {number} sellingPrice - Selling price
- * @param {number} productionCost - Production cost
- * @returns {number} Gross profit per unit
- */
-export const calculateGrossProfit = (sellingPrice, productionCost) => {
-  return sellingPrice - productionCost
+// Harga Jual = Harga Pabrik + margin% dari harga jual
+export const calculateHargaJual = (hargaPabrik, marginJualPercentage) => {
+  if (marginJualPercentage >= 100) return hargaPabrik
+  return hargaPabrik / (1 - marginJualPercentage / 100)
 }
 
-/**
- * Calculate all costs at once
- * @param {Array} bomItems - Array of BoM items
- * @param {number} overheadPercentage - Overhead percentage
- * @param {number} targetMarginPercentage - Target margin percentage
- * @returns {Object} Object containing all calculated values
- */
-export const calculateAllCosts = (bomItems, overheadPercentage, targetMarginPercentage) => {
+// Harga Marketplace = Harga Jual + admin% dari harga marketplace
+export const calculateHargaMarketplace = (hargaJual, adminPercentage) => {
+  if (adminPercentage >= 100) return hargaJual
+  return hargaJual / (1 - adminPercentage / 100)
+}
+
+// Full 5-step calculation (digunakan di halaman simulasi)
+export const calculateAllCostsExtended = (bomItems, overheadPct, marginPabrikPct, marginJualPct, adminPct) => {
   const totalMaterialCost = calculateTotalMaterialCost(bomItems)
-  const productionCost = calculateProductionCost(totalMaterialCost, overheadPercentage)
-  const sellingPrice = calculateSellingPrice(productionCost, targetMarginPercentage)
-  const grossProfit = calculateGrossProfit(sellingPrice, productionCost)
-  
+  const overheadAmount = totalMaterialCost * (overheadPct / 100)
+  const hppFinal = totalMaterialCost + overheadAmount
+  const hargaPabrik = calculateHargaPabrik(hppFinal, marginPabrikPct)
+  const hargaJual = calculateHargaJual(hargaPabrik, marginJualPct)
+  const hargaMarketplace = calculateHargaMarketplace(hargaJual, adminPct)
+
   return {
     totalMaterialCost: Math.round(totalMaterialCost),
-    productionCost: Math.round(productionCost),
+    overheadAmount: Math.round(overheadAmount),
+    hppFinal: Math.round(hppFinal),
+    hargaPabrik: Math.round(hargaPabrik),
+    hargaJual: Math.round(hargaJual),
+    hargaMarketplace: Math.round(hargaMarketplace),
+  }
+}
+
+// Simplified calculation (digunakan di ProductForm — 2 parameter)
+export const calculateAllCosts = (bomItems, overheadPercentage, targetMarginPercentage) => {
+  const totalMaterialCost = calculateTotalMaterialCost(bomItems)
+  const hppFinal = calculateHppFinal(totalMaterialCost, overheadPercentage)
+  const sellingPrice = targetMarginPercentage >= 100 ? hppFinal : hppFinal / (1 - targetMarginPercentage / 100)
+  const grossProfit = sellingPrice - hppFinal
+
+  return {
+    totalMaterialCost: Math.round(totalMaterialCost),
+    productionCost: Math.round(hppFinal),
     sellingPrice: Math.round(sellingPrice),
     grossProfit: Math.round(grossProfit)
   }
 }
 
-/**
- * Validate percentage value
- * @param {number} value - Percentage value
- * @returns {boolean} True if valid (0-100)
- */
-export const isValidPercentage = (value) => {
-  const num = parseFloat(value)
-  return !isNaN(num) && num >= 0 && num < 100
-}
-
-/**
- * Validate positive number
- * @param {number} value - Number value
- * @returns {boolean} True if valid positive number
- */
-export const isValidPositiveNumber = (value) => {
-  const num = parseFloat(value)
-  return !isNaN(num) && num >= 0
-}
-
-/**
- * Calculate material usage
- * Formula: totalUsage = Σ(L × W × x) / materialWidth
- * @param {Array} usageItems - Array of usage items with L, W, x properties
- * @param {number} materialWidth - Material width
- * @returns {number} Calculated material usage
- */
 export const calculateMaterialUsage = (usageItems, materialWidth) => {
   if (!materialWidth || materialWidth <= 0) return 0
-  
+
   const totalArea = usageItems.reduce((sum, item) => {
     const L = parseFloat(item.L) || 0
     const W = parseFloat(item.W) || 0
     const x = parseFloat(item.x) || 0
     return sum + (L * W * x)
   }, 0)
-  
+
   return totalArea / materialWidth
 }

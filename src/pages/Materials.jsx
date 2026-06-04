@@ -6,23 +6,26 @@ import { validateMaterialForm, hasErrors } from '../utils/validators'
 import { formatRupiah } from '../utils/formatters'
 import { supabase } from '../supabase'
 
-import { 
-  Package, 
-  Plus, 
-  Search, 
-  Edit2, 
-  Trash2, 
-  X, 
+import { useNavigate } from 'react-router-dom'
+import {
+  Package,
+  Plus,
+  Search,
+  Edit2,
+  Trash2,
+  X,
   Layers,
   ShoppingBag,
-  Link
+  Link,
+  ChevronRight
 } from 'lucide-react'
 
 
 
 
 const Materials = () => {
-  const { 
+  const navigate = useNavigate()
+  const {
     materials, 
     categories, 
     products,
@@ -198,8 +201,20 @@ const Materials = () => {
     <div className="page-container">
       {/* Header */}
       <div className="page-header">
-        <h1 className="page-title">Material</h1>
-        <p className="page-subtitle">Katalog bahan baku produksi</p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="page-title">Material</h1>
+            <p className="page-subtitle">Katalog bahan baku produksi</p>
+          </div>
+          <button
+            onClick={() => navigate('/categories')}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-400 hover:text-primary-400 hover:border-primary-500/50 transition-all text-sm"
+          >
+            <Layers className="w-4 h-4" />
+            <span>Kategori</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
 
       {/* Search & Add */}

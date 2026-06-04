@@ -3,11 +3,13 @@ import { useData } from '../contexts/DataContext'
 import { useToast } from '../components/Toast'
 import { useConfirmation } from '../contexts/ConfirmationContext'
 import { validateCategoryForm, hasErrors } from '../utils/validators'
-import { Layers, Plus, Search, Edit2, Trash2, X, Package, Link } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Layers, Plus, Search, Edit2, Trash2, X, Package, Link, ChevronLeft } from 'lucide-react'
 
 
 
 const Categories = () => {
+  const navigate = useNavigate()
   const { categories, materials, loading, errors, fetchCategories, createCategory, updateCategory, deleteCategory } = useData()
 
   const { success, error: showError } = useToast()
@@ -107,6 +109,13 @@ const Categories = () => {
     <div className="page-container">
       {/* Header */}
       <div className="page-header">
+        <button
+          onClick={() => navigate('/materials')}
+          className="flex items-center gap-1 text-slate-400 hover:text-primary-400 transition-colors mb-3 text-sm"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span>Material</span>
+        </button>
         <h1 className="page-title">Kategori</h1>
         <p className="page-subtitle">Kelompokkan material berdasarkan kategori</p>
       </div>

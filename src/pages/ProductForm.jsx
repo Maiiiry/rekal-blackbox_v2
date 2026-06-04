@@ -5,7 +5,7 @@ import { useToast } from '../components/Toast'
 import { db } from '../supabase'
 
 import { validateProductForm, hasErrors } from '../utils/validators'
-import { calculateAllCosts, calculateMaterialUsage } from '../utils/calculations'
+import { calculateAllCostsExtended, calculateMaterialUsage } from '../utils/calculations'
 import { formatRupiah } from '../utils/formatters'
 import { 
   ArrowLeft, 
@@ -50,7 +50,9 @@ const ProductForm = () => {
     name: '',
     description: '',
     overhead_percentage: '20',
-    target_margin_percentage: '30'
+    target_margin_percentage: '10',
+    margin_jual_percentage: '20',
+    admin_marketplace_percentage: '5'
   })
 
   const [productPhotos, setProductPhotos] = useState([])
@@ -75,9 +77,11 @@ const ProductForm = () => {
 
   const [calculations, setCalculations] = useState({
     totalMaterialCost: 0,
-    productionCost: 0,
-    sellingPrice: 0,
-    grossProfit: 0
+    overheadAmount: 0,
+    hppFinal: 0,
+    hargaPabrik: 0,
+    hargaJual: 0,
+    hargaMarketplace: 0
   })
 
   // Material selector state
@@ -95,12 +99,13 @@ const ProductForm = () => {
 
 
   useEffect(() => {
-    // Recalculate whenever BoM or percentages change
     const overhead = parseFloat(formData.overhead_percentage) || 0
-    const margin = parseFloat(formData.target_margin_percentage) || 0
-    const newCalculations = calculateAllCosts(bomItems, overhead, margin)
+    const marginPabrik = parseFloat(formData.target_margin_percentage) || 0
+    const marginJual = parseFloat(formData.margin_jual_percentage) || 0
+    const admin = parseFloat(formData.admin_marketplace_percentage) || 0
+    const newCalculations = calculateAllCostsExtended(bomItems, overhead, marginPabrik, marginJual, admin)
     setCalculations(newCalculations)
-  }, [bomItems, formData.overhead_percentage, formData.target_margin_percentage])
+  }, [bomItems, formData.overhead_percentage, formData.target_margin_percentage, formData.margin_jual_percentage, formData.admin_marketplace_percentage])
 
   // Calculate material usage in real-time
   useEffect(() => {
@@ -117,7 +122,9 @@ const ProductForm = () => {
         name: isCopyMode ? '' : product.name,
         description: product.description || '',
         overhead_percentage: product.overhead_percentage.toString(),
-        target_margin_percentage: product.target_margin_percentage.toString()
+        target_margin_percentage: product.target_margin_percentage.toString(),
+        margin_jual_percentage: (product.margin_jual_percentage ?? 20).toString(),
+        admin_marketplace_percentage: (product.admin_marketplace_percentage ?? 5).toString()
       })
       
       // Load product photos
@@ -289,7 +296,9 @@ const ProductForm = () => {
         name: formData.name.trim(),
         description: formData.description.trim(),
         overhead_percentage: parseFloat(formData.overhead_percentage),
-        target_margin_percentage: parseFloat(formData.target_margin_percentage)
+        target_margin_percentage: parseFloat(formData.target_margin_percentage),
+        margin_jual_percentage: parseFloat(formData.margin_jual_percentage),
+        admin_marketplace_percentage: parseFloat(formData.admin_marketplace_percentage)
       }
 
       
@@ -436,27 +445,61 @@ const ProductForm = () => {
                 min="0"
                 max="99"
               />
+              <p className="text-xs text-slate-600 mt-1">% dari total material</p>
               {formErrors.overhead_percentage && (
                 <p className="text-accent-rose text-xs mt-1">{formErrors.overhead_percentage}</p>
               )}
-
             </div>
 
             <div>
-              <label className="input-label">Target Margin (%)</label>
+              <label className="input-label">Margin Pabrik (%)</label>
               <input
                 type="number"
                 value={formData.target_margin_percentage}
                 onChange={(e) => setFormData({ ...formData, target_margin_percentage: e.target.value })}
                 className={`input-field ${formErrors.target_margin_percentage ? 'border-accent-rose' : ''}`}
-                placeholder="30"
+                placeholder="10"
                 min="0"
                 max="99"
               />
+              <p className="text-xs text-slate-600 mt-1">% dari harga pabrik</p>
               {formErrors.target_margin_percentage && (
                 <p className="text-accent-rose text-xs mt-1">{formErrors.target_margin_percentage}</p>
               )}
+            </div>
 
+            <div>
+              <label className="input-label">Margin Jual (%)</label>
+              <input
+                type="number"
+                value={formData.margin_jual_percentage}
+                onChange={(e) => setFormData({ ...formData, margin_jual_percentage: e.target.value })}
+                className={`input-field ${formErrors.margin_jual_percentage ? 'border-accent-rose' : ''}`}
+                placeholder="20"
+                min="0"
+                max="99"
+              />
+              <p className="text-xs text-slate-600 mt-1">% dari harga jual</p>
+              {formErrors.margin_jual_percentage && (
+                <p className="text-accent-rose text-xs mt-1">{formErrors.margin_jual_percentage}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="input-label">Admin Marketplace (%)</label>
+              <input
+                type="number"
+                value={formData.admin_marketplace_percentage}
+                onChange={(e) => setFormData({ ...formData, admin_marketplace_percentage: e.target.value })}
+                className={`input-field ${formErrors.admin_marketplace_percentage ? 'border-accent-rose' : ''}`}
+                placeholder="5"
+                min="0"
+                max="99"
+              />
+              <p className="text-xs text-slate-600 mt-1">% dari harga marketplace</p>
+              {formErrors.admin_marketplace_percentage && (
+                <p className="text-accent-rose text-xs mt-1">{formErrors.admin_marketplace_percentage}</p>
+              )}
             </div>
           </div>
         </div>
@@ -677,28 +720,47 @@ const ProductForm = () => {
         {/* Calculation Preview */}
         <div className="glass-panel p-4 bg-gradient-to-br from-primary-900/30 to-accent-violet/20">
           <h3 className="text-sm font-semibold text-white mb-4">Preview Perhitungan</h3>
-          
+
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-sm text-slate-400">Total Material</span>
               <span className="font-medium text-white">{formatRupiah(calculations.totalMaterialCost)}</span>
             </div>
             <div className="h-px bg-slate-700/50" />
+            <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+              <span>+ Overhead ({formData.overhead_percentage}%)</span>
+              <span>{formatRupiah(calculations.overheadAmount)}</span>
+            </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-slate-400">HPP (dengan overhead)</span>
-              <span className="font-medium text-primary-400">{formatRupiah(calculations.productionCost)}</span>
+              <span className="text-sm text-slate-400">HPP Final</span>
+              <span className="font-medium text-primary-400">{formatRupiah(calculations.hppFinal)}</span>
             </div>
             <div className="h-px bg-slate-700/50" />
+            <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+              <span>+ Margin Pabrik ({formData.target_margin_percentage}%)</span>
+              <span>{formatRupiah(calculations.hargaPabrik - calculations.hppFinal)}</span>
+            </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-slate-400">Estimasi Harga Jual</span>
-              <span className="font-medium text-accent-emerald">{formatRupiah(calculations.sellingPrice)}</span>
-
+              <span className="text-sm text-slate-400">Harga Pabrik</span>
+              <span className="font-medium text-accent-cyan">{formatRupiah(calculations.hargaPabrik)}</span>
             </div>
             <div className="h-px bg-slate-700/50" />
+            <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+              <span>+ Margin Jual ({formData.margin_jual_percentage}%)</span>
+              <span>{formatRupiah(calculations.hargaJual - calculations.hargaPabrik)}</span>
+            </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-slate-400">Laba Kotor</span>
-              <span className="font-medium text-accent-cyan">{formatRupiah(calculations.grossProfit)}</span>
-
+              <span className="text-sm text-slate-400">Harga Jual</span>
+              <span className="font-medium text-accent-emerald">{formatRupiah(calculations.hargaJual)}</span>
+            </div>
+            <div className="h-px bg-slate-700/50" />
+            <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+              <span>+ Admin Marketplace ({formData.admin_marketplace_percentage}%)</span>
+              <span>{formatRupiah(calculations.hargaMarketplace - calculations.hargaJual)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-slate-400">Harga Marketplace</span>
+              <span className="font-bold text-white">{formatRupiah(calculations.hargaMarketplace)}</span>
             </div>
           </div>
         </div>

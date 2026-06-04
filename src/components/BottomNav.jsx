@@ -1,10 +1,9 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, Layers, Package, ShoppingBag, Calculator } from 'lucide-react'
+import { LayoutDashboard, Package, ShoppingBag, Calculator } from 'lucide-react'
 
 const BottomNav = () => {
   const navItems = [
     { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
-    { to: '/categories', icon: Layers, label: 'Kategori' },
     { to: '/materials', icon: Package, label: 'Material' },
     { to: '/products', icon: ShoppingBag, label: 'Produk' },
     { to: '/price-simulation', icon: Calculator, label: 'Simulasi' },
