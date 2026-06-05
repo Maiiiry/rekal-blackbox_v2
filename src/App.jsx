@@ -4,6 +4,8 @@ import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { DataProvider } from './contexts/DataContext'
 import { ToastProvider } from './components/Toast'
 import { ConfirmationProvider } from './contexts/ConfirmationContext'
+import useIsDesktop from './hooks/useIsDesktop'
+import WebLayout from './components/WebLayout'
 
 
 // Pages
@@ -58,85 +60,90 @@ const AppLayout = ({ children }) => {
 }
 
 function AppContent() {
+  const isDesktop = useIsDesktop()
+  const Layout = ({ children }) => isDesktop
+    ? <WebLayout>{children}</WebLayout>
+    : <AppLayout>{children}</AppLayout>
+
   return (
     <ToastProvider>
       <Router>
         <Routes>
 
         <Route path="/login" element={<Login />} />
-        
+
         <Route path="/" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <Dashboard />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/categories" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <Categories />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/materials" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <Materials />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/products" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <Products />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/products/new" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <ProductForm />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/products/:id" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <ProductDetail />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/products/:id/edit" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <ProductForm />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/products/copy/:id" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <ProductForm />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="/price-simulation" element={
           <ProtectedRoute>
-            <AppLayout>
+            <Layout>
               <PriceSimulation />
-            </AppLayout>
+            </Layout>
           </ProtectedRoute>
         } />
-        
+
         <Route path="*" element={<Navigate to="/" replace />} />
 
 
