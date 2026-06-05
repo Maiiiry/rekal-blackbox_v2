@@ -361,7 +361,10 @@ const ProductForm = () => {
 
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit}>
+        <div className="lg:flex lg:gap-6 lg:items-start">
+        {/* Kolom kiri — form inputs */}
+        <div className="lg:w-5/12 lg:sticky lg:top-4 space-y-6">
         {/* Basic Info */}
         <div className="glass-panel p-4">
           <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
@@ -503,7 +506,10 @@ const ProductForm = () => {
             </div>
           </div>
         </div>
+        </div>{/* end kolom kiri */}
 
+        {/* Kolom kanan — calculator, BoM, preview */}
+        <div className="lg:w-7/12 space-y-6 mt-6 lg:mt-0">
         {/* Material Usage Calculation */}
         <div className="glass-panel p-4">
           <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
@@ -787,6 +793,8 @@ const ProductForm = () => {
           </button>
 
         </div>
+        </div>{/* end kolom kanan */}
+        </div>{/* end lg:flex wrapper */}
       </form>
 
       {/* Material Selector Modal */}

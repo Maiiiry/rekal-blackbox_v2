@@ -263,7 +263,7 @@ const PriceSimulation = () => {
   const hasData = bomItems.length > 0
 
   return (
-    <div className="page-container pb-32">
+    <div className="page-container pb-32 lg:pb-6">
       {/* Header */}
       <div className="page-header">
         <h1 className="page-title flex items-center gap-2">
@@ -273,8 +273,11 @@ const PriceSimulation = () => {
         <p className="page-subtitle">Hitung dan simulasikan harga jual produk</p>
       </div>
 
+      <div className="lg:flex lg:gap-6 lg:items-start">
+      {/* Kolom kiri — inputs */}
+      <div className="lg:w-5/12 lg:sticky lg:top-4 space-y-4">
       {/* Product Selection — Searchable Combobox */}
-      <div className="glass-panel p-4 mb-4">
+      <div className="glass-panel p-4 mb-4 lg:mb-0">
         <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
           <Package className="w-4 h-4 text-primary-400" />
           Pilih Produk
@@ -289,7 +292,7 @@ const PriceSimulation = () => {
       </div>
 
       {/* Parameters */}
-      <div className="glass-panel p-4 mb-4">
+      <div className="glass-panel p-4 mb-4 lg:mb-0">
         <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
           <TrendingUp className="w-4 h-4 text-primary-400" />
           Parameter Perhitungan
@@ -318,7 +321,7 @@ const PriceSimulation = () => {
       </div>
 
       {/* Bill of Materials — with editable price */}
-      <div className="glass-panel p-4 mb-4">
+      <div className="glass-panel p-4 mb-4 lg:mb-0">
         <div className="flex items-center justify-between mb-4">
           <button
             type="button"
@@ -424,8 +427,12 @@ const PriceSimulation = () => {
         )}
       </div>
 
+      </div>{/* end kolom kiri */}
+
+      {/* Kolom kanan — results */}
+      <div className="lg:w-7/12 space-y-4 mt-4 lg:mt-0">
       {/* Calculation Results */}
-      <div className="glass-panel p-4 bg-gradient-to-br from-primary-900/30 to-accent-violet/20 mb-3">
+      <div className="glass-panel p-4 bg-gradient-to-br from-primary-900/30 to-accent-violet/20 mb-3 lg:mb-0">
         <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
           <DollarSign className="w-4 h-4 text-primary-400" />
           Hasil Perhitungan
@@ -482,10 +489,12 @@ const PriceSimulation = () => {
         <RotateCcw className="w-3.5 h-3.5" />
         Reset Simulasi
       </button>
+      </div>{/* end kolom kanan */}
+      </div>{/* end lg:flex wrapper */}
 
       {/* ── Sticky Result Bar ── */}
       {hasData && (
-        <div className="fixed bottom-16 left-0 right-0 z-10 px-4 pb-2 pointer-events-none">
+        <div className="fixed bottom-16 left-0 right-0 z-10 px-4 pb-2 pointer-events-none lg:hidden">
           <div className="bg-slate-900/95 backdrop-blur-md border border-slate-700 rounded-2xl px-4 py-3 shadow-2xl pointer-events-auto">
             <div className="grid grid-cols-3 divide-x divide-slate-700 text-center">
               <div className="pr-3">

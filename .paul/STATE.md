@@ -4,31 +4,32 @@
 
 ## Current Position
 
-Phase: 5 (Desktop Detail Views) — **NOT STARTED**
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-06-06 — Phase 04 complete, transitioned to Phase 05
+Milestone: v0.3 Desktop UI Redesign — **COMPLETE** 🎉
+Phase: 5 of 5 (Desktop Detail Views) — Complete
+Plan: 05-03 complete (3/3 plans)
+Status: Milestone v0.3 complete, siap milestone berikutnya
+Last activity: 2026-06-06 — Phase 05 complete, milestone v0.3 selesai
 
 Progress:
 - Phase 1: [██████████] 100%
 - Phase 2: [██████████] 100%
 - Phase 3: [██████████] 100%
 - Phase 4: [██████████] 100%
-- Phase 5: [░░░░░░░░░░] 0%
+- Phase 5: [██████████] 100%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop 04-02 complete — Phase 04 done]
+  ✓        ✓        ✓     [Loop 05-03 complete — milestone v0.3 selesai]
 ```
 
 ## Session Continuity
 
 Last session: 2026-06-06
-Stopped at: Phase 04 complete (2/2 plans), transitioned ke Phase 05
-Next action: /paul:plan untuk Phase 05 (desktop-detail-views)
+Stopped at: Milestone v0.3 complete (semua 5 phases done)
+Next action: Tentukan milestone berikutnya atau /paul:milestone untuk review
 Resume file: .paul/ROADMAP.md
 
 ## Decisions
@@ -39,6 +40,8 @@ Resume file: .paul/ROADMAP.md
 | calculateAllCostsExtended di supabase.js | Extended (bukan simplified) | Mencakup semua 5 field DB |
 | Dual render (card + table) bukan JS hook | CSS breakpoint lebih sederhana | Pattern konsisten untuk semua list views |
 | Dashboard recent products: CSS grid bukan dual-render | Item ringan, tidak perlu duplikasi markup | Lebih DRY |
+| Two-column detail pattern | lg:flex + lg:w-5/12 sticky + lg:w-7/12 | Konsisten di semua 3 halaman detail views |
+| Sticky bar PriceSimulation | lg:hidden bukan dihapus | Mobile tetap butuh sticky bar |
 
 ## Phase Summary
 
@@ -68,7 +71,16 @@ Resume file: .paul/ROADMAP.md
 
 **Outcome:** Semua 4 halaman list menggunakan lg:hidden/hidden lg:block pattern. Desktop: table/grid. Mobile: card list tidak berubah.
 
+### Phase 05: desktop-detail-views (COMPLETE)
+
+| Plan | Deskripsi | Status |
+|------|-----------|--------|
+| 05-01 | ProductDetail two-column layout | ✓ |
+| 05-02 | ProductForm two-column layout | ✓ |
+| 05-03 | PriceSimulation two-column layout | ✓ |
+
+**Outcome:** Semua 3 halaman detail menggunakan lg:flex two-column pattern. Kiri sticky (inputs/gallery), kanan scrollable (detail/results). Mobile single-column tidak berubah.
+
 ## Next Actions
 
-1. Phase 05 (desktop-detail-views): ProductDetail, ProductForm, PriceSimulation
-2. Jalankan `/paul:plan` untuk memulai Phase 05
+Milestone v0.3 selesai. Tentukan milestone berikutnya.

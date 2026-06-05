@@ -33,8 +33,8 @@ PWA mobile-first berbasis React + Supabase, dengan desktop mode yang sedang dike
 
 ## Active Milestone
 
-### v0.3 — Desktop UI Redesign 🔵
-*Status: In Progress*
+### v0.3 — Desktop UI Redesign ✅
+*Status: Complete — 2026-06-06*
 
 Mendesain ulang tampilan semua halaman agar optimal di mode desktop — layout lebih lebar, informasi lebih padat, memanfaatkan ruang layar yang tersedia.
 
@@ -42,7 +42,7 @@ Mendesain ulang tampilan semua halaman agar optimal di mode desktop — layout l
 |-------|------|-------------|--------|
 | 03 | desktop-foundation | Lepas batasan max-w-lg di desktop, setup layout utilities | ✅ Complete |
 | 04 | desktop-list-views | Redesign Dashboard, Categories, Materials, Products | ✅ Complete |
-| 05 | desktop-detail-views | Redesign ProductDetail, ProductForm, PriceSimulation | 🔵 Next |
+| 05 | desktop-detail-views | Redesign ProductDetail, ProductForm, PriceSimulation | ✅ Complete |
 
 **Success criteria:**
 - Semua halaman memanfaatkan lebar layar penuh di desktop (≥ 1024px)
