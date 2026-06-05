@@ -1,0 +1,98 @@
+# ROADMAP.md — ReKal Blackbox v2
+
+> Updated: 2026-06-06
+
+## Project Overview
+
+**ReKal** — Aplikasi manajemen Harga Pokok Produksi (HPP) untuk industri tas dan fashion.
+PWA mobile-first berbasis React + Supabase, dengan desktop mode yang sedang dikembangkan.
+
+---
+
+## Completed Milestones
+
+### v0.1 — Foundation & Code Quality ✅
+*Completed: 2026-06-05*
+
+| Phase | Name | Status |
+|-------|------|--------|
+| 01 | code-quality | ✅ Complete |
+
+**Outcome:** Layer utils dan supabase bersih, tidak ada duplikasi kalkulasi HPP.
+
+### v0.2 — Web Adaptation ✅
+*Completed: 2026-06-06*
+
+| Phase | Name | Status |
+|-------|------|--------|
+| 02 | web-adaptation | ✅ Complete |
+
+**Outcome:** Desktop sidebar layout aktif di ≥ 1024px via Layout Wrapper Swap. Mobile path tidak diubah.
+
+---
+
+## Active Milestone
+
+### v0.3 — Desktop UI Redesign 🔵
+*Status: In Progress*
+
+Mendesain ulang tampilan semua halaman agar optimal di mode desktop — layout lebih lebar, informasi lebih padat, memanfaatkan ruang layar yang tersedia.
+
+| Phase | Name | Description | Status |
+|-------|------|-------------|--------|
+| 03 | desktop-foundation | Lepas batasan max-w-lg di desktop, setup layout utilities | 🔵 Next |
+| 04 | desktop-list-views | Redesign Dashboard, Categories, Materials, Products | ⬜ Planned |
+| 05 | desktop-detail-views | Redesign ProductDetail, ProductForm, PriceSimulation | ⬜ Planned |
+
+**Success criteria:**
+- Semua halaman memanfaatkan lebar layar penuh di desktop (≥ 1024px)
+- Layout desktop terasa native — bukan mobile yang di-stretch
+- Mobile layout tetap identik dan tidak ada regresi
+
+---
+
+## Phase Details
+
+### Phase 03: desktop-foundation
+**Goal:** Hapus batasan `max-w-lg` dari `.page-container` khusus untuk desktop. Tanpa ini semua halaman tetap sempit di tengah meski sidebar sudah ada.
+
+**Scope:**
+- Modifikasi `.page-container` di `index.css` atau tambah override class di `WebLayout`
+- Pastikan padding dan spacing nyaman di desktop
+- Tidak mengubah tampilan mobile sama sekali
+
+**Out of scope:** Redesign konten halaman (itu fase 04-05)
+
+---
+
+### Phase 04: desktop-list-views
+**Goal:** Redesign 4 halaman list/overview untuk memanfaatkan lebar desktop.
+
+**Pages:**
+- **Dashboard** — stats grid lebih lebar, recent products multi-column
+- **Categories** — table layout dengan kolom yang lebih informatif
+- **Materials** — table dengan kategori, harga, satuan visible sekaligus
+- **Products** — grid lebih banyak kolom, card lebih informatif
+
+**Constraint:** Mobile layout setiap halaman tidak berubah
+
+---
+
+### Phase 05: desktop-detail-views
+**Goal:** Redesign halaman detail dan form untuk layout two-column di desktop.
+
+**Pages:**
+- **ProductDetail** — gallery kiri + detail/BoM/cost breakdown kanan
+- **ProductForm** — form fields kiri + BoM builder/preview kanan
+- **PriceSimulation** — input + hasil side by side
+
+**Constraint:** Mobile layout setiap halaman tidak berubah
+
+---
+
+## Guiding Constraints
+
+- **Mobile-first preserved:** Perubahan desktop TIDAK boleh menyentuh behavior/tampilan mobile
+- **No new dependencies:** Gunakan Tailwind breakpoints yang sudah ada (`lg:`, `xl:`)
+- **Design system konsisten:** Dark mode, warna slate/primary sky, glass-morphism panels
+- **Bahasa Indonesia:** Semua UI copy tetap Bahasa Indonesia
