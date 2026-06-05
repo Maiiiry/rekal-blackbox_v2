@@ -1,41 +1,35 @@
 # STATE.md — Project State
 
-> Updated: 2026-06-05
+> Updated: 2026-06-06
 
 ## Current Position
 
-Phase: 3 (Desktop Foundation) — **COMPLETE**
-Plan: 03-01 unified
-Status: Phase 03 complete, siap untuk phase 04
-Last activity: 2026-06-06 — Phase 03-desktop-foundation complete
+Phase: 5 (Desktop Detail Views) — **NOT STARTED**
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-06-06 — Phase 04 complete, transitioned to Phase 05
 
 Progress:
 - Phase 1: [██████████] 100%
 - Phase 2: [██████████] 100%
 - Phase 3: [██████████] 100%
-- Phase 4: [░░░░░░░░░░] 0%
+- Phase 4: [██████████] 100%
+- Phase 5: [░░░░░░░░░░] 0%
 
 ## Loop Position
 
 Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop 03-01 complete — phase selesai]
+  ✓        ✓        ✓     [Loop 04-02 complete — Phase 04 done]
 ```
 
 ## Session Continuity
 
 Last session: 2026-06-06
-Stopped at: Phase 03 complete, UNIFY done
-Next action: /paul:plan untuk Phase 04 (desktop-list-views)
+Stopped at: Phase 04 complete (2/2 plans), transitioned ke Phase 05
+Next action: /paul:plan untuk Phase 05 (desktop-detail-views)
 Resume file: .paul/ROADMAP.md
-
-## Checklist
-
-- [x] Codebase mapped (CODEBASE.md created)
-- [x] Plan defined (01-01 dan 01-02)
-- [x] Plan 01-01 executed (utils cleanup)
-- [x] Plan 01-02 executed (supabase + dashboard)
 
 ## Decisions
 
@@ -43,6 +37,8 @@ Resume file: .paul/ROADMAP.md
 |-----------|---------|--------|
 | Scope split | 2 plans (utils, supabase+pages) | Subsistem berbeda, wave 2 depends on wave 1 |
 | calculateAllCostsExtended di supabase.js | Extended (bukan simplified) | Mencakup semua 5 field DB |
+| Dual render (card + table) bukan JS hook | CSS breakpoint lebih sederhana | Pattern konsisten untuk semua list views |
+| Dashboard recent products: CSS grid bukan dual-render | Item ringan, tidak perlu duplikasi markup | Lebih DRY |
 
 ## Phase Summary
 
@@ -55,7 +51,24 @@ Resume file: .paul/ROADMAP.md
 
 **Outcome:** Layer utils dan supabase bersih — tidak ada duplikasi kalkulasi HPP, tidak ada JSDoc multi-line, fallback schema terpusat.
 
+### Phase 02: web-adaptation (COMPLETE)
+
+**Outcome:** Desktop sidebar layout aktif di ≥1024px via Layout Wrapper Swap. Mobile path tidak diubah.
+
+### Phase 03: desktop-foundation (COMPLETE)
+
+**Outcome:** Batasan max-w-lg dihapus di desktop via CSS context override. Semua halaman memanfaatkan lebar penuh.
+
+### Phase 04: desktop-list-views (COMPLETE)
+
+| Plan | Deskripsi | Status |
+|------|-----------|--------|
+| 04-01 | Categories + Materials desktop table view | ✓ |
+| 04-02 | Dashboard KPI 4-col + Products desktop table | ✓ |
+
+**Outcome:** Semua 4 halaman list menggunakan lg:hidden/hidden lg:block pattern. Desktop: table/grid. Mobile: card list tidak berubah.
+
 ## Next Actions
 
-1. Phase 02 (web-adaptation) selesai
-2. Untuk melanjutkan: jalankan /paul:plan untuk fase berikutnya
+1. Phase 05 (desktop-detail-views): ProductDetail, ProductForm, PriceSimulation
+2. Jalankan `/paul:plan` untuk memulai Phase 05

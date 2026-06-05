@@ -164,11 +164,12 @@ const Categories = () => {
           <p className="empty-state-desc">Tambahkan kategori untuk mengelompokkan material</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <>
+        <div className="space-y-3 lg:hidden">
           {filteredCategories.map(category => {
             const materialCount = getMaterialCount(category.id)
             const hasMaterials = materialCount > 0
-            
+
             return (
               <div key={category.id} className="list-item">
                 <div className="flex items-center justify-between">
@@ -193,7 +194,7 @@ const Categories = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex gap-2">
                     <button
                       onClick={() => openModal(category)}
@@ -218,8 +219,70 @@ const Categories = () => {
               </div>
             )
           })}
-
         </div>
+
+        <div className="hidden lg:block">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-slate-800">
+                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3 pl-2">Kategori</th>
+                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Jumlah Material</th>
+                <th className="text-right text-xs font-medium text-slate-500 uppercase tracking-wider pb-3 pr-2">Aksi</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800/50">
+              {filteredCategories.map(category => {
+                const materialCount = getMaterialCount(category.id)
+                const hasMaterials = materialCount > 0
+                return (
+                  <tr key={category.id} className="hover:bg-slate-800/30 transition-colors">
+                    <td className="py-3 pl-2">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-primary-500/20 flex items-center justify-center flex-shrink-0">
+                          <Layers className="w-4 h-4 text-primary-400" />
+                        </div>
+                        <span className="font-medium text-white">{category.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-3">
+                      {hasMaterials ? (
+                        <span className="badge-primary bg-accent-amber/20 text-accent-amber border-accent-amber/30">
+                          <Link className="w-3 h-3 mr-1" />
+                          {materialCount} material
+                        </span>
+                      ) : (
+                        <span className="text-slate-500 text-sm">0 material</span>
+                      )}
+                    </td>
+                    <td className="py-3 pr-2">
+                      <div className="flex gap-2 justify-end">
+                        <button
+                          onClick={() => openModal(category)}
+                          className="p-2 text-slate-400 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(category.id)}
+                          disabled={deletingId === category.id || hasMaterials}
+                          title={hasMaterials ? `Kategori memiliki ${materialCount} material` : 'Hapus kategori'}
+                          className="p-2 text-slate-400 hover:text-accent-rose hover:bg-accent-rose/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {deletingId === category.id ? (
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-rose"></div>
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+        </>
       )}
 
       {/* Modal */}

@@ -40,9 +40,9 @@ Mendesain ulang tampilan semua halaman agar optimal di mode desktop — layout l
 
 | Phase | Name | Description | Status |
 |-------|------|-------------|--------|
-| 03 | desktop-foundation | Lepas batasan max-w-lg di desktop, setup layout utilities | 🔵 Next |
-| 04 | desktop-list-views | Redesign Dashboard, Categories, Materials, Products | ⬜ Planned |
-| 05 | desktop-detail-views | Redesign ProductDetail, ProductForm, PriceSimulation | ⬜ Planned |
+| 03 | desktop-foundation | Lepas batasan max-w-lg di desktop, setup layout utilities | ✅ Complete |
+| 04 | desktop-list-views | Redesign Dashboard, Categories, Materials, Products | ✅ Complete |
+| 05 | desktop-detail-views | Redesign ProductDetail, ProductForm, PriceSimulation | 🔵 Next |
 
 **Success criteria:**
 - Semua halaman memanfaatkan lebar layar penuh di desktop (≥ 1024px)

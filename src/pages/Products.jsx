@@ -107,108 +107,193 @@ const Products = () => {
           </a>
         </div>
       ) : (
-        <div className="flex flex-col gap-3">
-          {filteredProducts.map(product => {
-            const photos = product.product_photos || []
-            const hasPhotos = photos.length > 0
-            const firstPhoto = hasPhotos
-              ? photos.sort((a, b) => (a.display_order || 0) - (b.display_order || 0))[0]
-              : null
-            const margin = calcMargin(product.production_cost, product.estimated_selling_price)
-            const profit = (product.estimated_selling_price || 0) - (product.production_cost || 0)
+        <>
+          {/* Mobile card list */}
+          <div className="lg:hidden">
+            <div className="flex flex-col gap-3">
+              {filteredProducts.map(product => {
+                const photos = product.product_photos || []
+                const hasPhotos = photos.length > 0
+                const firstPhoto = hasPhotos
+                  ? photos.sort((a, b) => (a.display_order || 0) - (b.display_order || 0))[0]
+                  : null
+                const margin = calcMargin(product.production_cost, product.estimated_selling_price)
 
-            return (
-              <div
-                key={product.id}
-                className="group bg-slate-900 hover:bg-slate-800/80 rounded-2xl border border-slate-700 hover:border-primary-500/40 transition-all duration-200 overflow-hidden shadow-md flex"
-              >
-                {/* Foto Produk — 80x80 */}
-                <a
-                  href={`/products/${product.id}`}
-                  className="block relative flex-shrink-0 w-20 h-20 self-center ml-3 rounded-xl overflow-hidden bg-slate-800"
-                >
-                  {firstPhoto ? (
-                    <>
-                      <img
-                        src={firstPhoto.photo_url}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      {photos.length > 1 && (
-                        <div className="absolute top-1 right-1 px-1 py-0.5 bg-black/60 backdrop-blur-sm rounded flex items-center gap-0.5 text-white text-[10px]">
-                          <Images className="w-2.5 h-2.5" />
-                          <span>{photos.length}</span>
+                return (
+                  <div
+                    key={product.id}
+                    className="group bg-slate-900 hover:bg-slate-800/80 rounded-2xl border border-slate-700 hover:border-primary-500/40 transition-all duration-200 overflow-hidden shadow-md flex"
+                  >
+                    {/* Foto Produk — 80x80 */}
+                    <a
+                      href={`/products/${product.id}`}
+                      className="block relative flex-shrink-0 w-20 h-20 self-center ml-3 rounded-xl overflow-hidden bg-slate-800"
+                    >
+                      {firstPhoto ? (
+                        <>
+                          <img
+                            src={firstPhoto.photo_url}
+                            alt={product.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          {photos.length > 1 && (
+                            <div className="absolute top-1 right-1 px-1 py-0.5 bg-black/60 backdrop-blur-sm rounded flex items-center gap-0.5 text-white text-[10px]">
+                              <Images className="w-2.5 h-2.5" />
+                              <span>{photos.length}</span>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+                          <Camera className="w-5 h-5 text-slate-600" />
                         </div>
-                      )}
-                    </>
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
-                      <Camera className="w-5 h-5 text-slate-600" />
-                    </div>
-                  )}
-                </a>
-
-                {/* Info Produk */}
-                <div className="flex-1 px-3 py-3 flex flex-col justify-between min-w-0">
-                  <div>
-                    {/* Nama */}
-                    <a href={`/products/${product.id}`} className="block mb-1.5">
-                      <h3 className="font-bold text-white text-base leading-tight group-hover:text-primary-400 transition-colors line-clamp-1">
-                        {product.name}
-                      </h3>
-                      {product.description && (
-                        <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">{product.description}</p>
                       )}
                     </a>
 
-                    {/* Harga */}
-                    <div className="flex items-end gap-3">
+                    {/* Info Produk */}
+                    <div className="flex-1 px-3 py-3 flex flex-col justify-between min-w-0">
                       <div>
-                        <p className="text-[10px] text-slate-500 leading-none mb-0.5">HPP</p>
-                        <p className="text-sm text-slate-300 font-medium">{formatRupiah(product.production_cost)}</p>
-                      </div>
-                      <div>
-                        <p className="text-[10px] text-slate-500 leading-none mb-0.5">Jual</p>
-                        <p className="text-base text-white font-bold">{formatRupiah(product.estimated_selling_price)}</p>
-                      </div>
-                      {margin !== null && (
-                        <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-500/15 rounded-lg">
-                          <TrendingUp className="w-3 h-3 text-emerald-400" />
-                          <span className="text-[11px] font-semibold text-emerald-400">
-                            {margin > 0 ? '+' : ''}{margin}%
-                          </span>
+                        {/* Nama */}
+                        <a href={`/products/${product.id}`} className="block mb-1.5">
+                          <h3 className="font-bold text-white text-base leading-tight group-hover:text-primary-400 transition-colors line-clamp-1">
+                            {product.name}
+                          </h3>
+                          {product.description && (
+                            <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">{product.description}</p>
+                          )}
+                        </a>
+
+                        {/* Harga */}
+                        <div className="flex items-end gap-3">
+                          <div>
+                            <p className="text-[10px] text-slate-500 leading-none mb-0.5">HPP</p>
+                            <p className="text-sm text-slate-300 font-medium">{formatRupiah(product.production_cost)}</p>
+                          </div>
+                          <div>
+                            <p className="text-[10px] text-slate-500 leading-none mb-0.5">Jual</p>
+                            <p className="text-base text-white font-bold">{formatRupiah(product.estimated_selling_price)}</p>
+                          </div>
+                          {margin !== null && (
+                            <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-500/15 rounded-lg">
+                              <TrendingUp className="w-3 h-3 text-emerald-400" />
+                              <span className="text-[11px] font-semibold text-emerald-400">
+                                {margin > 0 ? '+' : ''}{margin}%
+                              </span>
+                            </div>
+                          )}
                         </div>
-                      )}
+                      </div>
+                    </div>
+
+                    {/* Aksi — icon only, vertikal kanan */}
+                    <div className="flex flex-col items-center justify-center gap-2 pr-3 pl-1">
+                      <a
+                        href={`/products/copy/${product.id}`}
+                        title="Salin produk"
+                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-primary-500/20 text-slate-500 hover:text-primary-400 transition-all"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                      </a>
+                      <button
+                        onClick={() => handleDelete(product.id)}
+                        disabled={deletingId === product.id}
+                        title="Hapus produk"
+                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-accent-rose/20 text-slate-500 hover:text-accent-rose transition-all disabled:opacity-40"
+                      >
+                        {deletingId === product.id ? (
+                          <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-accent-rose"></div>
+                        ) : (
+                          <Trash2 className="w-3.5 h-3.5" />
+                        )}
+                      </button>
                     </div>
                   </div>
-                </div>
+                )
+              })}
+            </div>
+          </div>
 
-                {/* Aksi — icon only, vertikal kanan */}
-                <div className="flex flex-col items-center justify-center gap-2 pr-3 pl-1">
-                  <a
-                    href={`/products/copy/${product.id}`}
-                    title="Salin produk"
-                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-primary-500/20 text-slate-500 hover:text-primary-400 transition-all"
-                  >
-                    <Copy className="w-3.5 h-3.5" />
-                  </a>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    disabled={deletingId === product.id}
-                    title="Hapus produk"
-                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-accent-rose/20 text-slate-500 hover:text-accent-rose transition-all disabled:opacity-40"
-                  >
-                    {deletingId === product.id ? (
-                      <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-accent-rose"></div>
-                    ) : (
-                      <Trash2 className="w-3.5 h-3.5" />
-                    )}
-                  </button>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+          {/* Desktop table */}
+          <div className="hidden lg:block">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-slate-700/50">
+                  <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider pb-3 w-16">Foto</th>
+                  <th className="text-left text-xs font-semibold text-slate-400 uppercase tracking-wider pb-3">Nama Produk</th>
+                  <th className="text-right text-xs font-semibold text-slate-400 uppercase tracking-wider pb-3">HPP</th>
+                  <th className="text-right text-xs font-semibold text-slate-400 uppercase tracking-wider pb-3">Harga Jual</th>
+                  <th className="text-right text-xs font-semibold text-slate-400 uppercase tracking-wider pb-3">Margin</th>
+                  <th className="text-right text-xs font-semibold text-slate-400 uppercase tracking-wider pb-3">Aksi</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800">
+                {filteredProducts.map(product => {
+                  const photos = product.product_photos || []
+                  const firstPhoto = photos.length > 0
+                    ? photos.sort((a, b) => (a.display_order || 0) - (b.display_order || 0))[0]
+                    : null
+                  const margin = calcMargin(product.production_cost, product.estimated_selling_price)
+
+                  return (
+                    <tr key={product.id} className="hover:bg-slate-800/40 transition-colors group">
+                      <td className="py-3 pr-3">
+                        <a href={`/products/${product.id}`}>
+                          {firstPhoto ? (
+                            <img src={firstPhoto.photo_url} alt={product.name} className="w-10 h-10 rounded-lg object-cover" />
+                          ) : (
+                            <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center">
+                              <Camera className="w-4 h-4 text-slate-600" />
+                            </div>
+                          )}
+                        </a>
+                      </td>
+                      <td className="py-3 pr-4">
+                        <a href={`/products/${product.id}`} className="block group-hover:text-primary-400 transition-colors">
+                          <p className="font-medium text-white text-sm">{product.name}</p>
+                          {product.description && (
+                            <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{product.description}</p>
+                          )}
+                        </a>
+                      </td>
+                      <td className="py-3 pr-4 text-right text-sm text-slate-300">{formatRupiah(product.production_cost)}</td>
+                      <td className="py-3 pr-4 text-right text-sm font-bold text-white">{formatRupiah(product.estimated_selling_price)}</td>
+                      <td className="py-3 pr-4 text-right">
+                        {margin !== null && (
+                          <span className={`text-sm font-semibold ${margin >= 0 ? 'text-emerald-400' : 'text-accent-rose'}`}>
+                            {margin > 0 ? '+' : ''}{margin}%
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-3 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <a
+                            href={`/products/copy/${product.id}`}
+                            title="Salin produk"
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-primary-500/20 text-slate-500 hover:text-primary-400 transition-all"
+                          >
+                            <Copy className="w-3.5 h-3.5" />
+                          </a>
+                          <button
+                            onClick={() => handleDelete(product.id)}
+                            disabled={deletingId === product.id}
+                            title="Hapus produk"
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800 hover:bg-accent-rose/20 text-slate-500 hover:text-accent-rose transition-all disabled:opacity-40"
+                          >
+                            {deletingId === product.id ? (
+                              <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-accent-rose"></div>
+                            ) : (
+                              <Trash2 className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
 
       {/* FAB Tambah Produk */}

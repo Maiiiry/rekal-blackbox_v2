@@ -261,12 +261,13 @@ const Materials = () => {
           <p className="empty-state-desc">Tambahkan material untuk digunakan dalam produk</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <>
+        <div className="space-y-3 lg:hidden">
           {filteredMaterials.map(material => {
             const category = categories.find(c => c.id === material.category_id)
             const usageCount = materialUsageCounts[material.id] || 0
             const isInUse = usageCount > 0
-            
+
             return (
               <div key={material.id} className="list-item">
                 <div className="flex items-center justify-between">
@@ -293,7 +294,7 @@ const Materials = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="text-right">
                     <p className="font-semibold text-white">{formatRupiah(material.standard_price)}</p>
                     <div className="flex gap-2 mt-2 justify-end">
@@ -321,8 +322,90 @@ const Materials = () => {
               </div>
             )
           })}
-
         </div>
+
+        <div className="hidden lg:block">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-slate-800">
+                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3 pl-2">Material</th>
+                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Kategori</th>
+                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Satuan</th>
+                <th className="text-right text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Harga Standar</th>
+                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Dipakai di</th>
+                <th className="text-right text-xs font-medium text-slate-500 uppercase tracking-wider pb-3 pr-2">Aksi</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800/50">
+              {filteredMaterials.map(material => {
+                const category = categories.find(c => c.id === material.category_id)
+                const usageCount = materialUsageCounts[material.id] || 0
+                const isInUse = usageCount > 0
+                return (
+                  <tr key={material.id} className="hover:bg-slate-800/30 transition-colors">
+                    <td className="py-3 pl-2">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-accent-emerald/20 flex items-center justify-center flex-shrink-0">
+                          <Package className="w-4 h-4 text-accent-emerald" />
+                        </div>
+                        <span className="font-medium text-white">{material.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-3">
+                      {category ? (
+                        <span className="badge-secondary">
+                          <Layers className="w-3 h-3 mr-1" />
+                          {category.name}
+                        </span>
+                      ) : (
+                        <span className="text-slate-500 text-sm">—</span>
+                      )}
+                    </td>
+                    <td className="py-3">
+                      <span className="badge-primary">{material.unit}</span>
+                    </td>
+                    <td className="py-3 text-right">
+                      <span className="font-semibold text-white">{formatRupiah(material.standard_price)}</span>
+                    </td>
+                    <td className="py-3">
+                      {isInUse ? (
+                        <span className="badge-primary bg-accent-amber/20 text-accent-amber border-accent-amber/30">
+                          <Link className="w-3 h-3 mr-1" />
+                          {usageCount} produk
+                        </span>
+                      ) : (
+                        <span className="text-slate-500 text-sm">—</span>
+                      )}
+                    </td>
+                    <td className="py-3 pr-2">
+                      <div className="flex gap-2 justify-end">
+                        <button
+                          onClick={() => openModal(material)}
+                          className="p-2 text-slate-400 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(material.id)}
+                          disabled={deletingId === material.id || isInUse}
+                          title={isInUse ? `Material digunakan dalam ${usageCount} produk` : 'Hapus material'}
+                          className="p-2 text-slate-400 hover:text-accent-rose hover:bg-accent-rose/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {deletingId === material.id ? (
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-rose"></div>
+                          ) : (
+                            <Trash2 className="w-4 h-4" />
+                          )}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+        </>
       )}
 
       {/* Modal */}

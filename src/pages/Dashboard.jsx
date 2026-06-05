@@ -91,7 +91,7 @@ const Dashboard = () => {
       )}
 
       {/* KPI Grid — 2x2, card laba dibedakan */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
         <div className="stat-card">
           <div className="flex items-center gap-2 mb-2">
             <ShoppingBag className="w-4 h-4 text-primary-400" />
@@ -247,7 +247,7 @@ const Dashboard = () => {
             <p className="empty-state-desc">Tambahkan produk pertama untuk melihat ringkasan HPP</p>
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
             {recentProducts.map(product => (
               <a
                 key={product.id}
