@@ -90,6 +90,35 @@ Mendesain ulang tampilan semua halaman agar optimal di mode desktop — layout l
 
 ---
 
+## Completed Milestones (continued)
+
+### v0.4 — Dashboard UI Enhancement ✅
+*Completed: 2026-06-06*
+
+Redesign visual Dashboard desktop dari awal menggunakan MCP stitch — UI lebih polished, modern, dan informatif. Mobile tidak berubah.
+
+| Phase | Name | Description | Status |
+|-------|------|-------------|--------|
+| 06 | dashboard-ui-redesign | Generate ulang Dashboard desktop dengan stitch | ✅ Complete |
+
+**Outcome:** Dashboard desktop two-column layout (left 38% sticky overview, right flex-1 scrollable). Stitch design digunakan sebagai referensi. Mobile single-column tidak berubah.
+
+---
+
+## Phase Details
+
+### Phase 06: dashboard-ui-redesign
+**Goal:** Generate ulang tampilan Desktop Dashboard menggunakan MCP stitch sebagai design tool, lalu implementasikan hasilnya di Dashboard.jsx.
+
+**Scope:**
+- KPI cards, financial summary, cost breakdown, insight, recent products — semua di-redesign untuk desktop
+- Gunakan stitch untuk menghasilkan komponen/layout baru
+- Mobile (single-column) tidak berubah sama sekali
+
+**Constraint:** Mobile layout tidak diubah
+
+---
+
 ## Guiding Constraints
 
 - **Mobile-first preserved:** Perubahan desktop TIDAK boleh menyentuh behavior/tampilan mobile

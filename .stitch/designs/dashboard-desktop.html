@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReKal Business Analytics Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ffb4ab",
+                    "surface-container-high": "#23293c",
+                    "tertiary": "#4edea3",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-primary-container": "#003751",
+                    "on-surface-variant": "#bec8d2",
+                    "on-tertiary-container": "#003b26",
+                    "error-container": "#93000a",
+                    "secondary-fixed": "#e9ddff",
+                    "background": "#0c1324",
+                    "outline-variant": "#3e4850",
+                    "surface-variant": "#2e3447",
+                    "primary": "#89ceff",
+                    "inverse-on-surface": "#2a3043",
+                    "surface-container": "#191f31",
+                    "on-error": "#690005",
+                    "surface-bright": "#33394c",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "surface": "#0c1324",
+                    "on-tertiary-fixed": "#002113",
+                    "surface-container-lowest": "#070d1f",
+                    "on-secondary-fixed": "#23005c",
+                    "on-primary": "#00344d",
+                    "on-tertiary": "#003824",
+                    "primary-fixed-dim": "#89ceff",
+                    "on-secondary-container": "#c4abff",
+                    "tertiary-container": "#00b17b",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "tertiary-fixed": "#6ffbbe",
+                    "secondary": "#d0bcff",
+                    "surface-tint": "#89ceff",
+                    "on-surface": "#dce1fb",
+                    "on-background": "#dce1fb",
+                    "surface-dim": "#0c1324",
+                    "primary-fixed": "#c9e6ff",
+                    "inverse-primary": "#006591",
+                    "primary-container": "#0ea5e9",
+                    "surface-container-highest": "#2e3447",
+                    "on-primary-fixed-variant": "#004c6e",
+                    "outline": "#88929b",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "on-primary-fixed": "#001e2f",
+                    "secondary-container": "#571bc1",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary": "#3c0091",
+                    "surface-container-low": "#151b2d",
+                    "inverse-surface": "#dce1fb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-margin": "40px",
+                    "container-padding": "24px",
+                    "gutter": "16px",
+                    "panel-gap": "20px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "data-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { background-color: #020617; } /* slate-950 base */
+        .glass-panel {
+            background-color: rgba(15, 23, 42, 0.8); /* slate-900/80 */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.5); /* slate-700/50 */
+        }
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(137, 206, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="text-on-surface antialiased min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- JSON Injected SideNavBar Shell -->
+<nav class="hidden md:flex flex-col py-8 px-4 gap-6 bg-surface-container-lowest/60 backdrop-blur-2xl border-r border-outline-variant/30 shadow-2xl fixed left-0 top-0 h-full w-64 z-40">
+<div class="flex items-center gap-4 px-4 mb-8">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center glow-effect shrink-0">
+<span class="material-symbols-outlined text-surface-container-lowest font-bold text-xl" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">ReKal BI</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Enterprise Suite</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container/20 text-primary border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/30 hover:text-on-surface transition-all hover:bg-surface-variant/40 hover:shadow-[0_0_15px_rgba(137,206,255,0.2)]" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-md text-label-md">Performance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/30 hover:text-on-surface transition-all hover:bg-surface-variant/40 hover:shadow-[0_0_15px_rgba(137,206,255,0.2)]" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/30 hover:text-on-surface transition-all hover:bg-surface-variant/40 hover:shadow-[0_0_15px_rgba(137,206,255,0.2)]" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Financials</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/30 hover:text-on-surface transition-all hover:bg-surface-variant/40 hover:shadow-[0_0_15px_rgba(137,206,255,0.2)]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Team</span>
+</a>
+</div>
+<button class="mt-4 bg-primary text-on-primary py-3 px-4 rounded-lg font-label-md text-label-md font-bold glow-effect hover:brightness-110 transition-all">
+            New Report
+        </button>
+<div class="mt-auto pt-6 border-t border-outline-variant/30 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/30 hover:text-on-surface transition-all hover:bg-surface-variant/40 hover:shadow-[0_0_15px_rgba(137,206,255,0.2)]" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/30 hover:text-on-surface transition-all hover:bg-surface-variant/40 hover:shadow-[0_0_15px_rgba(137,206,255,0.2)]" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-md text-label-md">Account</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col md:flex-row min-h-screen w-full relative">
+<!-- JSON Injected TopNavBar Shell (Mobile Only for this layout structure as requested, though prompt says 2 col desktop, nav usually top on mobile) -->
+<header class="md:hidden flex justify-between items-center px-container-padding h-20 w-full bg-surface/80 backdrop-blur-xl fixed top-0 z-50 border-b border-outline-variant/50 shadow-sm">
+<div class="font-display-lg text-display-lg font-bold text-primary tracking-tighter text-2xl">ReKal</div>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">settings</span>
+</div>
+</header>
+<!-- Left Column: Sticky Overview (35%) -->
+<section class="w-full md:w-[35%] md:fixed md:top-0 md:left-64 md:h-screen md:overflow-y-auto pt-24 md:pt-10 px-6 pb-10 flex flex-col gap-6 bg-surface-dim/30 border-r border-outline-variant/20">
+<!-- Header -->
+<div class="flex flex-col gap-1 mb-2">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center glow-effect">
+<span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1;">insights</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">Dashboard</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Ringkasan bisnis hari ini</p>
+</div>
+<!-- KPI Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-panel rounded-2xl p-5 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-3xl">shopping_bag</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Produk</p>
+<p class="font-headline-md text-headline-md font-bold text-on-surface tabular-nums">124</p>
+</div>
+</div>
+<div class="glass-panel rounded-2xl p-5 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-tertiary text-3xl">package</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Material</p>
+<p class="font-headline-md text-headline-md font-bold text-on-surface tabular-nums">85</p>
+</div>
+</div>
+<div class="glass-panel rounded-2xl p-5 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary text-3xl">layers</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Kategori</p>
+<p class="font-headline-md text-headline-md font-bold text-on-surface tabular-nums">12</p>
+</div>
+</div>
+<div class="glass-panel rounded-2xl p-5 flex flex-col gap-3 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/10 rounded-full blur-xl"></div>
+<div class="flex items-center justify-between relative z-10">
+<span class="material-symbols-outlined text-tertiary text-3xl">trending_up</span>
+<span class="px-2 py-1 rounded-md border border-tertiary/30 bg-tertiary/10 font-label-md text-label-md text-tertiary font-bold">+24%</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">Rata-rata Laba</p>
+<p class="font-data-lg text-data-lg font-bold text-tertiary tabular-nums">Rp 45.000</p>
+</div>
+</div>
+</div>
+<!-- Total Nilai Bisnis -->
+<div class="glass-panel rounded-2xl p-6 mt-2 bg-gradient-to-b from-surface-container/50 to-surface-container-lowest relative">
+<div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-6">Total Nilai Bisnis</h3>
+<div class="grid grid-cols-1 gap-6">
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-4">
+<span class="font-body-md text-body-md text-on-surface-variant">Total HPP</span>
+<span class="font-data-lg text-data-lg text-on-surface font-bold tabular-nums">Rp 12.450.000</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-4">
+<span class="font-body-md text-body-md text-on-surface-variant">Total Jual</span>
+<span class="font-data-lg text-data-lg text-tertiary font-bold tabular-nums">Rp 28.900.000</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Potensi Laba</span>
+<span class="font-data-lg text-data-lg text-tertiary-fixed font-bold tabular-nums text-glow">Rp 16.450.000</span>
+</div>
+</div>
+</div>
+<!-- Business Insights -->
+<div class="glass-panel rounded-2xl p-6 bg-primary/5 border border-primary/20">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+<h4 class="font-body-lg text-body-lg font-semibold text-primary">Insight Cepat</h4>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Margin Keuntungan Keseluruhan</span>
+<span class="font-body-md text-body-md text-on-surface font-bold">56.9%</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Produk Top Profit</span>
+<span class="font-body-md text-body-md text-on-surface font-bold text-right">Paket Alpha<br/><span class="text-tertiary text-xs">Rp 120k / unit</span></span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Scrollable Content (65%) -->
+<section class="w-full md:w-[65%] md:ml-[35%] pt-10 px-6 pb-24 md:pb-10 flex flex-col gap-10">
+<!-- Cost Summary -->
+<div class="glass-panel rounded-3xl p-8 bg-gradient-to-br from-surface-container/80 to-background relative overflow-hidden">
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="flex items-center gap-3 mb-8 relative z-10">
+<div class="p-2 rounded-lg bg-surface-variant/50 border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Rata-rata Biaya &amp; Harga</h2>
+</div>
+<div class="flex flex-col gap-8 relative z-10">
+<!-- HPP Bar -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">HPP Rata-rata</span>
+<span class="font-data-lg text-data-lg text-on-surface tabular-nums">Rp 100.400</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-3">
+<div class="bg-outline rounded-full h-3" style="width: 43%"></div>
+</div>
+</div>
+<!-- Selling Price Bar -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Harga Jual Rata-rata</span>
+<span class="font-data-lg text-data-lg text-tertiary tabular-nums">Rp 233.000</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-3">
+<div class="bg-tertiary rounded-full h-3 glow-effect" style="width: 100%"></div>
+</div>
+</div>
+<!-- Margin -->
+<div class="mt-4 pt-6 border-t border-outline-variant/30 flex justify-end items-end gap-4">
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-1">Margin Rata-rata</p>
+<p class="font-display-lg text-display-lg text-primary font-bold tabular-nums text-glow">56.9%</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Products List -->
+<div class="flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<h2 class="font-title-lg text-title-lg text-on-surface">Produk Terbaru</h2>
+<a class="font-body-md text-body-md text-primary hover:text-primary-fixed transition-colors flex items-center gap-1" href="#">
+                        Lihat Semua <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+<!-- Product Card 1 -->
+<div class="glass-panel rounded-2xl p-5 flex items-center gap-4 hover:bg-surface-container/60 transition-colors cursor-pointer group">
+<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">category</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-lg text-body-lg font-medium text-on-surface mb-1">Paket Data Alpha</h4>
+<div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+<span class="font-data-lg text-data-lg text-tertiary tabular-nums">Rp 150.000</span>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">Laba: Rp 80.000</span>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="glass-panel rounded-2xl p-5 flex items-center gap-4 hover:bg-surface-container/60 transition-colors cursor-pointer group">
+<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">category</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-lg text-body-lg font-medium text-on-surface mb-1">Server Module X</h4>
+<div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+<span class="font-data-lg text-data-lg text-tertiary tabular-nums">Rp 1.250.000</span>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">Laba: Rp 450.000</span>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="glass-panel rounded-2xl p-5 flex items-center gap-4 hover:bg-surface-container/60 transition-colors cursor-pointer group">
+<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">category</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-lg text-body-lg font-medium text-on-surface mb-1">Cloud Storage 1TB</h4>
+<div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+<span class="font-data-lg text-data-lg text-tertiary tabular-nums">Rp 85.000</span>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">Laba: Rp 35.000</span>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="glass-panel rounded-2xl p-5 flex items-center gap-4 hover:bg-surface-container/60 transition-colors cursor-pointer group">
+<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">category</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-lg text-body-lg font-medium text-on-surface mb-1">API Key Enterprise</h4>
+<div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+<span class="font-data-lg text-data-lg text-tertiary tabular-nums">Rp 5.000.000</span>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">Laba: Rp 4.100.000</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

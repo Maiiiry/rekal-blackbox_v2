@@ -4,11 +4,11 @@
 
 ## Current Position
 
-Milestone: v0.3 Desktop UI Redesign — **COMPLETE** 🎉
-Phase: 5 of 5 (Desktop Detail Views) — Complete
-Plan: 05-03 complete (3/3 plans)
-Status: Milestone v0.3 complete, siap milestone berikutnya
-Last activity: 2026-06-06 — Phase 05 complete, milestone v0.3 selesai
+Milestone: v0.4 Dashboard UI Enhancement — **COMPLETE** ✅
+Phase: 6 (dashboard-ui-redesign) — COMPLETE
+Plan: 06-01 complete (PLAN → APPLY → UNIFY ✓)
+Status: Milestone v0.4 selesai — siap milestone berikutnya
+Last activity: 2026-06-06 — Phase 06 complete, Dashboard two-column desktop layout shipped
 
 Progress:
 - Phase 1: [██████████] 100%
@@ -16,6 +16,7 @@ Progress:
 - Phase 3: [██████████] 100%
 - Phase 4: [██████████] 100%
 - Phase 5: [██████████] 100%
+- Phase 6: [██████████] 100%
 
 ## Loop Position
 
@@ -23,12 +24,13 @@ Current loop state:
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
   ✓        ✓        ✓     [Loop 05-03 complete — milestone v0.3 selesai]
+  ✓        ✓        ✓     [Loop 06-01 complete — milestone v0.4 selesai]
 ```
 
 ## Session Continuity
 
 Last session: 2026-06-06
-Stopped at: Milestone v0.3 complete (semua 5 phases done)
+Stopped at: Milestone v0.4 complete (Phase 06 done — Dashboard desktop UI redesign)
 Next action: Tentukan milestone berikutnya atau /paul:milestone untuk review
 Resume file: .paul/ROADMAP.md
 
@@ -42,6 +44,7 @@ Resume file: .paul/ROADMAP.md
 | Dashboard recent products: CSS grid bukan dual-render | Item ringan, tidak perlu duplikasi markup | Lebih DRY |
 | Two-column detail pattern | lg:flex + lg:w-5/12 sticky + lg:w-7/12 | Konsisten di semua 3 halaman detail views |
 | Sticky bar PriceSimulation | lg:hidden bukan dihapus | Mobile tetap butuh sticky bar |
+| Dashboard overview left column | lg:w-[38%] sticky — Header+KPI+Nilai+Insight | Mengikuti stitch output, overview selalu visible tanpa scroll |
 
 ## Phase Summary
 
@@ -81,6 +84,14 @@ Resume file: .paul/ROADMAP.md
 
 **Outcome:** Semua 3 halaman detail menggunakan lg:flex two-column pattern. Kiri sticky (inputs/gallery), kanan scrollable (detail/results). Mobile single-column tidak berubah.
 
+### Phase 06: dashboard-ui-redesign (COMPLETE)
+
+| Plan | Deskripsi | Status |
+|------|-----------|--------|
+| 06-01 | Dashboard desktop two-column layout via Stitch | ✓ |
+
+**Outcome:** Dashboard.jsx two-column desktop — left 38% sticky overview (KPI+Nilai+Insight), right flex-1 scrollable (Cost Summary+Recent Products). Stitch MCP digunakan untuk design reference. Mobile single-column tidak berubah.
+
 ## Next Actions
 
-Milestone v0.3 selesai. Tentukan milestone berikutnya.
+Milestone v0.4 selesai. Tentukan milestone berikutnya atau /paul:milestone untuk review.
