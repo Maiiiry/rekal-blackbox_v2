@@ -63,8 +63,8 @@ Total visual overhaul menggunakan Framer design system sebagai referensi. Hapus 
 | Phase | Name | Description | Status |
 |-------|------|-------------|--------|
 | 07 | design-system | CSS tokens, Inter font, color vars, base utilities, komponen primitif | ✅ Complete |
-| 08 | shell-navigation | Sidebar desktop + mobile nav — Framer black canvas | 🔵 Next |
-| 09 | list-views | Dashboard, Products, Materials, Categories — design baru | ⬜ Pending |
+| 08 | shell-navigation | Sidebar desktop + mobile nav — Framer black canvas | ✅ Complete |
+| 09 | list-views | Dashboard, Products, Materials, Categories — design baru | 🔵 Next |
 | 10 | detail-views | ProductDetail, ProductForm, PriceSimulation — detail + form | ⬜ Pending |
 
 **Success criteria:**

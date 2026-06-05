@@ -5,15 +5,15 @@
 ## Current Position
 
 Milestone: v0.5 Framer UI Redesign — **IN PROGRESS**
-Phase: 7 (design-system) — COMPLETE
-Plan: 07-01 complete
-Status: Phase 07 selesai, siap Phase 08
-Last activity: 2026-06-06 — UNIFY loop 07-01 closed, phase complete
+Phase: 8 (shell-navigation) — COMPLETE
+Plan: 08-01 complete
+Status: Phase 08 selesai, siap Phase 09
+Last activity: 2026-06-06 — UNIFY loop 08-01 closed, phase complete
 
 Progress:
 - Phase 1–6: [██████████] 100% (v0.1–v0.4 complete)
 - Phase 7 (design-system):     [██████████] 100% ✅
-- Phase 8 (shell-navigation):  [░░░░░░░░░░] 0%
+- Phase 8 (shell-navigation):  [██████████] 100% ✅
 - Phase 9 (list-views):        [░░░░░░░░░░] 0%
 - Phase 10 (detail-views):     [░░░░░░░░░░] 0%
 
@@ -24,15 +24,16 @@ Current loop state:
 PLAN ──▶ APPLY ──▶ UNIFY
   ✓        ✓        ✓     [Loop 06-01 complete — milestone v0.4 selesai]
   ✓        ✓        ✓     [Loop 07-01 complete — Phase 07 design-system selesai]
-  ○        ○        ○     [Loop 08-xx — ready for Phase 08 shell-navigation]
+  ✓        ✓        ✓     [Loop 08-01 complete — Phase 08 shell-navigation selesai]
+  ○        ○        ○     [Loop 09-xx — ready for Phase 09 list-views]
 ```
 
 ## Session Continuity
 
 Last session: 2026-06-06
-Stopped at: Phase 07 design-system complete — Framer foundation aktif
-Next action: /paul:plan untuk Phase 08 shell-navigation
-Resume file: .paul/phases/07-design-system/07-01-SUMMARY.md
+Stopped at: Phase 08 shell-navigation complete — nav shell Framer style aktif
+Next action: /paul:plan untuk Phase 09 list-views
+Resume file: .paul/phases/08-shell-navigation/08-01-SUMMARY.md
 
 ## Decisions
 
@@ -57,4 +58,4 @@ Resume file: .paul/phases/07-design-system/07-01-SUMMARY.md
 
 ## Next Actions
 
-Jalankan `/paul:plan` untuk Phase 08 (shell-navigation) — sidebar desktop + mobile nav Framer style.
+Jalankan `/paul:plan` untuk Phase 09 (list-views) — Dashboard, Products, Materials, Categories.

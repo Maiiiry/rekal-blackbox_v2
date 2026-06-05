@@ -10,10 +10,10 @@ const navItems = [
 
 const SidebarNav = () => {
   return (
-    <aside className="fixed left-0 top-0 h-full w-60 bg-slate-900/95 backdrop-blur-xl border-r border-slate-800 z-40 flex flex-col">
-      <div className="px-6 py-5 border-b border-slate-800">
-        <span className="text-lg font-bold text-white tracking-tight">ReKal</span>
-        <p className="text-xs text-slate-500 mt-0.5">Kalkulator HPP</p>
+    <aside className="fixed left-0 top-0 h-full w-60 bg-canvas border-r border-hairline z-40 flex flex-col">
+      <div className="px-6 py-5 border-b border-hairline">
+        <span className="text-lg font-semibold text-ink" style={{ letterSpacing: '-0.5px' }}>ReKal</span>
+        <p className="text-xs text-ink-muted mt-0.5">Kalkulator HPP</p>
       </div>
 
       <nav className="flex-1 px-3 py-4 flex flex-col gap-1">
@@ -23,15 +23,15 @@ const SidebarNav = () => {
             to={item.to}
             end={item.to === '/'}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+              `flex items-center gap-3 px-4 py-2.5 rounded-xl transition-colors duration-150 ${
                 isActive
-                  ? 'text-primary-400 bg-slate-800'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                  ? 'bg-surface-1 text-ink'
+                  : 'text-ink-muted hover:text-ink hover:bg-surface-2'
               }`
             }
           >
             <item.icon className="w-5 h-5 shrink-0" />
-            <span className="text-sm font-medium">{item.label}</span>
+            <span className="text-sm font-medium" style={{ letterSpacing: '-0.14px' }}>{item.label}</span>
           </NavLink>
         ))}
       </nav>
