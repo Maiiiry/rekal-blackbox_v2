@@ -29,73 +29,19 @@ PWA mobile-first berbasis React + Supabase, dengan desktop mode yang sedang dike
 
 **Outcome:** Desktop sidebar layout aktif di ≥ 1024px via Layout Wrapper Swap. Mobile path tidak diubah.
 
----
-
-## Active Milestone
-
 ### v0.3 — Desktop UI Redesign ✅
-*Status: Complete — 2026-06-06*
-
-Mendesain ulang tampilan semua halaman agar optimal di mode desktop — layout lebih lebar, informasi lebih padat, memanfaatkan ruang layar yang tersedia.
+*Completed: 2026-06-06*
 
 | Phase | Name | Description | Status |
 |-------|------|-------------|--------|
-| 03 | desktop-foundation | Lepas batasan max-w-lg di desktop, setup layout utilities | ✅ Complete |
+| 03 | desktop-foundation | Lepas batasan max-w-lg di desktop | ✅ Complete |
 | 04 | desktop-list-views | Redesign Dashboard, Categories, Materials, Products | ✅ Complete |
 | 05 | desktop-detail-views | Redesign ProductDetail, ProductForm, PriceSimulation | ✅ Complete |
 
-**Success criteria:**
-- Semua halaman memanfaatkan lebar layar penuh di desktop (≥ 1024px)
-- Layout desktop terasa native — bukan mobile yang di-stretch
-- Mobile layout tetap identik dan tidak ada regresi
-
----
-
-## Phase Details
-
-### Phase 03: desktop-foundation
-**Goal:** Hapus batasan `max-w-lg` dari `.page-container` khusus untuk desktop. Tanpa ini semua halaman tetap sempit di tengah meski sidebar sudah ada.
-
-**Scope:**
-- Modifikasi `.page-container` di `index.css` atau tambah override class di `WebLayout`
-- Pastikan padding dan spacing nyaman di desktop
-- Tidak mengubah tampilan mobile sama sekali
-
-**Out of scope:** Redesign konten halaman (itu fase 04-05)
-
----
-
-### Phase 04: desktop-list-views
-**Goal:** Redesign 4 halaman list/overview untuk memanfaatkan lebar desktop.
-
-**Pages:**
-- **Dashboard** — stats grid lebih lebar, recent products multi-column
-- **Categories** — table layout dengan kolom yang lebih informatif
-- **Materials** — table dengan kategori, harga, satuan visible sekaligus
-- **Products** — grid lebih banyak kolom, card lebih informatif
-
-**Constraint:** Mobile layout setiap halaman tidak berubah
-
----
-
-### Phase 05: desktop-detail-views
-**Goal:** Redesign halaman detail dan form untuk layout two-column di desktop.
-
-**Pages:**
-- **ProductDetail** — gallery kiri + detail/BoM/cost breakdown kanan
-- **ProductForm** — form fields kiri + BoM builder/preview kanan
-- **PriceSimulation** — input + hasil side by side
-
-**Constraint:** Mobile layout setiap halaman tidak berubah
-
----
-
-## Completed Milestones (continued)
+**Outcome:** Semua halaman memanfaatkan lebar penuh di desktop via lg: prefix classes.
 
 ### v0.4 — Dashboard UI Enhancement ✅
 *Completed: 2026-06-06*
-
-Redesign visual Dashboard desktop dari awal menggunakan MCP stitch — UI lebih polished, modern, dan informatif. Mobile tidak berubah.
 
 | Phase | Name | Description | Status |
 |-------|------|-------------|--------|
@@ -105,23 +51,89 @@ Redesign visual Dashboard desktop dari awal menggunakan MCP stitch — UI lebih 
 
 ---
 
+## Active Milestone
+
+### v0.5 — Framer UI Redesign 🔵
+*Status: In Progress — Started 2026-06-06*
+
+Total visual overhaul menggunakan Framer design system sebagai referensi. Hapus glass-panel slate theme sepenuhnya, ganti dengan Framer's pure black canvas system — Inter Variable dengan tight tracking, white pill CTAs, gradient spotlight cards, dan monochrome surface hierarchy.
+
+**Design reference:** `awesome-design-md/design-md/framer/DESIGN.md`
+
+| Phase | Name | Description | Status |
+|-------|------|-------------|--------|
+| 07 | design-system | CSS tokens, Inter font, color vars, base utilities, komponen primitif | ✅ Complete |
+| 08 | shell-navigation | Sidebar desktop + mobile nav — Framer black canvas | 🔵 Next |
+| 09 | list-views | Dashboard, Products, Materials, Categories — design baru | ⬜ Pending |
+| 10 | detail-views | ProductDetail, ProductForm, PriceSimulation — detail + form | ⬜ Pending |
+
+**Success criteria:**
+- Seluruh UI menggunakan Framer design system (canvas #090909, pill CTAs, Inter Variable)
+- Stitch digunakan untuk generate visual reference tiap halaman sebelum implementasi
+- Mobile tetap fungsional di semua halaman
+- Semua data/logic tidak berubah — hanya visual layer
+
+---
+
 ## Phase Details
 
-### Phase 06: dashboard-ui-redesign
-**Goal:** Generate ulang tampilan Desktop Dashboard menggunakan MCP stitch sebagai design tool, lalu implementasikan hasilnya di Dashboard.jsx.
+### Phase 07: design-system
+**Goal:** Bangun fondasi Framer design system di codebase ReKal — token CSS, typography, color palette, dan komponen primitif yang akan digunakan semua fase berikutnya.
 
 **Scope:**
-- KPI cards, financial summary, cost breakdown, insight, recent products — semua di-redesign untuk desktop
-- Gunakan stitch untuk menghasilkan komponen/layout baru
-- Mobile (single-column) tidak berubah sama sekali
+- Ganti semua CSS custom properties di `index.css` dengan Framer tokens (canvas, surface-1, surface-2, ink, ink-muted, accent-blue, gradient colors)
+- Setup Inter Variable font dengan OpenType character variants (cv01, cv05, cv09, cv11, ss03, ss07)
+- Rewrite komponen primitif: `.btn-primary` → white pill, `.btn-secondary` → charcoal pill, `.glass-panel` → surface-1 card, `.input-field` → Framer input style
+- Tailwind config update: warna sesuai Framer tokens
+- Stitch digunakan untuk generate component reference
 
-**Constraint:** Mobile layout tidak diubah
+**Constraint:** Tidak mengubah JSX/logic halaman — hanya token dan CSS layer
+
+---
+
+### Phase 08: shell-navigation
+**Goal:** Redesign sidebar desktop dan mobile navigation menggunakan Framer aesthetic.
+
+**Scope:**
+- Sidebar desktop: pure black canvas (#090909), white monochrome nav items, pill active state
+- Mobile bottom nav: charcoal surface, pill active indicator
+- Header/page title area: tight negative letter-spacing display style
+
+**Constraint:** Navigation fungsionalitas tidak berubah — hanya visual
+
+---
+
+### Phase 09: list-views
+**Goal:** Apply Framer design system ke semua halaman list/overview.
+
+**Pages:**
+- **Dashboard** — Black canvas, gradient spotlight card untuk KPI highlight, two-column desktop
+- **Products** — Charcoal card grid, white pill add button
+- **Materials** — Table dengan surface-1 rows, hairline dividers
+- **Categories** — Compact surface-1 cards
+
+**Constraint:** Stitch generate reference per halaman. Data/logic tidak berubah.
+
+---
+
+### Phase 10: detail-views
+**Goal:** Apply Framer design system ke halaman detail dan form.
+
+**Pages:**
+- **ProductDetail** — Surface-1 panels, gradient spotlight untuk profit highlight
+- **ProductForm** — Framer input style, charcoal form sections
+- **PriceSimulation** — Black canvas dengan white display numbers, accent-blue highlights
+
+**Constraint:** Stitch generate reference per halaman. Form behavior tidak berubah.
 
 ---
 
 ## Guiding Constraints
 
-- **Mobile-first preserved:** Perubahan desktop TIDAK boleh menyentuh behavior/tampilan mobile
-- **No new dependencies:** Gunakan Tailwind breakpoints yang sudah ada (`lg:`, `xl:`)
-- **Design system konsisten:** Dark mode, warna slate/primary sky, glass-morphism panels
-- **Bahasa Indonesia:** Semua UI copy tetap Bahasa Indonesia
+- **Framer design system:** canvas #090909, surface-1 #141414, surface-2 #1c1c1c, ink #ffffff, ink-muted #999999, accent-blue #0099ff
+- **Typography:** Inter Variable + tight negative letter-spacing. Display: -1px to -5px. Body: -0.15px
+- **CTAs:** White pill primary, charcoal pill secondary — TIDAK ada ghost button atau colored fill button
+- **Gradients:** Spotlight cards saja (violet, magenta, orange, coral) — TIDAK sebagai section background
+- **Mobile-first preserved:** Semua halaman tetap fungsional di mobile
+- **Stitch-driven:** Setiap fase visual wajib generate Stitch reference sebelum implementasi
+- **Data/logic immutable:** Hanya visual layer yang berubah

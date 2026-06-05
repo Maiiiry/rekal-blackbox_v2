@@ -50,7 +50,7 @@ const ProtectedRoute = ({ children }) => {
 // Main App Layout
 const AppLayout = ({ children }) => {
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-canvas">
       <main className="pb-20">
         {children}
       </main>

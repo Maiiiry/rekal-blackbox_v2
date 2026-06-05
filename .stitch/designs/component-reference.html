@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UI Primitive Showcase</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#e9ddff",
+                        "on-surface-variant": "#cbc4d2",
+                        "surface-1": "#141414",
+                        "secondary-fixed": "#e9ddff",
+                        "surface-dim": "#141218",
+                        "inverse-primary": "#6750a4",
+                        "on-tertiary-container": "#503d00",
+                        "tertiary": "#e7c365",
+                        "on-background": "#e6e0e9",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#1d1b20",
+                        "outline": "#948e9c",
+                        "on-primary-fixed": "#22005d",
+                        "on-surface": "#e6e0e9",
+                        "on-secondary-container": "#bfb2da",
+                        "surface-2": "#1c1c1c",
+                        "inverse-on-surface": "#322f35",
+                        "on-primary": "#381e72",
+                        "surface-container": "#211f24",
+                        "surface-tint": "#cfbcff",
+                        "surface-variant": "#36343a",
+                        "border-base": "#262626",
+                        "tertiary-fixed-dim": "#e7c365",
+                        "primary": "#cfbcff",
+                        "surface-bright": "#3b383e",
+                        "background": "#090909",
+                        "on-secondary-fixed-variant": "#4b4263",
+                        "outline-variant": "#494551",
+                        "secondary-container": "#4d4465",
+                        "on-secondary-fixed": "#1f1635",
+                        "on-primary-fixed-variant": "#4f378a",
+                        "on-error": "#690005",
+                        "tertiary-container": "#c9a74d",
+                        "on-primary-container": "#e0d2ff",
+                        "on-tertiary-fixed-variant": "#594400",
+                        "on-tertiary": "#3e2e00",
+                        "surface-container-highest": "#36343a",
+                        "primary-container": "#6750a4",
+                        "primary-fixed-dim": "#cfbcff",
+                        "error-container": "#93000a",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0f0d13",
+                        "secondary-fixed-dim": "#cdc0e9",
+                        "surface": "#141218",
+                        "on-secondary": "#342b4b",
+                        "surface-container-high": "#2b292f",
+                        "tertiary-fixed": "#ffdf93",
+                        "inverse-surface": "#e6e0e9",
+                        "secondary": "#cdc0e9",
+                        "on-tertiary-fixed": "#241a00"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "md": "16px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "lg": "24px",
+                        "container-margin": "24px",
+                        "sm": "8px",
+                        "gutter": "16px"
+                    },
+                    fontFamily: {
+                        "mono-label": ["jetbrainsMono"]
+                    },
+                    fontSize: {
+                        "headline-xl": ["40px", { "lineHeight": "1.1", "letterSpacing": "-1.5px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "1.5", "letterSpacing": "-0.15px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "1.5", "letterSpacing": "-0.15px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.8px", "fontWeight": "500" }],
+                        "mono-label": ["12px", { "lineHeight": "1", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-1px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        body {
+            background-color: #090909;
+            color: #e6e0e9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg h-16 max-w-[1440px] mx-auto bg-surface-dim dark:bg-surface-dim border-b border-border-base flat no shadows text-primary dark:text-primary font-body-md text-body-md docked full-width top-0">
+<div class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-surface cursor-pointer active:opacity-80">Design System v1.0</div>
+<div class="flex items-center space-x-xl ml-auto mr-xl">
+<a class="text-on-surface-variant font-medium hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Primitives</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Patterns</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Guides</a>
+</div>
+<div class="flex items-center space-x-md">
+<span class="material-symbols-outlined cursor-pointer hover:text-on-surface text-on-surface-variant transition-colors" data-icon="dark_mode">dark_mode</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-on-surface text-on-surface-variant transition-colors" data-icon="settings">settings</span>
+<div class="w-8 h-8 rounded-full bg-surface-2 border border-border-base overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close up portrait of a young professional wearing a neutral grey sweater in a studio setting. Soft, even studio lighting highlights clear facial features. The background is a stark, minimal solid color. The aesthetic is clean, professional, and consistent with high-end tech corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsfK4islJoRm3ZHYafh2tmrS0JDxQ9htPuhifLGGvKqonbCAd2NUGaWG4Hf6bHuv_JU-5CLfcZO7KXplkGMvA4YheKtGLjpL9xAKKFVI5G3dLTNg4uuFJL8CLConGO3M_AneZSosikUTTZHozmaRlcefqGLb2xqGJDPYhJTYsdtLRxoiEWYKq_uGGgD9IkYBFbnKYCd7qpqUPAzZJmNXCRj44d_Fps3y4jn1K_QXKiixImenegqogBqF2_4ATwJBoi4OeynyBlmh53"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col py-md bg-surface-1 dark:bg-surface-1 border-r border-border-base flat no shadows text-primary dark:text-primary font-label-sm text-label-sm docked left-0 h-full w-64 hidden md:flex">
+<div class="px-md pb-xl mb-md border-b border-border-base flex items-center space-x-md">
+<div class="w-10 h-10 rounded-lg bg-surface-2 border border-border-base flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface" data-icon="design_services">design_services</span>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">Library Docs</div>
+<div class="text-on-surface-variant">v1.0.4-beta</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-sm space-y-sm">
+<a class="flex items-center space-x-md px-md py-sm rounded-md text-on-surface-variant hover:bg-surface-2 hover:text-on-surface transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center space-x-md px-md py-sm rounded-md text-on-surface-variant hover:bg-surface-2 hover:text-on-surface transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Foundations</span>
+</a>
+<a class="flex items-center space-x-md px-md py-sm rounded-md bg-surface-2 text-on-surface border-r-2 border-primary cursor-pointer" href="#">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+<span>Components</span>
+</a>
+<a class="flex items-center space-x-md px-md py-sm rounded-md text-on-surface-variant hover:bg-surface-2 hover:text-on-surface transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span>Layout</span>
+</a>
+<a class="flex items-center space-x-md px-md py-sm rounded-md text-on-surface-variant hover:bg-surface-2 hover:text-on-surface transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+<span>Tokens</span>
+</a>
+</div>
+<div class="mt-auto pt-md border-t border-border-base px-sm space-y-sm">
+<a class="flex items-center space-x-md px-md py-sm rounded-md text-on-surface-variant hover:bg-surface-2 hover:text-on-surface transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center space-x-md px-md py-sm rounded-md text-on-surface-variant hover:bg-surface-2 hover:text-on-surface transition-all cursor-pointer" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Documentation</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-16 min-h-screen">
+<div class="max-w-[1440px] mx-auto p-container-margin md:p-xl space-y-xl">
+<!-- Page Header -->
+<header class="mb-xl">
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-sm">UI Primitives</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Core building blocks for high-performance dashboard interfaces.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Buttons & Inputs Column -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Buttons Section -->
+<section class="bg-surface-1 border border-border-base rounded-xl p-lg">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md">Buttons</h2>
+<div class="flex flex-col space-y-md">
+<button class="bg-[#ffffff] text-[#090909] font-body-md text-body-md font-medium px-md py-sm rounded-full w-full flex items-center justify-center hover:bg-opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-[#0099ff] focus:ring-offset-2 focus:ring-offset-[#090909]">
+                                Primary Action
+                            </button>
+<button class="bg-surface-2 text-on-surface border border-border-base font-body-md text-body-md font-medium px-md py-sm rounded-full w-full flex items-center justify-center hover:bg-surface-bright transition-colors focus:outline-none focus:ring-2 focus:ring-[#0099ff] focus:ring-offset-2 focus:ring-offset-[#090909]">
+                                Secondary Action
+                            </button>
+<button class="bg-surface-1 border border-border-base text-[#ffb4ab] font-body-md text-body-md font-medium px-md py-sm rounded-full w-full flex items-center justify-center hover:bg-[#311] transition-colors focus:outline-none focus:ring-2 focus:ring-[#ffb4ab] focus:ring-offset-2 focus:ring-offset-[#090909]">
+                                Danger Action
+                            </button>
+</div>
+</section>
+<!-- Inputs Section -->
+<section class="bg-surface-1 border border-border-base rounded-xl p-lg">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md">Inputs</h2>
+<div class="space-y-md">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">Email Address</label>
+<input class="w-full bg-background border border-border-base rounded-md px-sm py-sm text-on-surface font-body-md text-body-md placeholder-on-surface-variant focus:outline-none focus:border-[#ffffff] transition-colors" placeholder="name@company.com" type="email"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs">API Key</label>
+<input class="w-full bg-background border border-[#ffffff] ring-1 ring-[#0099ff] rounded-md px-sm py-sm text-on-surface font-body-md text-body-md focus:outline-none" type="text" value="sk_test_49fj30dnd..."/>
+</div>
+</div>
+</section>
+</div>
+<!-- Cards & KPIs Column -->
+<div class="lg:col-span-8 space-y-gutter">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- KPI 1 -->
+<div class="bg-surface-1 border border-border-base rounded-xl p-lg flex flex-col justify-between h-32">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Total Requests</span>
+<span class="font-headline-xl text-headline-xl text-on-surface">1.2M</span>
+</div>
+<!-- Badges -->
+<div class="bg-surface-1 border border-border-base rounded-xl p-lg">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md">Status Indicators</h2>
+<div class="flex flex-wrap gap-sm">
+<span class="bg-surface-2 border border-border-base text-on-surface-variant px-sm py-1 rounded font-mono-label text-mono-label flex items-center">
+<span class="w-2 h-2 rounded-full bg-on-surface-variant mr-xs"></span> Neutral
+                                </span>
+<span class="bg-[#0f1f14] border border-[#1a3824] text-[#86efac] px-sm py-1 rounded font-mono-label text-mono-label flex items-center">
+<span class="w-2 h-2 rounded-full bg-[#86efac] mr-xs"></span> Success
+                                </span>
+<span class="bg-[#0b1a2e] border border-[#16335a] text-[#93c5fd] px-sm py-1 rounded font-mono-label text-mono-label flex items-center">
+<span class="w-2 h-2 rounded-full bg-[#93c5fd] mr-xs"></span> Active
+                                </span>
+</div>
+</div>
+</div>
+<!-- Cards Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-1 border border-border-base rounded-xl p-lg h-48 flex flex-col">
+<h3 class="font-body-lg text-body-lg font-medium text-on-surface mb-xs">Standard Object</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1">Base container for structural layouts.</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Level 1 Surface</span>
+</div>
+<div class="bg-surface-2 border border-border-base rounded-xl p-lg h-48 flex flex-col relative overflow-hidden group cursor-pointer transition-colors hover:bg-surface-bright">
+<div class="absolute top-0 right-0 w-16 h-16 bg-border-base opacity-10 rounded-bl-full group-hover:scale-150 transition-transform"></div>
+<h3 class="font-body-lg text-body-lg font-medium text-on-surface mb-xs relative z-10">Interactive Object</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex-1 relative z-10">Elevated surface for selectable items.</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant relative z-10">Level 2 Surface</span>
+</div>
+<div class="rounded-xl p-[1px] bg-gradient-to-br from-[#6a4cf5] to-[#141414] h-48">
+<div class="bg-[#090909] rounded-xl p-lg h-full flex flex-col justify-between">
+<div>
+<h3 class="font-body-lg text-body-lg font-medium text-on-surface mb-xs">Spotlight Focus</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Utilizing gradient borders for critical features.</p>
+</div>
+<button class="text-[#6a4cf5] font-label-sm text-label-sm self-start hover:text-white transition-colors">Upgrade Plan →</button>
+</div>
+</div>
+</div>
+<!-- List & Empty State -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- List Items -->
+<div class="bg-surface-1 border border-border-base rounded-xl p-md space-y-xs">
+<div class="flex items-center justify-between p-sm hover:bg-surface-2 rounded-lg cursor-pointer transition-colors group">
+<div class="flex items-center space-x-md">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="terminal">terminal</span>
+<div>
+<div class="font-body-md text-body-md font-medium text-on-surface">deployment_prod_01</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">us-east-1a</div>
+</div>
+</div>
+<div class="font-mono-label text-mono-label text-on-surface-variant">99.9%</div>
+</div>
+<div class="flex items-center justify-between p-sm hover:bg-surface-2 rounded-lg cursor-pointer transition-colors group">
+<div class="flex items-center space-x-md">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="database">database</span>
+<div>
+<div class="font-body-md text-body-md font-medium text-on-surface">replica_set_alpha</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">eu-central-1</div>
+</div>
+</div>
+<div class="font-mono-label text-mono-label text-on-surface-variant">14ms</div>
+</div>
+</div>
+<!-- Empty State -->
+<div class="bg-surface-1 border border-border-base rounded-xl p-lg flex flex-col items-center justify-center text-center min-h-[160px]">
+<span class="material-symbols-outlined text-outline text-4xl mb-sm" data-icon="inbox">inbox</span>
+<h3 class="font-body-md text-body-md font-medium text-on-surface mb-xs">No Events Found</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Adjust your filter criteria to view logs.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

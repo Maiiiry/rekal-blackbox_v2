@@ -7,37 +7,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-          950: '#082f49',
-        },
-        slate: {
-          850: '#1e293b',
-          900: '#0f172a',
-          950: '#020617',
-        },
-        accent: {
-          cyan: '#06b6d4',
-          violet: '#8b5cf6',
-          emerald: '#10b981',
-          rose: '#f43f5e',
-        }
+        // Framer surfaces
+        canvas: '#090909',
+        'surface-1': '#141414',
+        'surface-2': '#1c1c1c',
+        hairline: '#262626',
+        'hairline-soft': '#1a1a1a',
+        // Framer text
+        ink: '#ffffff',
+        'ink-muted': '#999999',
+        // Framer accent (links/focus ONLY)
+        'accent-blue': '#0099ff',
+        // Framer gradients (spotlight cards)
+        'gradient-violet': '#6a4cf5',
+        'gradient-magenta': '#d44df0',
+        'gradient-orange': '#ff7a3d',
+        'gradient-coral': '#ff5577',
+        // Semantic
+        success: '#22c55e',
+        danger: '#ef4444',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-      },
-      boxShadow: {
-        'glow': '0 0 20px rgba(14, 165, 233, 0.3)',
-        'glow-lg': '0 0 40px rgba(14, 165, 233, 0.4)',
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out',
