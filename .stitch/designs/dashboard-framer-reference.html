@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReKal - Cost Calculator Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "error": "#ffb4ab",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#4edea3",
+                    "outline": "#88929b",
+                    "on-secondary-container": "#00311f",
+                    "on-surface-variant": "#bec8d2",
+                    "surface-container-high": "#1c2b3c",
+                    "on-primary-fixed": "#001e2f",
+                    "on-tertiary-fixed": "#23005c",
+                    "surface-container-low": "#0d1c2d",
+                    "primary-fixed-dim": "#89ceff",
+                    "error-container": "#93000a",
+                    "secondary-container": "#00a572",
+                    "on-tertiary": "#3c0091",
+                    "tertiary": "#d0bcff",
+                    "surface-tint": "#89ceff",
+                    "inverse-primary": "#006591",
+                    "on-background": "#d4e4fa",
+                    "on-primary": "#00344d",
+                    "surface": "#051424",
+                    "on-secondary-fixed": "#002113",
+                    "primary-container": "#0ea5e9",
+                    "tertiary-container": "#a986ff",
+                    "primary": "#89ceff",
+                    "inverse-surface": "#d4e4fa",
+                    "primary-fixed": "#c9e6ff",
+                    "on-primary-container": "#003751",
+                    "on-primary-fixed-variant": "#004c6e",
+                    "on-error": "#690005",
+                    "on-tertiary-container": "#3e0097",
+                    "secondary-fixed": "#6ffbbe",
+                    "tertiary-fixed": "#e9ddff",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "outline-variant": "#3e4850",
+                    "inverse-on-surface": "#233143",
+                    "on-secondary-fixed-variant": "#005236",
+                    "background": "#051424",
+                    "surface-container-highest": "#273647",
+                    "secondary": "#4edea3",
+                    "surface-container-lowest": "#010f1f",
+                    "on-secondary": "#003824",
+                    "surface-container": "#122131",
+                    "surface-bright": "#2c3a4c",
+                    "on-surface": "#d4e4fa",
+                    "surface-dim": "#051424",
+                    "surface-variant": "#273647"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "gutter": "24px",
+                    "lg": "40px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "xl": "64px",
+                    "margin": "32px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "numeric-data": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "numeric-data": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #020617;
+            font-family: 'Inter', sans-serif;
+            color: #d4e4fa;
+        }
+        .glass-panel {
+            background: rgba(18, 33, 49, 0.5);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scroll-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scroll-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- Predicted SideNavBar (Hybrid usage for Desktop Layout) -->
+<aside class="hidden md:flex flex-col h-screen sticky top-0 left-0 w-full max-w-[280px] bg-surface/60 backdrop-blur-3xl border-r border-outline-variant/20 shadow-xl py-lg">
+<div class="px-md mb-xl flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-on-primary text-headline-md" style="font-variation-settings: 'FILL' 1">calculate</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary leading-tight">ReKal</h1>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Cost Calculator</p>
+</div>
+</div>
+<nav class="flex-1 space-y-xs px-sm">
+<!-- Dashboard Active -->
+<a class="flex items-center gap-base px-md py-sm bg-primary-container/20 text-primary border-l-4 border-primary rounded-r-xl scale-[0.98] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-base px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-base px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-base px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-base px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="px-md mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container font-label-md py-md rounded-xl flex items-center justify-center gap-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                New Calculation
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 h-screen overflow-hidden flex flex-col">
+<!-- Predicted TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface/30 backdrop-blur-2xl border-b border-outline-variant/10 shadow-sm flex justify-between items-center px-xl py-base">
+<div class="flex items-center gap-md">
+<h2 class="font-headline-md text-headline-md font-black text-primary md:hidden">ReKal</h2>
+<div class="hidden md:flex items-center bg-surface-container-low border border-outline-variant/20 rounded-full px-md py-xs gap-sm w-80">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none text-body-md focus:ring-0 placeholder-on-surface-variant/50 w-full" placeholder="Search costs, products..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/20 mx-xs"></div>
+<div class="flex items-center gap-sm">
+<div class="text-right hidden sm:block">
+<p class="font-label-md text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Finance Lead</p>
+</div>
+<img alt="User Profile" class="w-10 h-10 rounded-full border border-primary/30" data-alt="A professional studio portrait of a corporate male executive with a confident expression, wearing a tailored navy suit and a crisp white shirt. The background is a sophisticated deep charcoal grey with soft cinematic lighting from the side, creating a high-end and technologically advanced aesthetic that matches a dark mode business application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQvn7aZGLpni3GmSk_iSl485eMvwK1KW69wm4UyshDv-cwnuxxljDBam1Wve0OOZgeaSzUMk84Lsme91jf0VzPMNoG9ie2jB9zyRyxsG2WMwppuptT9CoXavD3RYKBnPsmYzK6eXpzkZsFIBf5uoNU0WO-17WfgOSx3mJ5XgPlEQfxv1ateWE8Mn3_rqPyd0VSAAHN9_28g5SrPARv6T--Gwqj-FIYEJjMVaeuCLuuK4bZa5m4ZsgiVE4vUczWD9Vg-NO4mSEWyoCG"/>
+</div>
+</div>
+</header>
+<!-- Main Dashboard Content (2-Column Layout) -->
+<main class="flex-1 flex flex-col md:flex-row overflow-hidden bg-background">
+<!-- LEFT COLUMN (Sticky-ish / Controlled Scroll) -->
+<section class="w-full md:w-[35%] p-md lg:p-lg space-y-lg overflow-y-auto scroll-hide border-r border-outline-variant/10">
+<!-- Header -->
+<div class="space-y-xs">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-headline-md">analytics</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Dashboard</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Ringkasan bisnis hari ini</p>
+</div>
+<!-- KPI Cards 2x2 -->
+<div class="grid grid-cols-2 gap-md">
+<div class="glass-panel p-md rounded-2xl flex flex-col gap-sm group hover:border-primary/40 transition-all duration-300">
+<div class="w-10 h-10 rounded-xl bg-[#0ea5e9]/10 flex items-center justify-center text-[#0ea5e9]">
+<span class="material-symbols-outlined">inventory</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Produk</p>
+<p class="font-numeric-data text-numeric-data text-on-surface">124</p>
+</div>
+</div>
+<div class="glass-panel p-md rounded-2xl flex flex-col gap-sm group hover:border-secondary/40 transition-all duration-300">
+<div class="w-10 h-10 rounded-xl bg-[#10b981]/10 flex items-center justify-center text-[#10b981]">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Material</p>
+<p class="font-numeric-data text-numeric-data text-on-surface">842</p>
+</div>
+</div>
+<div class="glass-panel p-md rounded-2xl flex flex-col gap-sm group hover:border-on-tertiary-container/40 transition-all duration-300">
+<div class="w-10 h-10 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6]">
+<span class="material-symbols-outlined">category</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Kategori</p>
+<p class="font-numeric-data text-numeric-data text-on-surface">12</p>
+</div>
+</div>
+<!-- Rata-rata Laba (Emerald Tinted Glass) -->
+<div class="bg-secondary/10 backdrop-blur-xl border border-secondary/20 p-md rounded-2xl flex flex-col justify-between group">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+<span class="bg-secondary text-on-secondary px-xs py-[2px] rounded text-[10px] font-bold">+12%</span>
+</div>
+<div class="mt-sm">
+<p class="font-label-md text-label-md text-secondary/80">Avg. Laba</p>
+<p class="font-numeric-data text-numeric-data text-secondary">32.4%</p>
+</div>
+</div>
+</div>
+<!-- Total Nilai Bisnis -->
+<div class="glass-panel p-lg rounded-2xl space-y-md">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Total Nilai Bisnis</p>
+<div class="grid grid-cols-3 gap-md">
+<div class="space-y-xs">
+<p class="text-[10px] font-label-md text-on-surface-variant">Total HPP</p>
+<p class="font-numeric-data text-[16px] text-white">450M</p>
+</div>
+<div class="space-y-xs">
+<p class="text-[10px] font-label-md text-on-surface-variant">Total Jual</p>
+<p class="font-numeric-data text-[16px] text-[#10b981]">620M</p>
+</div>
+<div class="space-y-xs">
+<p class="text-[10px] font-label-md text-on-surface-variant">Potensi Laba</p>
+<p class="font-numeric-data text-[16px] text-secondary">170M</p>
+</div>
+</div>
+</div>
+<!-- Insight Panel -->
+<div class="space-y-sm">
+<h3 class="font-title-lg text-title-lg text-on-surface">Quick Insights</h3>
+<div class="space-y-base">
+<div class="flex items-center gap-md p-sm glass-panel rounded-xl">
+<div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">percent</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Margin Efisiensi</p>
+<p class="text-[12px] text-on-surface-variant">Naik 2.4% dari bulan lalu</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-sm glass-panel rounded-xl">
+<div class="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Top Product</p>
+<p class="text-[12px] text-on-surface-variant">Industrial Gearbox X-1</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-sm glass-panel rounded-xl">
+<div class="w-8 h-8 rounded-lg bg-on-tertiary-fixed-variant/20 flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Total Laba Bersih</p>
+<p class="text-[12px] text-on-surface-variant">IDR 42.500.000 (Hari ini)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN (Scrollable Content) -->
+<section class="flex-1 p-md lg:p-lg overflow-y-auto scroll-hide space-y-xl">
+<!-- Cost Summary Section -->
+<div class="glass-panel p-lg rounded-2xl relative overflow-hidden group">
+<!-- Subtle Glow -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 blur-[100px] rounded-full pointer-events-none"></div>
+<div class="flex justify-between items-end mb-lg">
+<div class="space-y-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface">Cost Summary</h3>
+<p class="font-body-md text-on-surface-variant">Performa biaya produksi vs harga pasar</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-on-surface-variant uppercase tracking-widest mb-xs">Margin Rata-rata</p>
+<p class="text-display-lg font-display-lg text-primary leading-none">38.2<span class="text-headline-md">%</span></p>
+</div>
+</div>
+<div class="space-y-lg">
+<div class="space-y-sm">
+<div class="flex justify-between text-label-md text-on-surface-variant uppercase">
+<span>Total HPP (COGS)</span>
+<span class="text-on-surface">62% of revenue</span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-outline w-[62%] rounded-full shadow-[0_0_15px_rgba(136,146,155,0.4)] transition-all duration-1000 ease-out" style="width: 62%;"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-label-md text-on-surface-variant uppercase">
+<span>Harga Jual Target</span>
+<span class="text-secondary">Target Achieved</span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[85%] rounded-full shadow-[0_0_15px_rgba(78,222,163,0.4)] transition-all duration-1000 ease-out" style="width: 85%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Products Section -->
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Products</h3>
+<button class="text-primary font-label-md hover:underline">View All Inventory</button>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-md">
+<!-- Product Card 1 -->
+<div class="glass-panel rounded-2xl overflow-hidden group cursor-pointer hover:translate-y-[-4px] transition-all duration-300">
+<div class="h-40 relative">
+<img alt="Industrial Machinery" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" data-alt="A close-up of high-precision industrial robotic components in a clean, modern factory setting. The lighting is dramatic and cool-toned, with cyan and violet neon accents reflecting off metallic surfaces. The aesthetic is clean, technical, and high-tech, perfect for a dark-mode data analytics platform representing mechanical engineering and manufacturing costs." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd5NPCuKiNc9avez7lXFkusaTkeH4rxwu_Ue8orKD-g9mPh-55Q7iimczs6NHQ2W8E9vUJaFzsA0mhzWlRD5O8S9eEnfOlWzy4Z5caW4hqrZNt2XJ2gR_Ir8-2JMpx1AYOqBHmUbrtW0xLm4YgyuHA0o2Ct-5ml6QsGq5cmlH-vP8W4w2jZvWdV6tXsBRVKpNUMJkDDE4nTV_tX06Jx5vjTtP8ZnIisjDHBRHvy0TJFg0oCJhpnqbsuWi8a4YWkyy3rTdQBAGUElyI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-md left-md">
+<span class="bg-primary/20 backdrop-blur-md text-primary px-sm py-xs rounded-lg text-label-md border border-primary/30">Electronics</span>
+</div>
+</div>
+<div class="p-md flex justify-between items-start">
+<div class="space-y-xs">
+<h4 class="font-title-lg text-on-surface">Circuit Board X1</h4>
+<p class="text-label-md text-on-surface-variant">HPP: IDR 45.000</p>
+</div>
+<div class="text-right">
+<p class="font-numeric-data text-secondary">IDR 85.000</p>
+<p class="text-[10px] text-secondary/70">+47% Profit</p>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="glass-panel rounded-2xl overflow-hidden group cursor-pointer hover:translate-y-[-4px] transition-all duration-300">
+<div class="h-40 relative">
+<img alt="Mechanical Parts" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" data-alt="Macro photography of interlocking precision steel gears and mechanical clockwork parts. The image features a dark, moody background with subtle atmospheric blue rim lighting that highlights the intricate textures of the brushed metal. This technological and mechanical aesthetic aligns with a professional data-driven financial dashboard for manufacturing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBH4SqabMYys0wbQyXFs21mL5SL0sJye63mzJ7ELtrCVkCFVdeINf7uZfwHvHaKJmM_a8NL2NEfGkyb9cmlpchIMTQT_A-eq9cPQlwfZf_qROvuunVMfWypX0zlbY6BYcqPYbykaRSGor5zjarDvhfNqvHSLRc_HhpjdCqhfE1nd45qZV557aVz2wYmg7To8rp5qf4SKt4ewIVLrADj2qv51_uZT1sNnyiC5Ehzj0T3fzftlayB3CNkXt7PvSJISY77506JjbGkmI0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-md left-md">
+<span class="bg-secondary/20 backdrop-blur-md text-secondary px-sm py-xs rounded-lg text-label-md border border-secondary/30">Mechanical</span>
+</div>
+</div>
+<div class="p-md flex justify-between items-start">
+<div class="space-y-xs">
+<h4 class="font-title-lg text-on-surface">Steel Hub Core</h4>
+<p class="text-label-md text-on-surface-variant">HPP: IDR 120.000</p>
+</div>
+<div class="text-right">
+<p class="font-numeric-data text-secondary">IDR 165.000</p>
+<p class="text-[10px] text-secondary/70">+37% Profit</p>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="glass-panel rounded-2xl overflow-hidden group cursor-pointer hover:translate-y-[-4px] transition-all duration-300">
+<div class="h-40 relative">
+<img alt="Smart Sensor" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" data-alt="Advanced smart sensor technology showcased in a futuristic R&amp;D laboratory environment. The image is bathed in soft blue and white LED lighting, emphasizing sleek surfaces and miniature microchips. The composition is clean and minimalist, conveying a sense of high-end technological innovation and precise financial calculation for premium hardware components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDewbGQeeLqo5uTKdHIpDXIq3VrO9EKrbKywTXd6rmAf8Cdnor8yC8sxNYNvzZ7vmWb7Vcnh0whGgP2HPSoyvP4oGDUbZxllaclX_rAnjnKybQChTp1xl1axiSfpmYgtzRpJLOr7ie2m4s_CdxGwN6f4v7pURB7LIDJqdff9suAeYFOVt5SNv67zvTYgjK0M4Qli52jgzZJGb9DbRuPPsJ-L-bOafpTTSWfWU9PQ0XFF5IBGtkde-Ftvsfl532BjBkfZIBXXn9p-Hha"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-md left-md">
+<span class="bg-primary/20 backdrop-blur-md text-primary px-sm py-xs rounded-lg text-label-md border border-primary/30">Sensors</span>
+</div>
+</div>
+<div class="p-md flex justify-between items-start">
+<div class="space-y-xs">
+<h4 class="font-title-lg text-on-surface">Optic Sensor Z-9</h4>
+<p class="text-label-md text-on-surface-variant">HPP: IDR 890.000</p>
+</div>
+<div class="text-right">
+<p class="font-numeric-data text-secondary">IDR 1.250.000</p>
+<p class="text-[10px] text-secondary/70">+40% Profit</p>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="glass-panel rounded-2xl overflow-hidden group cursor-pointer hover:translate-y-[-4px] transition-all duration-300">
+<div class="h-40 relative">
+<img alt="Server Hardware" class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500" data-alt="Sleek, black server hardware components arranged in an organized grid with glowing status lights. The lighting is low-key, with deep shadows and sharp highlights on the metallic edges. This high-density technical visual matches a sophisticated data-heavy dashboard interface, representing complex IT and infrastructure cost management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLu16neHkY8k0OnhhmNnfSEDQNS6OXhYW3wuNYO0uCF7M8WOkoOi0JCpmlvQO4ilCYB63dPDGDEusXDG_4DD87diowt1ln9rhgEoGMdChjpZ9BAfdVH9g7yrfLlWSFERwrhe1lbMUwvo6DBzyMDthb2LCmTqNBzQJLz2uKWC-D0aLxMqwgCowQHrYSzJnOriQdHGG9MvYEQKVn4uRY93ZR0_BVrKr0OlYjxqSatikA7G-1mU8bDbmo1FvNRyp1rrwoDVJAAlbN0F3d"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-md left-md">
+<span class="bg-on-tertiary-fixed-variant/20 backdrop-blur-md text-tertiary px-sm py-xs rounded-lg text-label-md border border-tertiary/30">Network</span>
+</div>
+</div>
+<div class="p-md flex justify-between items-start">
+<div class="space-y-xs">
+<h4 class="font-title-lg text-on-surface">Data Node Alpha</h4>
+<p class="text-label-md text-on-surface-variant">HPP: IDR 2.450.000</p>
+</div>
+<div class="text-right">
+<p class="font-numeric-data text-secondary">IDR 3.800.000</p>
+<p class="text-[10px] text-secondary/70">+55% Profit</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (Task Suppression Check: Simple Credit) -->
+<footer class="pt-xl pb-lg border-t border-outline-variant/10 text-center">
+<p class="text-label-md text-on-surface-variant uppercase tracking-[0.2em]">© 2024 ReKal Intelligent Cost Calculator. v2.4.0</p>
+</footer>
+</section>
+</main>
+</div>
+<!-- Mobile Navigation Shell (Responsive Pivot) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/60 backdrop-blur-3xl border-t border-outline-variant/20 flex justify-around items-center py-sm px-md z-[100]">
+<a class="flex flex-col items-center gap-xs text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">dashboard</span>
+<span class="text-[10px] font-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-[10px] font-label-md">Analytics</span>
+</a>
+<a class="flex flex-col items-center gap-xs" href="#">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center -translate-y-4 shadow-lg shadow-primary/40">
+<span class="material-symbols-outlined">add</span>
+</div>
+</a>
+<a class="flex flex-col items-center gap-xs text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-[10px] font-label-md">Items</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-label-md">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for glass panels
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('mousemove', (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                panel.style.setProperty('--mouse-x', `${x}px`);
+                panel.style.setProperty('--mouse-y', `${y}px`);
+                
+                // Dynamic border glow effect
+                panel.style.borderColor = 'rgba(137, 206, 255, 0.3)';
+            });
+            
+            panel.addEventListener('mouseleave', () => {
+                panel.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // Simple smooth scroll reveal for product cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.glass-panel').forEach(card => {
+            card.classList.add('transition-all', 'duration-700', 'ease-out');
+            // Initial state for animation if not in viewport
+            // card.classList.add('opacity-0', 'translate-y-10'); 
+            // observer.observe(card);
+        });
+    </script>
+</body></html>
