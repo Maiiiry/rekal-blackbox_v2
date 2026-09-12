@@ -208,7 +208,7 @@ const Materials = () => {
           </div>
           <button
             onClick={() => navigate('/categories')}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-slate-400 hover:text-primary-400 hover:border-primary-500/50 transition-all text-sm"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-surface-2 border border-hairline text-ink-muted hover:text-ink hover:border-hairline transition-all text-sm"
           >
             <Layers className="w-4 h-4" />
             <span>Kategori</span>
@@ -220,7 +220,7 @@ const Materials = () => {
       {/* Search & Add */}
       <div className="flex gap-3 mb-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-muted" />
           <input
             type="text"
             value={searchQuery}
@@ -236,12 +236,12 @@ const Materials = () => {
 
       {/* Error State */}
       {errors?.materials && (
-        <div className="bg-accent-rose/10 border border-accent-rose/30 rounded-xl p-4 mb-4">
-          <p className="text-accent-rose text-sm">{errors.materials}</p>
+        <div className="bg-danger/10 border border-danger/30 rounded-xl p-4 mb-4">
+          <p className="text-danger text-sm">{errors.materials}</p>
 
-          <button 
+          <button
             onClick={() => { fetchMaterials(); fetchCategories(); }}
-            className="mt-2 text-xs text-accent-rose underline hover:no-underline"
+            className="mt-2 text-xs text-danger underline hover:no-underline"
           >
             Coba lagi
           </button>
@@ -252,7 +252,7 @@ const Materials = () => {
       {loading.materials ? (
 
         <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ink-muted"></div>
         </div>
       ) : filteredMaterials.length === 0 ? (
         <div className="empty-state">
@@ -272,8 +272,8 @@ const Materials = () => {
               <div key={material.id} className="list-item">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-accent-emerald/20 flex items-center justify-center">
-                      <Package className="w-5 h-5 text-accent-emerald" />
+                    <div className="w-10 h-10 rounded-xl bg-success/15 flex items-center justify-center">
+                      <Package className="w-5 h-5 text-success" />
                     </div>
                     <div>
                       <h3 className="font-medium text-white">{material.name}</h3>
@@ -286,7 +286,7 @@ const Materials = () => {
                         )}
                         <span className="badge-primary">{material.unit}</span>
                         {isInUse && (
-                          <span className="badge-primary bg-accent-amber/20 text-accent-amber border-accent-amber/30">
+                          <span className="badge-primary bg-warning/20 text-warning border-warning/30">
                             <Link className="w-3 h-3 mr-1" />
                             {usageCount} produk
                           </span>
@@ -300,7 +300,7 @@ const Materials = () => {
                     <div className="flex gap-2 mt-2 justify-end">
                       <button
                         onClick={() => openModal(material)}
-                        className="p-2 text-slate-400 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                        className="p-2 text-ink-muted hover:text-ink hover:bg-surface-2 rounded-lg transition-colors"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
@@ -308,10 +308,10 @@ const Materials = () => {
                         onClick={() => handleDelete(material.id)}
                         disabled={deletingId === material.id || isInUse}
                         title={isInUse ? `Material digunakan dalam ${usageCount} produk` : 'Hapus material'}
-                        className="p-2 text-slate-400 hover:text-accent-rose hover:bg-accent-rose/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-2 text-ink-muted hover:text-danger hover:bg-danger/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {deletingId === material.id ? (
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-rose"></div>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-danger"></div>
                         ) : (
                           <Trash2 className="w-4 h-4" />
                         )}
@@ -327,26 +327,26 @@ const Materials = () => {
         <div className="hidden lg:block">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-slate-800">
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3 pl-2">Material</th>
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Kategori</th>
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Satuan</th>
-                <th className="text-right text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Harga Standar</th>
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Dipakai di</th>
-                <th className="text-right text-xs font-medium text-slate-500 uppercase tracking-wider pb-3 pr-2">Aksi</th>
+              <tr className="border-b border-hairline">
+                <th className="text-left text-xs font-medium text-ink-muted uppercase tracking-wider pb-3 pl-2">Material</th>
+                <th className="text-left text-xs font-medium text-ink-muted uppercase tracking-wider pb-3">Kategori</th>
+                <th className="text-left text-xs font-medium text-ink-muted uppercase tracking-wider pb-3">Satuan</th>
+                <th className="text-right text-xs font-medium text-ink-muted uppercase tracking-wider pb-3">Harga Standar</th>
+                <th className="text-left text-xs font-medium text-ink-muted uppercase tracking-wider pb-3">Dipakai di</th>
+                <th className="text-right text-xs font-medium text-ink-muted uppercase tracking-wider pb-3 pr-2">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/50">
+            <tbody className="divide-y divide-surface-2">
               {filteredMaterials.map(material => {
                 const category = categories.find(c => c.id === material.category_id)
                 const usageCount = materialUsageCounts[material.id] || 0
                 const isInUse = usageCount > 0
                 return (
-                  <tr key={material.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={material.id} className="hover:bg-surface-2/50 transition-colors">
                     <td className="py-3 pl-2">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-accent-emerald/20 flex items-center justify-center flex-shrink-0">
-                          <Package className="w-4 h-4 text-accent-emerald" />
+                        <div className="w-8 h-8 rounded-lg bg-success/15 flex items-center justify-center flex-shrink-0">
+                          <Package className="w-4 h-4 text-success" />
                         </div>
                         <span className="font-medium text-white">{material.name}</span>
                       </div>
@@ -358,7 +358,7 @@ const Materials = () => {
                           {category.name}
                         </span>
                       ) : (
-                        <span className="text-slate-500 text-sm">—</span>
+                        <span className="text-ink-muted text-sm">—</span>
                       )}
                     </td>
                     <td className="py-3">
@@ -369,19 +369,19 @@ const Materials = () => {
                     </td>
                     <td className="py-3">
                       {isInUse ? (
-                        <span className="badge-primary bg-accent-amber/20 text-accent-amber border-accent-amber/30">
+                        <span className="badge-primary bg-warning/20 text-warning border-warning/30">
                           <Link className="w-3 h-3 mr-1" />
                           {usageCount} produk
                         </span>
                       ) : (
-                        <span className="text-slate-500 text-sm">—</span>
+                        <span className="text-ink-muted text-sm">—</span>
                       )}
                     </td>
                     <td className="py-3 pr-2">
                       <div className="flex gap-2 justify-end">
                         <button
                           onClick={() => openModal(material)}
-                          className="p-2 text-slate-400 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                          className="p-2 text-ink-muted hover:text-ink hover:bg-surface-2 rounded-lg transition-colors"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
@@ -389,10 +389,10 @@ const Materials = () => {
                           onClick={() => handleDelete(material.id)}
                           disabled={deletingId === material.id || isInUse}
                           title={isInUse ? `Material digunakan dalam ${usageCount} produk` : 'Hapus material'}
-                          className="p-2 text-slate-400 hover:text-accent-rose hover:bg-accent-rose/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="p-2 text-ink-muted hover:text-danger hover:bg-danger/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {deletingId === material.id ? (
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-rose"></div>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-danger"></div>
                           ) : (
                             <Trash2 className="w-4 h-4" />
                           )}
@@ -416,7 +416,7 @@ const Materials = () => {
               <h2 className="text-lg font-semibold text-white">
                 {editingMaterial ? 'Edit Material' : 'Tambah Material'}
               </h2>
-              <button onClick={closeModal} className="p-2 text-slate-400 hover:text-white">
+              <button onClick={closeModal} className="p-2 text-ink-muted hover:text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -428,12 +428,12 @@ const Materials = () => {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className={`input-field ${formErrors.name ? 'border-accent-rose' : ''}`}
+                  className={`input-field ${formErrors.name ? 'border-danger' : ''}`}
                   placeholder="Contoh: Kain Canvas, Resleting #5..."
                   autoFocus
                 />
                 {formErrors.name && (
-                  <p className="text-accent-rose text-xs mt-1">{formErrors.name}</p>
+                  <p className="text-danger text-xs mt-1">{formErrors.name}</p>
                 )}
               </div>
 
@@ -442,7 +442,7 @@ const Materials = () => {
                 <select
                   value={formData.category_id}
                   onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
-                  className={`input-field ${formErrors.category_id ? 'border-accent-rose' : ''}`}
+                  className={`input-field ${formErrors.category_id ? 'border-danger' : ''}`}
                 >
                   <option value="">Pilih kategori...</option>
                   {categories.map(cat => (
@@ -450,7 +450,7 @@ const Materials = () => {
                   ))}
                 </select>
                 {formErrors.category_id && (
-                  <p className="text-accent-rose text-xs mt-1">{formErrors.category_id}</p>
+                  <p className="text-danger text-xs mt-1">{formErrors.category_id}</p>
                 )}
               </div>
 
@@ -460,12 +460,12 @@ const Materials = () => {
                   type="number"
                   value={formData.standard_price}
                   onChange={(e) => setFormData({ ...formData, standard_price: e.target.value })}
-                  className={`input-field ${formErrors.standard_price ? 'border-accent-rose' : ''}`}
+                  className={`input-field ${formErrors.standard_price ? 'border-danger' : ''}`}
                   placeholder="0"
                   min="0"
                 />
                 {formErrors.standard_price && (
-                  <p className="text-accent-rose text-xs mt-1">{formErrors.standard_price}</p>
+                  <p className="text-danger text-xs mt-1">{formErrors.standard_price}</p>
                 )}
               </div>
 
@@ -479,8 +479,8 @@ const Materials = () => {
                       onClick={() => setFormData({ ...formData, unit: option.value })}
                       className={`p-3 rounded-xl border text-sm font-medium transition-all ${
                         formData.unit === option.value
-                          ? 'border-primary-500 bg-primary-500/20 text-primary-400'
-                          : 'border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600'
+                          ? 'border-ink bg-surface-2 text-ink'
+                          : 'border-hairline bg-surface-2 text-ink-muted hover:border-ink'
                       }`}
                     >
                       {option.label}
@@ -488,7 +488,7 @@ const Materials = () => {
                   ))}
                 </div>
                 {formErrors.unit && (
-                  <p className="text-accent-rose text-xs mt-1">{formErrors.unit}</p>
+                  <p className="text-danger text-xs mt-1">{formErrors.unit}</p>
                 )}
               </div>
 

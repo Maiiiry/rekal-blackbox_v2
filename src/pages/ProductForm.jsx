@@ -340,7 +340,7 @@ const ProductForm = () => {
   if (loadingProduct) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-blue"></div>
       </div>
     )
   }
@@ -351,7 +351,7 @@ const ProductForm = () => {
       <div className="flex items-center gap-3 mb-6">
         <button 
           onClick={() => navigate('/products')}
-          className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+          className="p-2 text-ink-muted hover:text-ink hover:bg-surface-1 rounded-lg transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -367,15 +367,15 @@ const ProductForm = () => {
         <div className="lg:w-5/12 lg:sticky lg:top-4 space-y-6">
         {/* Basic Info */}
         <div className="glass-panel p-4">
-          <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
-            <Package className="w-4 h-4 text-primary-400" />
+          <h3 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+            <Package className="w-4 h-4 text-accent-blue" />
             Informasi Dasar
           </h3>
           
           {/* Product Photos Upload */}
           <div className="mb-4">
             <label className="input-label flex items-center gap-2">
-              <Images className="w-4 h-4 text-primary-400" />
+              <Images className="w-4 h-4 text-accent-blue" />
               Foto Produk
             </label>
           <MultiPhotoUpload
@@ -431,8 +431,8 @@ const ProductForm = () => {
 
         {/* Calculation Parameters */}
         <div className="glass-panel p-4">
-          <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
-            <Calculator className="w-4 h-4 text-primary-400" />
+          <h3 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+            <Calculator className="w-4 h-4 text-accent-blue" />
             Parameter Perhitungan
           </h3>
           
@@ -448,7 +448,7 @@ const ProductForm = () => {
                 min="0"
                 max="99"
               />
-              <p className="text-xs text-slate-600 mt-1">% dari total material</p>
+              <p className="text-xs text-ink-muted mt-1">% dari total material</p>
               {formErrors.overhead_percentage && (
                 <p className="text-accent-rose text-xs mt-1">{formErrors.overhead_percentage}</p>
               )}
@@ -465,7 +465,7 @@ const ProductForm = () => {
                 min="0"
                 max="99"
               />
-              <p className="text-xs text-slate-600 mt-1">% dari harga pabrik</p>
+              <p className="text-xs text-ink-muted mt-1">% dari harga pabrik</p>
               {formErrors.target_margin_percentage && (
                 <p className="text-accent-rose text-xs mt-1">{formErrors.target_margin_percentage}</p>
               )}
@@ -482,7 +482,7 @@ const ProductForm = () => {
                 min="0"
                 max="99"
               />
-              <p className="text-xs text-slate-600 mt-1">% dari harga jual</p>
+              <p className="text-xs text-ink-muted mt-1">% dari harga jual</p>
               {formErrors.margin_jual_percentage && (
                 <p className="text-accent-rose text-xs mt-1">{formErrors.margin_jual_percentage}</p>
               )}
@@ -499,7 +499,7 @@ const ProductForm = () => {
                 min="0"
                 max="99"
               />
-              <p className="text-xs text-slate-600 mt-1">% dari harga marketplace</p>
+              <p className="text-xs text-ink-muted mt-1">% dari harga marketplace</p>
               {formErrors.admin_marketplace_percentage && (
                 <p className="text-accent-rose text-xs mt-1">{formErrors.admin_marketplace_percentage}</p>
               )}
@@ -512,8 +512,8 @@ const ProductForm = () => {
         <div className="lg:w-7/12 space-y-6 mt-6 lg:mt-0">
         {/* Material Usage Calculation */}
         <div className="glass-panel p-4">
-          <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
-            <Calculator className="w-4 h-4 text-primary-400" />
+          <h3 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+            <Calculator className="w-4 h-4 text-accent-blue" />
             Perhitungan Penggunaan Material
           </h3>
 
@@ -537,7 +537,7 @@ const ProductForm = () => {
                 <div className="flex items-start gap-3">
                   <div className="flex-1 grid grid-cols-3 gap-2">
                     <div>
-                      <label className="text-xs text-slate-500 mb-1 block">P (Panjang)</label>
+                      <label className="text-xs text-ink-muted mb-1 block">P (Panjang)</label>
                       <input
                         type="number"
                         value={item.L}
@@ -548,7 +548,7 @@ const ProductForm = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-slate-500 mb-1 block">L (Lebar)</label>
+                      <label className="text-xs text-ink-muted mb-1 block">L (Lebar)</label>
                       <input
                         type="number"
                         value={item.W}
@@ -559,7 +559,7 @@ const ProductForm = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-slate-500 mb-1 block">x (Qty)</label>
+                      <label className="text-xs text-ink-muted mb-1 block">x (Qty)</label>
                       <input
                         type="number"
                         value={item.x}
@@ -588,32 +588,32 @@ const ProductForm = () => {
           <button
             type="button"
             onClick={handleAddUsageItem}
-            className="w-full py-2 border border-dashed border-slate-600 rounded-xl text-slate-400 hover:text-primary-400 hover:border-primary-400/50 transition-colors flex items-center justify-center gap-2 mb-4"
+            className="w-full py-2 border border-dashed border-hairline rounded-xl text-ink-muted hover:text-accent-blue hover:border-accent-blue/50 transition-colors flex items-center justify-center gap-2 mb-4"
           >
             <Plus className="w-4 h-4" />
             Tambah Item
           </button>
 
           {/* Calculation Result */}
-          <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
+          <div className="bg-surface-1/50 rounded-xl p-4 border border-hairline-soft">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs text-slate-500 mb-1">Hasil Perhitungan</p>
-                <p className="text-lg font-semibold text-primary-400">
+                <p className="text-xs text-ink-muted mb-1">Hasil Perhitungan</p>
+                <p className="text-lg font-semibold text-accent-blue">
                   {materialUsageResult > 0 ? materialUsageResult.toFixed(1) : '0.0'}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={handleCopyResult}
-                className="p-2 text-slate-400 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                className="p-2 text-ink-muted hover:text-accent-blue hover:bg-accent-blue/10 rounded-lg transition-colors"
                 title="Salin hasil"
               >
-                {copied ? <Check className="w-5 h-5 text-accent-emerald" /> : <Copy className="w-5 h-5" />}
+                {copied ? <Check className="w-5 h-5 text-success" /> : <Copy className="w-5 h-5" />}
               </button>
             </div>
             {materialWidth > 0 && (
-              <p className="text-xs text-slate-500 mt-2">
+              <p className="text-xs text-ink-muted mt-2">
                 Total: {usageItems.reduce((sum, item) => sum + ((parseFloat(item.L) || 0) * (parseFloat(item.W) || 0) * (parseFloat(item.x) || 0)), 0)} / {materialWidth} = {materialUsageResult > 0 ? materialUsageResult.toFixed(1) : '0.0'}
               </p>
             )}
@@ -623,15 +623,15 @@ const ProductForm = () => {
         {/* Bill of Materials */}
         <div className="glass-panel p-4">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
-              <Package className="w-4 h-4 text-primary-400" />
+            <h3 className="text-sm font-semibold text-ink flex items-center gap-2">
+              <Package className="w-4 h-4 text-accent-blue" />
               Komposisi Material
             </h3>
 
             <button
               type="button"
               onClick={handleAddBomItem}
-              className="p-2 text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+              className="p-2 text-accent-blue hover:bg-accent-blue/10 rounded-lg transition-colors"
             >
               <Plus className="w-5 h-5" />
             </button>
@@ -639,12 +639,12 @@ const ProductForm = () => {
 
           {bomItems.length === 0 ? (
             <div className="empty-state py-6">
-              <Package className="w-12 h-12 text-slate-600 mb-3" />
-              <p className="text-slate-500 text-sm">Belum ada material</p>
+              <Package className="w-12 h-12 text-ink-muted mb-3" />
+              <p className="text-ink-muted text-sm">Belum ada material</p>
               <button
                 type="button"
                 onClick={handleAddBomItem}
-                className="text-primary-400 text-sm mt-2 hover:underline"
+                className="text-accent-blue text-sm mt-2 hover:underline"
               >
                 + Tambah material
               </button>
@@ -661,20 +661,20 @@ const ProductForm = () => {
                         onClick={() => openMaterialSelector(index)}
                         className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all ${
                           item.material 
-                            ? 'bg-slate-800 border-slate-700 text-white' 
-                            : 'bg-slate-800/50 border-slate-700/50 text-slate-500'
+                            ? 'bg-surface-1 border-hairline text-ink'
+                            : 'bg-surface-1/50 border-hairline-soft text-ink-muted'
                         }`}
                       >
                         <span className="font-medium">
                           {item.material ? item.material.name : 'Pilih material...'}
                         </span>
-                        <ChevronDown className="w-4 h-4 text-slate-500" />
+                        <ChevronDown className="w-4 h-4 text-ink-muted" />
                       </button>
 
                       {item.material && (
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="text-xs text-slate-500 mb-1 block">Harga</label>
+                            <label className="text-xs text-ink-muted mb-1 block">Harga</label>
                             <input
                               type="number"
                               value={item.price}
@@ -684,7 +684,7 @@ const ProductForm = () => {
                             />
                           </div>
                           <div>
-                            <label className="text-xs text-slate-500 mb-1 block">
+                            <label className="text-xs text-ink-muted mb-1 block">
                               Qty ({item.material.unit})
                             </label>
                             <input
@@ -701,8 +701,8 @@ const ProductForm = () => {
 
                       {item.material && (
                         <div className="flex justify-between items-center text-sm">
-                          <span className="text-slate-500">Subtotal:</span>
-                          <span className="font-semibold text-primary-400">
+                          <span className="text-ink-muted">Subtotal:</span>
+                          <span className="font-semibold text-accent-blue">
                             {formatRupiah(item.price * item.quantity)}
                           </span>
                         </div>
@@ -724,48 +724,48 @@ const ProductForm = () => {
         </div>
 
         {/* Calculation Preview */}
-        <div className="glass-panel p-4 bg-gradient-to-br from-primary-900/30 to-accent-violet/20">
+        <div className="glass-panel p-4 bg-gradient-to-br from-gradient-violet/10 to-canvas">
           <h3 className="text-sm font-semibold text-white mb-4">Preview Perhitungan</h3>
 
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-slate-400">Total Material</span>
+              <span className="text-sm text-ink-muted">Total Material</span>
               <span className="font-medium text-white">{formatRupiah(calculations.totalMaterialCost)}</span>
             </div>
-            <div className="h-px bg-slate-700/50" />
-            <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+            <div className="h-px bg-hairline-soft" />
+            <div className="flex justify-between items-center pl-3 text-xs text-ink-muted">
               <span>+ Overhead ({formData.overhead_percentage}%)</span>
               <span>{formatRupiah(calculations.overheadAmount)}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-slate-400">HPP Final</span>
-              <span className="font-medium text-primary-400">{formatRupiah(calculations.hppFinal)}</span>
+              <span className="text-sm text-ink-muted">HPP Final</span>
+              <span className="font-medium text-accent-blue">{formatRupiah(calculations.hppFinal)}</span>
             </div>
-            <div className="h-px bg-slate-700/50" />
-            <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+            <div className="h-px bg-hairline-soft" />
+            <div className="flex justify-between items-center pl-3 text-xs text-ink-muted">
               <span>+ Margin Pabrik ({formData.target_margin_percentage}%)</span>
               <span>{formatRupiah(calculations.hargaPabrik - calculations.hppFinal)}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-slate-400">Harga Pabrik</span>
+              <span className="text-sm text-ink-muted">Harga Pabrik</span>
               <span className="font-medium text-accent-cyan">{formatRupiah(calculations.hargaPabrik)}</span>
             </div>
-            <div className="h-px bg-slate-700/50" />
-            <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+            <div className="h-px bg-hairline-soft" />
+            <div className="flex justify-between items-center pl-3 text-xs text-ink-muted">
               <span>+ Margin Jual ({formData.margin_jual_percentage}%)</span>
               <span>{formatRupiah(calculations.hargaJual - calculations.hargaPabrik)}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-slate-400">Harga Jual</span>
-              <span className="font-medium text-accent-emerald">{formatRupiah(calculations.hargaJual)}</span>
+              <span className="text-sm text-ink-muted">Harga Jual</span>
+              <span className="font-medium text-success">{formatRupiah(calculations.hargaJual)}</span>
             </div>
-            <div className="h-px bg-slate-700/50" />
-            <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+            <div className="h-px bg-hairline-soft" />
+            <div className="flex justify-between items-center pl-3 text-xs text-ink-muted">
               <span>+ Admin Marketplace ({formData.admin_marketplace_percentage}%)</span>
               <span>{formatRupiah(calculations.hargaMarketplace - calculations.hargaJual)}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-slate-400">Harga Marketplace</span>
+              <span className="text-sm text-ink-muted">Harga Marketplace</span>
               <span className="font-bold text-white">{formatRupiah(calculations.hargaMarketplace)}</span>
             </div>
           </div>
@@ -805,7 +805,7 @@ const ProductForm = () => {
               <h2 className="text-lg font-semibold text-white">Pilih Material</h2>
               <button 
                 onClick={() => setShowMaterialSelector(false)}
-                className="p-2 text-slate-400 hover:text-white"
+                className="p-2 text-ink-muted hover:text-ink"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -814,12 +814,12 @@ const ProductForm = () => {
             <div className="overflow-y-auto flex-1 -mx-6 px-6">
               {loading.materials ? (
                 <div className="flex justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-blue"></div>
                 </div>
               ) : materials.length === 0 ? (
                 <div className="empty-state py-8">
-                  <Package className="w-12 h-12 text-slate-600 mb-3" />
-                  <p className="text-slate-500">Belum ada material</p>
+                  <Package className="w-12 h-12 text-ink-muted mb-3" />
+                  <p className="text-ink-muted">Belum ada material</p>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -828,17 +828,17 @@ const ProductForm = () => {
                       key={material.id}
                       type="button"
                       onClick={() => handleSelectMaterial(material)}
-                      className="w-full text-left p-3 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors"
+                      className="w-full text-left p-3 rounded-xl bg-surface-1 hover:bg-surface-2 transition-colors"
                     >
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium text-white">{material.name}</p>
 
-                          <p className="text-xs text-slate-500">
+                          <p className="text-xs text-ink-muted">
                             {material.categories?.name} • {formatRupiah(material.standard_price)}/{material.unit}
                           </p>
                         </div>
-                        <Package className="w-4 h-4 text-slate-600" />
+                        <Package className="w-4 h-4 text-ink-muted" />
                       </div>
                     </button>
                   ))}

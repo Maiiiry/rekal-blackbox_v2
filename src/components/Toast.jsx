@@ -51,9 +51,9 @@ const ToastItem = ({ message, type, onClose }) => {
   }
   
   const colors = {
-    success: 'bg-accent-emerald/90 text-white',
-    error: 'bg-accent-rose/90 text-white',
-    info: 'bg-primary-500/90 text-white'
+    success: 'bg-success/90 text-white',
+    error: 'bg-danger/90 text-white',
+    info: 'bg-accent-blue/90 text-white'
   }
   
   const Icon = icons[type]

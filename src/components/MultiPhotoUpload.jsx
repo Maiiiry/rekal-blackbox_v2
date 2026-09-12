@@ -210,8 +210,8 @@ const MultiPhotoUpload = ({
             onDragStart={() => handleDragStart(index)}
             onDragOver={(e) => handleDragOver(e, index)}
             onDragEnd={handleDragEnd}
-            className={`relative aspect-square rounded-xl overflow-hidden bg-slate-800 border-2 ${
-              draggingIndex === index ? 'border-primary-500 opacity-50' : 'border-slate-700'
+            className={`relative aspect-square rounded-xl overflow-hidden bg-surface-1 border-2 ${
+              draggingIndex === index ? 'border-accent-blue opacity-50' : 'border-hairline'
             } group cursor-move`}
           >
             <img
@@ -221,7 +221,7 @@ const MultiPhotoUpload = ({
             />
             
             {/* Overlay */}
-            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
+            <div className="absolute inset-0 bg-canvas/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
               <div className="flex items-center gap-1">
                 <GripVertical className="w-4 h-4 text-white/70" />
                 <span className="text-white text-xs">Drag</span>
@@ -237,13 +237,13 @@ const MultiPhotoUpload = ({
             </div>
 
             {/* Order Badge */}
-            <div className="absolute top-2 left-2 px-2 py-1 bg-black/50 rounded-full text-white text-xs font-medium">
+            <div className="absolute top-2 left-2 px-2 py-1 bg-canvas/50 rounded-full text-white text-xs font-medium">
               {index + 1}
             </div>
 
             {/* New Photo Badge */}
             {photo.isNew && (
-              <div className="absolute top-2 right-2 p-1 bg-accent-emerald rounded-full">
+              <div className="absolute top-2 right-2 p-1 bg-success rounded-full">
                 <Check className="w-3 h-3 text-white" />
               </div>
             )}
@@ -256,14 +256,14 @@ const MultiPhotoUpload = ({
             type="button"
             onClick={triggerFileInput}
             disabled={uploading}
-            className="aspect-square rounded-xl border-2 border-dashed border-slate-600 hover:border-primary-500 hover:bg-primary-500/5 flex flex-col items-center justify-center gap-2 transition-all group"
+            className="aspect-square rounded-xl border-2 border-dashed border-hairline hover:border-accent-blue hover:bg-accent-blue/5 flex flex-col items-center justify-center gap-2 transition-all group"
           >
             {uploading ? (
-              <Loader2 className="w-8 h-8 animate-spin text-primary-400" />
+              <Loader2 className="w-8 h-8 animate-spin text-accent-blue" />
             ) : (
               <>
-                <Upload className="w-8 h-8 text-slate-500 group-hover:text-primary-400 transition-colors" />
-                <span className="text-xs text-slate-500 group-hover:text-primary-400 transition-colors">
+                <Upload className="w-8 h-8 text-ink-muted group-hover:text-accent-blue transition-colors" />
+                <span className="text-xs text-ink-muted group-hover:text-accent-blue transition-colors">
                   Tambah Foto
                 </span>
               </>
@@ -273,7 +273,7 @@ const MultiPhotoUpload = ({
       </div>
 
       {/* Info Text */}
-      <div className="flex items-center justify-between text-xs text-slate-500">
+      <div className="flex items-center justify-between text-xs text-ink-muted">
         <span>{photos.length} / {maxPhotos} foto</span>
         <span>Maks 2MB per foto (JPG, PNG, WebP)</span>
       </div>
@@ -281,7 +281,7 @@ const MultiPhotoUpload = ({
 
       {/* Upload Progress */}
       {uploading && (
-        <div className="flex items-center gap-2 text-sm text-primary-400">
+        <div className="flex items-center gap-2 text-sm text-accent-blue">
           <Loader2 className="w-4 h-4 animate-spin" />
           <span>Mengupload foto...</span>
         </div>

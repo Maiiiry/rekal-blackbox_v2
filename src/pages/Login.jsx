@@ -48,7 +48,7 @@ const Login = () => {
 
           </div>
           <h1 className="text-2xl font-bold text-white mb-1">ReKal</h1>
-          <p className="text-slate-400 text-sm">Rekalkulasi HPP</p>
+          <p className="text-ink-muted text-sm">Rekalkulasi HPP</p>
         </div>
 
 
@@ -92,7 +92,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -112,7 +112,7 @@ const Login = () => {
           <div className="mt-6 text-center">
             <button
               onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-primary-400 hover:text-primary-300"
+              className="text-sm text-accent-blue hover:text-accent-blue/80"
             >
               {isLogin ? 'Belum punya akun? Daftar' : 'Sudah punya akun? Masuk'}
             </button>
@@ -123,14 +123,14 @@ const Login = () => {
         <div className="mt-6 text-center">
           <button
             onClick={() => navigate('/')}
-            className="text-xs text-slate-500 hover:text-slate-300 underline"
+            className="text-xs text-ink-muted hover:text-ink underline"
           >
             Mode Demo (Lewati Login)
           </button>
         </div>
 
         {/* Footer */}
-        <p className="text-center text-slate-500 text-xs mt-8">
+        <p className="text-center text-ink-muted text-xs mt-8">
           PT. Redone Berkah Mandiri • ReKal v1.0.0
         </p>
       </div>

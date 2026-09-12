@@ -26,6 +26,21 @@ export default {
         // Semantic
         success: '#22c55e',
         danger: '#ef4444',
+        // Semantic aliases (matching existing values)
+        'accent-rose': '#ef4444',
+        'accent-emerald': '#22c55e',
+        // New accents
+        'accent-cyan': '#06b6d4',
+        'accent-violet': '#6a4cf5',
+        // Warning semantic
+        warning: '#f59e0b',
+        // Primary palette (temporary — tech debt)
+        primary: {
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',
+          900: '#1e3a5f',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],

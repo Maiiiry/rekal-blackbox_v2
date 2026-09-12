@@ -143,7 +143,7 @@ const ProductPhotoUpload = ({
 
       {/* Photo container */}
       <div 
-        className={`${sizeClasses[size]} rounded-2xl overflow-hidden bg-slate-800 border-2 border-dashed border-slate-600 flex items-center justify-center relative group`}
+        className={`${sizeClasses[size]} rounded-2xl overflow-hidden bg-surface-1 border-2 border-dashed border-hairline flex items-center justify-center relative group`}
       >
         {previewUrl ? (
           <>
@@ -156,7 +156,7 @@ const ProductPhotoUpload = ({
             
             {/* Overlay for editable mode */}
             {editable && (
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+              <div className="absolute inset-0 bg-canvas/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 <button
                   type="button"
                   onClick={triggerFileInput}
@@ -183,10 +183,10 @@ const ProductPhotoUpload = ({
               type="button"
               onClick={triggerFileInput}
               disabled={uploading}
-              className="w-full h-full flex flex-col items-center justify-center text-slate-500 hover:text-slate-400 transition-colors"
+              className="w-full h-full flex flex-col items-center justify-center text-ink-muted hover:text-ink transition-colors"
             >
               {uploading ? (
-                <Loader2 className={`${iconSizes[size]} animate-spin text-primary-400`} />
+                <Loader2 className={`${iconSizes[size]} animate-spin text-accent-blue`} />
               ) : (
                 <>
                   <Upload className={`${iconSizes[size]} mb-1`} />
@@ -195,7 +195,7 @@ const ProductPhotoUpload = ({
               )}
             </button>
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-slate-600">
+            <div className="w-full h-full flex items-center justify-center text-ink-muted">
               <Camera className={iconSizes[size]} />
             </div>
           )
@@ -204,8 +204,8 @@ const ProductPhotoUpload = ({
 
       {/* Uploading indicator overlay */}
       {uploading && previewUrl && (
-        <div className="absolute inset-0 bg-black/50 rounded-2xl flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-primary-400" />
+        <div className="absolute inset-0 bg-canvas/50 rounded-2xl flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-accent-blue" />
         </div>
       )}
     </div>

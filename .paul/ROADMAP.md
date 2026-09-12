@@ -64,8 +64,9 @@ Total visual overhaul menggunakan Framer design system sebagai referensi. Hapus 
 |-------|------|-------------|--------|
 | 07 | design-system | CSS tokens, Inter font, color vars, base utilities, komponen primitif | ✅ Complete |
 | 08 | shell-navigation | Sidebar desktop + mobile nav — Framer black canvas | ✅ Complete |
-| 09 | list-views | Dashboard, Products, Materials, Categories — design baru | 🔵 Next |
-| 10 | detail-views | ProductDetail, ProductForm, PriceSimulation — detail + form | ⬜ Pending |
+| 09 | list-views | Dashboard, Products, Materials, Categories — design baru | ✅ Complete |
+| 10 | detail-views | ProductDetail, ProductForm, PriceSimulation — detail + form | ⏸ Ditunda |
+| 11 | color-scheme-fix | Fix missing tokens + migrate slate→Framer + formalisasi semantic colors | ✅ Complete |
 
 **Success criteria:**
 - Seluruh UI menggunakan Framer design system (canvas #090909, pill CTAs, Inter Variable)

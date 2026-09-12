@@ -111,7 +111,7 @@ const Categories = () => {
       <div className="page-header">
         <button
           onClick={() => navigate('/materials')}
-          className="flex items-center gap-1 text-slate-400 hover:text-primary-400 transition-colors mb-3 text-sm"
+          className="flex items-center gap-1 text-ink-muted hover:text-ink transition-colors mb-3 text-sm"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>Material</span>
@@ -123,7 +123,7 @@ const Categories = () => {
       {/* Search & Add */}
       <div className="flex gap-3 mb-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-muted" />
           <input
             type="text"
             value={searchQuery}
@@ -139,12 +139,12 @@ const Categories = () => {
 
       {/* Error State */}
       {errors?.categories && (
-        <div className="bg-accent-rose/10 border border-accent-rose/30 rounded-xl p-4 mb-4">
-          <p className="text-accent-rose text-sm">{errors.categories}</p>
+        <div className="bg-danger/10 border border-danger/30 rounded-xl p-4 mb-4">
+          <p className="text-danger text-sm">{errors.categories}</p>
 
-          <button 
+          <button
             onClick={fetchCategories}
-            className="mt-2 text-xs text-accent-rose underline hover:no-underline"
+            className="mt-2 text-xs text-danger underline hover:no-underline"
           >
             Coba lagi
           </button>
@@ -155,7 +155,7 @@ const Categories = () => {
       {loading.categories ? (
 
         <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ink-muted"></div>
         </div>
       ) : filteredCategories.length === 0 ? (
         <div className="empty-state">
@@ -174,19 +174,19 @@ const Categories = () => {
               <div key={category.id} className="list-item">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary-500/20 flex items-center justify-center">
-                      <Layers className="w-5 h-5 text-primary-400" />
+                    <div className="w-10 h-10 rounded-xl bg-surface-2 flex items-center justify-center">
+                      <Layers className="w-5 h-5 text-ink-muted" />
                     </div>
                     <div>
                       <h3 className="font-medium text-white">{category.name}</h3>
                       <div className="flex items-center gap-2 text-xs mt-1 flex-wrap">
                         {hasMaterials ? (
-                          <span className="badge-primary bg-accent-amber/20 text-accent-amber border-accent-amber/30">
+                          <span className="badge-primary bg-warning/20 text-warning border-warning/30">
                             <Link className="w-3 h-3 mr-1" />
                             {materialCount} material
                           </span>
                         ) : (
-                          <span className="text-slate-500 flex items-center gap-1">
+                          <span className="text-ink-muted flex items-center gap-1">
                             <Package className="w-3 h-3" />
                             {materialCount} material
                           </span>
@@ -198,7 +198,7 @@ const Categories = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={() => openModal(category)}
-                      className="p-2 text-slate-400 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                      className="p-2 text-ink-muted hover:text-ink hover:bg-surface-2 rounded-lg transition-colors"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
@@ -206,10 +206,10 @@ const Categories = () => {
                       onClick={() => handleDelete(category.id)}
                       disabled={deletingId === category.id || hasMaterials}
                       title={hasMaterials ? `Kategori memiliki ${materialCount} material. Kosongkan terlebih dahulu.` : 'Hapus kategori'}
-                      className="p-2 text-slate-400 hover:text-accent-rose hover:bg-accent-rose/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="p-2 text-ink-muted hover:text-danger hover:bg-danger/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {deletingId === category.id ? (
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-rose"></div>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-danger"></div>
                       ) : (
                         <Trash2 className="w-4 h-4" />
                       )}
@@ -224,41 +224,41 @@ const Categories = () => {
         <div className="hidden lg:block">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-slate-800">
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3 pl-2">Kategori</th>
-                <th className="text-left text-xs font-medium text-slate-500 uppercase tracking-wider pb-3">Jumlah Material</th>
-                <th className="text-right text-xs font-medium text-slate-500 uppercase tracking-wider pb-3 pr-2">Aksi</th>
+              <tr className="border-b border-hairline">
+                <th className="text-left text-xs font-medium text-ink-muted uppercase tracking-wider pb-3 pl-2">Kategori</th>
+                <th className="text-left text-xs font-medium text-ink-muted uppercase tracking-wider pb-3">Jumlah Material</th>
+                <th className="text-right text-xs font-medium text-ink-muted uppercase tracking-wider pb-3 pr-2">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/50">
+            <tbody className="divide-y divide-surface-2">
               {filteredCategories.map(category => {
                 const materialCount = getMaterialCount(category.id)
                 const hasMaterials = materialCount > 0
                 return (
-                  <tr key={category.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={category.id} className="hover:bg-surface-2/50 transition-colors">
                     <td className="py-3 pl-2">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-primary-500/20 flex items-center justify-center flex-shrink-0">
-                          <Layers className="w-4 h-4 text-primary-400" />
+                        <div className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center flex-shrink-0">
+                          <Layers className="w-4 h-4 text-ink-muted" />
                         </div>
                         <span className="font-medium text-white">{category.name}</span>
                       </div>
                     </td>
                     <td className="py-3">
                       {hasMaterials ? (
-                        <span className="badge-primary bg-accent-amber/20 text-accent-amber border-accent-amber/30">
+                        <span className="badge-primary bg-warning/20 text-warning border-warning/30">
                           <Link className="w-3 h-3 mr-1" />
                           {materialCount} material
                         </span>
                       ) : (
-                        <span className="text-slate-500 text-sm">0 material</span>
+                        <span className="text-ink-muted text-sm">0 material</span>
                       )}
                     </td>
                     <td className="py-3 pr-2">
                       <div className="flex gap-2 justify-end">
                         <button
                           onClick={() => openModal(category)}
-                          className="p-2 text-slate-400 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+                          className="p-2 text-ink-muted hover:text-ink hover:bg-surface-2 rounded-lg transition-colors"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
@@ -266,10 +266,10 @@ const Categories = () => {
                           onClick={() => handleDelete(category.id)}
                           disabled={deletingId === category.id || hasMaterials}
                           title={hasMaterials ? `Kategori memiliki ${materialCount} material` : 'Hapus kategori'}
-                          className="p-2 text-slate-400 hover:text-accent-rose hover:bg-accent-rose/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="p-2 text-ink-muted hover:text-danger hover:bg-danger/10 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {deletingId === category.id ? (
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-accent-rose"></div>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-danger"></div>
                           ) : (
                             <Trash2 className="w-4 h-4" />
                           )}
@@ -293,7 +293,7 @@ const Categories = () => {
               <h2 className="text-lg font-semibold text-white">
                 {editingCategory ? 'Edit Kategori' : 'Tambah Kategori'}
               </h2>
-              <button onClick={closeModal} className="p-2 text-slate-400 hover:text-white">
+              <button onClick={closeModal} className="p-2 text-ink-muted hover:text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -305,12 +305,12 @@ const Categories = () => {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ name: e.target.value })}
-                  className={`input-field ${formErrors.name ? 'border-accent-rose' : ''}`}
+                  className={`input-field ${formErrors.name ? 'border-danger' : ''}`}
                   placeholder="Contoh: Kain, Resleting, Busa..."
                   autoFocus
                 />
                 {formErrors.name && (
-                  <p className="text-accent-rose text-xs mt-1">{formErrors.name}</p>
+                  <p className="text-danger text-xs mt-1">{formErrors.name}</p>
                 )}
               </div>
 

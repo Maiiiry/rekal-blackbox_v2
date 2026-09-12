@@ -92,18 +92,18 @@ const ProductCombobox = ({ products, value, onChange, loading }) => {
         ref={triggerRef}
         type="button"
         onClick={() => { setOpen(o => !o); setQuery('') }}
-        className="w-full flex items-center justify-between gap-2 h-11 px-3 bg-slate-800 border border-slate-700 hover:border-slate-500 focus:border-primary-500 rounded-xl text-sm transition-colors"
+        className="w-full flex items-center justify-between gap-2 h-11 px-3 bg-surface-1 border border-hairline hover:border-ink-muted focus:border-accent-blue rounded-xl text-sm transition-colors"
       >
-        <span className={selected ? 'text-white font-medium truncate' : 'text-slate-500'}>
+        <span className={selected ? 'text-white font-medium truncate' : 'text-ink-muted'}>
           {selected ? selected.name : loading ? 'Memuat produk...' : 'Cari & pilih produk...'}
         </span>
         <div className="flex items-center gap-1 flex-shrink-0">
           {selected && (
-            <span role="button" onClick={handleClear} className="p-0.5 text-slate-500 hover:text-white">
+            <span role="button" onClick={handleClear} className="p-0.5 text-ink-muted hover:text-ink">
               <X className="w-3.5 h-3.5" />
             </span>
           )}
-          <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${open ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-4 h-4 text-ink-muted transition-transform ${open ? 'rotate-180' : ''}`} />
         </div>
       </button>
 
@@ -112,24 +112,24 @@ const ProductCombobox = ({ products, value, onChange, loading }) => {
         <div
           ref={dropdownRef}
           style={dropdownStyle}
-          className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden"
+          className="bg-surface-1 border border-hairline rounded-xl shadow-2xl overflow-hidden"
         >
-          <div className="p-2 border-b border-slate-800">
+          <div className="p-2 border-b border-hairline-soft">
             <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-muted" />
               <input
                 ref={searchInputRef}
                 type="text"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
                 placeholder="Ketik nama produk..."
-                className="w-full h-9 bg-slate-800 border border-slate-700 rounded-lg pl-8 pr-3 text-sm text-white placeholder-slate-500 outline-none focus:border-primary-500"
+                className="w-full h-9 bg-surface-2 border border-hairline rounded-lg pl-8 pr-3 text-sm text-white placeholder-ink-muted outline-none focus:border-accent-blue"
               />
             </div>
           </div>
           <div className="max-h-52 overflow-y-auto">
             {filtered.length === 0 ? (
-              <p className="text-center text-slate-500 text-sm py-6">Produk tidak ditemukan</p>
+              <p className="text-center text-ink-muted text-sm py-6">Produk tidak ditemukan</p>
             ) : (
               filtered.map(product => (
                 <button
@@ -138,13 +138,13 @@ const ProductCombobox = ({ products, value, onChange, loading }) => {
                   onClick={() => handleSelect(product)}
                   className={`w-full text-left px-3 py-2.5 text-sm transition-colors ${
                     product.id === value
-                      ? 'bg-primary-500/20 text-primary-300'
-                      : 'text-white hover:bg-slate-800'
+                      ? 'bg-accent-blue/20 text-accent-blue'
+                      : 'text-ink hover:bg-surface-2'
                   }`}
                 >
                   <p className="font-medium truncate">{product.name}</p>
                   {product.production_cost > 0 && (
-                    <p className="text-xs text-slate-500 mt-0.5">HPP {formatRupiah(product.production_cost)}</p>
+                    <p className="text-xs text-ink-muted mt-0.5">HPP {formatRupiah(product.production_cost)}</p>
                   )}
                 </button>
               ))
@@ -267,7 +267,7 @@ const PriceSimulation = () => {
       {/* Header */}
       <div className="page-header">
         <h1 className="page-title flex items-center gap-2">
-          <Calculator className="w-6 h-6 text-primary-400" />
+          <Calculator className="w-6 h-6 text-accent-blue" />
           Simulasi Harga
         </h1>
         <p className="page-subtitle">Hitung dan simulasikan harga jual produk</p>
@@ -278,8 +278,8 @@ const PriceSimulation = () => {
       <div className="lg:w-5/12 lg:sticky lg:top-4 space-y-4">
       {/* Product Selection — Searchable Combobox */}
       <div className="glass-panel p-4 mb-4 lg:mb-0">
-        <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
-          <Package className="w-4 h-4 text-primary-400" />
+        <h3 className="text-sm font-semibold text-ink mb-3 flex items-center gap-2">
+          <Package className="w-4 h-4 text-accent-blue" />
           Pilih Produk
         </h3>
         <ProductCombobox
@@ -288,13 +288,13 @@ const PriceSimulation = () => {
           onChange={setSelectedProductId}
           loading={loading.products}
         />
-        <p className="text-xs text-slate-600 mt-2">Opsional — kosongkan untuk simulasi manual</p>
+        <p className="text-xs text-ink-muted mt-2">Opsional — kosongkan untuk simulasi manual</p>
       </div>
 
       {/* Parameters */}
       <div className="glass-panel p-4 mb-4 lg:mb-0">
-        <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
-          <TrendingUp className="w-4 h-4 text-primary-400" />
+        <h3 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+          <TrendingUp className="w-4 h-4 text-accent-blue" />
           Parameter Perhitungan
         </h3>
         <div className="grid grid-cols-2 gap-3">
@@ -314,7 +314,7 @@ const PriceSimulation = () => {
                 min="0"
                 max="99"
               />
-              <p className="text-xs text-slate-600 mt-1">{hint}</p>
+              <p className="text-xs text-ink-muted mt-1">{hint}</p>
             </div>
           ))}
         </div>
@@ -326,20 +326,20 @@ const PriceSimulation = () => {
           <button
             type="button"
             onClick={() => setBomCollapsed(!bomCollapsed)}
-            className="flex items-center gap-2 text-sm font-semibold text-slate-300 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-sm font-semibold text-ink hover:text-ink transition-colors"
           >
-            <Layers className="w-4 h-4 text-primary-400" />
+            <Layers className="w-4 h-4 text-accent-blue" />
             Komposisi Material (BoM)
             {bomItems.length > 0 && (
-              <span className="text-xs font-normal text-slate-500">({bomItems.length})</span>
+              <span className="text-xs font-normal text-ink-muted">({bomItems.length})</span>
             )}
-            <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${bomCollapsed ? '-rotate-90' : ''}`} />
+            <ChevronDown className={`w-4 h-4 text-ink-muted transition-transform duration-200 ${bomCollapsed ? '-rotate-90' : ''}`} />
           </button>
           {!bomCollapsed && (
             <button
               type="button"
               onClick={handleAddBomItem}
-              className="p-2 text-primary-400 hover:bg-primary-500/10 rounded-lg transition-colors"
+              className="p-2 text-accent-blue hover:bg-accent-blue/10 rounded-lg transition-colors"
             >
               <Plus className="w-5 h-5" />
             </button>
@@ -348,9 +348,9 @@ const PriceSimulation = () => {
 
         {!bomCollapsed && bomItems.length === 0 && (
           <div className="empty-state py-6">
-            <Layers className="w-10 h-10 text-slate-600 mb-2" />
-            <p className="text-slate-500 text-sm">Belum ada material</p>
-            <button type="button" onClick={handleAddBomItem} className="text-primary-400 text-sm mt-2 hover:underline">
+            <Layers className="w-10 h-10 text-ink-muted mb-2" />
+            <p className="text-ink-muted text-sm">Belum ada material</p>
+            <button type="button" onClick={handleAddBomItem} className="text-accent-blue text-sm mt-2 hover:underline">
               + Tambah material
             </button>
           </div>
@@ -367,14 +367,14 @@ const PriceSimulation = () => {
                     onClick={() => openMaterialSelector(index)}
                     className={`flex-1 flex items-center justify-between h-10 px-3 rounded-xl border text-sm transition-all ${
                       item.material
-                        ? 'bg-slate-800 border-slate-700 text-white'
-                        : 'bg-slate-800/50 border-slate-700/50 text-slate-500'
+                        ? 'bg-surface-1 border-hairline text-ink'
+                        : 'bg-surface-1/50 border-hairline-soft text-ink-muted'
                     }`}
                   >
                     <span className="truncate font-medium">
                       {item.material ? item.material.name : 'Pilih material...'}
                     </span>
-                    <ChevronDown className="w-4 h-4 text-slate-500 flex-shrink-0 ml-1" />
+                    <ChevronDown className="w-4 h-4 text-ink-muted flex-shrink-0 ml-1" />
                   </button>
                   <button
                     type="button"
@@ -387,9 +387,9 @@ const PriceSimulation = () => {
 
                 {/* Quantity, Price (editable), Subtotal */}
                 {item.material && (
-                  <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-700/50">
+                  <div className="grid grid-cols-3 gap-2 pt-2 border-t border-hairline-soft">
                     <div>
-                      <label className="text-[10px] text-slate-500 block mb-1">
+                      <label className="text-[10px] text-ink-muted block mb-1">
                         Jumlah ({item.material.unit})
                       </label>
                       <input
@@ -402,7 +402,7 @@ const PriceSimulation = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-slate-500 block mb-1">
+                      <label className="text-[10px] text-ink-muted block mb-1">
                         Harga/unit (Rp)
                       </label>
                       <input
@@ -414,8 +414,8 @@ const PriceSimulation = () => {
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] text-slate-500 block mb-1">Subtotal</label>
-                      <div className="h-[34px] flex items-center px-2 bg-slate-800/50 rounded-lg text-sm font-semibold text-primary-400">
+                      <label className="text-[10px] text-ink-muted block mb-1">Subtotal</label>
+                      <div className="h-[34px] flex items-center px-2 bg-surface-1/50 rounded-lg text-sm font-semibold text-accent-blue">
                         {formatRupiah((item.price || 0) * (item.quantity || 0))}
                       </div>
                     </div>
@@ -432,9 +432,9 @@ const PriceSimulation = () => {
       {/* Kolom kanan — results */}
       <div className="lg:w-7/12 space-y-4 mt-4 lg:mt-0">
       {/* Calculation Results */}
-      <div className="glass-panel p-4 bg-gradient-to-br from-primary-900/30 to-accent-violet/20 mb-3 lg:mb-0">
+      <div className="glass-panel p-4 bg-gradient-to-br from-gradient-violet/10 to-canvas mb-3 lg:mb-0">
         <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-          <DollarSign className="w-4 h-4 text-primary-400" />
+          <DollarSign className="w-4 h-4 text-accent-blue" />
           Hasil Perhitungan
         </h3>
 
@@ -451,7 +451,7 @@ const PriceSimulation = () => {
             icon={<Factory className="w-4 h-4" />}
             label="HPP Final"
             value={formatRupiah(calculations.hppFinal)}
-            valueClass="text-primary-400 font-semibold"
+            valueClass="text-accent-blue font-semibold"
           />
           <Divider />
           <SubRow label={`+ Margin Pabrik (${marginPabrikPercentage}%)`} value={formatRupiah(calculations.hargaPabrik - calculations.hppFinal)} />
@@ -467,7 +467,7 @@ const PriceSimulation = () => {
             icon={<TrendingUp className="w-4 h-4" />}
             label="Harga Jual"
             value={formatRupiah(calculations.hargaJual)}
-            valueClass="text-accent-emerald font-bold text-lg"
+            valueClass="text-success font-bold text-lg"
           />
           <Divider />
           <SubRow label={`+ Admin Marketplace (${adminMarketplacePercentage}%)`} value={formatRupiah(calculations.hargaMarketplace - calculations.hargaJual)} />
@@ -484,7 +484,7 @@ const PriceSimulation = () => {
       <button
         type="button"
         onClick={handleReset}
-        className="flex items-center gap-1.5 mx-auto text-xs text-slate-500 hover:text-slate-300 transition-colors py-2"
+        className="flex items-center gap-1.5 mx-auto text-xs text-ink-muted hover:text-ink transition-colors py-2"
       >
         <RotateCcw className="w-3.5 h-3.5" />
         Reset Simulasi
@@ -495,18 +495,18 @@ const PriceSimulation = () => {
       {/* ── Sticky Result Bar ── */}
       {hasData && (
         <div className="fixed bottom-16 left-0 right-0 z-10 px-4 pb-2 pointer-events-none lg:hidden">
-          <div className="bg-slate-900/95 backdrop-blur-md border border-slate-700 rounded-2xl px-4 py-3 shadow-2xl pointer-events-auto">
-            <div className="grid grid-cols-3 divide-x divide-slate-700 text-center">
+          <div className="bg-surface-1/95 backdrop-blur-md border border-hairline rounded-2xl px-4 py-3 shadow-2xl pointer-events-auto">
+            <div className="grid grid-cols-3 divide-x divide-hairline text-center">
               <div className="pr-3">
-                <p className="text-[10px] text-slate-500 mb-0.5">HPP</p>
-                <p className="text-sm font-bold text-primary-400">{formatRupiah(calculations.hppFinal)}</p>
+                <p className="text-[10px] text-ink-muted mb-0.5">HPP</p>
+                <p className="text-sm font-bold text-accent-blue">{formatRupiah(calculations.hppFinal)}</p>
               </div>
               <div className="px-3">
-                <p className="text-[10px] text-slate-500 mb-0.5">Harga Jual</p>
-                <p className="text-sm font-bold text-accent-emerald">{formatRupiah(calculations.hargaJual)}</p>
+                <p className="text-[10px] text-ink-muted mb-0.5">Harga Jual</p>
+                <p className="text-sm font-bold text-success">{formatRupiah(calculations.hargaJual)}</p>
               </div>
               <div className="pl-3">
-                <p className="text-[10px] text-slate-500 mb-0.5">Marketplace</p>
+                <p className="text-[10px] text-ink-muted mb-0.5">Marketplace</p>
                 <p className="text-sm font-bold text-white">{formatRupiah(calculations.hargaMarketplace)}</p>
               </div>
             </div>
@@ -523,33 +523,33 @@ const PriceSimulation = () => {
           >
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-base font-semibold text-white">Pilih Material</h2>
-              <button onClick={() => setShowMaterialSelector(false)} className="p-2 text-slate-400 hover:text-white">
+              <button onClick={() => setShowMaterialSelector(false)} className="p-2 text-ink-muted hover:text-ink">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Search */}
             <div className="relative mb-3">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-muted" />
               <input
                 autoFocus
                 type="text"
                 value={materialSearch}
                 onChange={e => setMaterialSearch(e.target.value)}
                 placeholder="Cari material..."
-                className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 text-sm text-white placeholder-slate-500 outline-none focus:border-primary-500"
+                className="w-full h-10 bg-surface-1 border border-hairline rounded-xl pl-9 pr-3 text-sm text-white placeholder-ink-muted outline-none focus:border-accent-blue"
               />
             </div>
 
             <div className="overflow-y-auto flex-1 -mx-6 px-6">
               {loading.materials ? (
                 <div className="flex justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500" />
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-blue" />
                 </div>
               ) : filteredMaterials.length === 0 ? (
                 <div className="empty-state py-8">
-                  <Package className="w-10 h-10 text-slate-600 mb-2" />
-                  <p className="text-slate-500 text-sm">Tidak ada material</p>
+                  <Package className="w-10 h-10 text-ink-muted mb-2" />
+                  <p className="text-ink-muted text-sm">Tidak ada material</p>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -558,16 +558,16 @@ const PriceSimulation = () => {
                       key={material.id}
                       type="button"
                       onClick={() => handleSelectMaterial(material)}
-                      className="w-full text-left p-3 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors"
+                      className="w-full text-left p-3 rounded-xl bg-surface-1 hover:bg-surface-2 transition-colors"
                     >
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium text-white text-sm">{material.name}</p>
-                          <p className="text-xs text-slate-500 mt-0.5">
+                          <p className="text-xs text-ink-muted mt-0.5">
                             {formatRupiah(material.standard_price)} / {material.unit}
                           </p>
                         </div>
-                        <Package className="w-4 h-4 text-slate-600" />
+                        <Package className="w-4 h-4 text-ink-muted" />
                       </div>
                     </button>
                   ))}
@@ -584,18 +584,18 @@ const PriceSimulation = () => {
 // ── Small helpers ────────────────────────────────────────────────────────────
 const ResultRow = ({ icon, label, value, valueClass }) => (
   <div className="flex items-center justify-between">
-    <span className="text-sm text-slate-400 flex items-center gap-2">{icon}{label}</span>
+    <span className="text-sm text-ink-muted flex items-center gap-2">{icon}{label}</span>
     <span className={valueClass}>{value}</span>
   </div>
 )
 
 const SubRow = ({ label, value }) => (
-  <div className="flex justify-between items-center pl-3 text-xs text-slate-500">
+  <div className="flex justify-between items-center pl-3 text-xs text-ink-muted">
     <span>{label}</span>
     <span>{value}</span>
   </div>
 )
 
-const Divider = () => <div className="h-px bg-slate-700/50" />
+const Divider = () => <div className="h-px bg-hairline-soft" />
 
 export default PriceSimulation

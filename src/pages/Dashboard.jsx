@@ -60,7 +60,7 @@ const Dashboard = () => {
       {/* Header + Greeting */}
       <div className="page-header">
         <div className="flex items-center gap-3 mb-1">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-violet flex items-center justify-center shadow-glow overflow-hidden">
+          <div className="w-10 h-10 rounded-xl bg-surface-2 flex items-center justify-center overflow-hidden">
             <img
               src="https://lh3.googleusercontent.com/d/17d-UmkhNv1FxnkAZVuTt805LubWTPU9f"
               alt="ReKal Logo"
@@ -76,15 +76,15 @@ const Dashboard = () => {
 
       {/* Connection Error */}
       {connectionStatus === 'error' && error && (
-        <div className="glass-panel p-4 mb-4 border-accent-rose/30 bg-accent-rose/10">
+        <div className="glass-panel p-4 mb-4 border-danger/30 bg-danger/10">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-accent-rose flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-danger flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm text-accent-rose font-medium mb-1">Koneksi Database Bermasalah</p>
-              <p className="text-xs text-slate-400">{error}</p>
+              <p className="text-sm text-danger font-medium mb-1">Koneksi Database Bermasalah</p>
+              <p className="text-xs text-ink-muted">{error}</p>
               <div className="mt-3 flex items-center gap-2">
-                <Database className="w-4 h-4 text-slate-500" />
-                <span className="text-xs text-slate-500">Pastikan tabel Supabase sudah dibuat</span>
+                <Database className="w-4 h-4 text-ink-muted" />
+                <span className="text-xs text-ink-muted">Pastikan tabel Supabase sudah dibuat</span>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-2 gap-3 mb-4">
             <div className="stat-card">
               <div className="flex items-center gap-2 mb-2">
-                <ShoppingBag className="w-4 h-4 text-primary-400" />
+                <ShoppingBag className="w-4 h-4 text-ink-muted" />
                 <span className="stat-label">Produk</span>
               </div>
               <p className="stat-value">{loading.products ? '...' : formatNumber(totalProducts)}</p>
@@ -109,7 +109,7 @@ const Dashboard = () => {
 
             <div className="stat-card">
               <div className="flex items-center gap-2 mb-2">
-                <Package className="w-4 h-4 text-accent-emerald" />
+                <Package className="w-4 h-4 text-success" />
                 <span className="stat-label">Material</span>
               </div>
               <p className="stat-value">{loading.materials ? '...' : formatNumber(totalMaterials)}</p>
@@ -117,21 +117,21 @@ const Dashboard = () => {
 
             <div className="stat-card">
               <div className="flex items-center gap-2 mb-2">
-                <Layers className="w-4 h-4 text-accent-violet" />
+                <Layers className="w-4 h-4 text-ink-muted" />
                 <span className="stat-label">Kategori</span>
               </div>
               <p className="stat-value">{loading.categories ? '...' : formatNumber(totalCategories)}</p>
             </div>
 
-            {/* Card Laba — lebih menonjol */}
-            <div className="stat-card border-emerald-500/30 bg-emerald-500/5">
+            {/* Card Laba — violet spotlight */}
+            <div className="stat-card" style={{ background: 'rgba(106,76,245,0.1)', border: '1px solid rgba(106,76,245,0.2)' }}>
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-4 h-4 text-emerald-400" />
-                <span className="stat-label text-emerald-400/80">Rata-rata Laba</span>
+                <TrendingUp className="w-4 h-4 text-success" />
+                <span className="stat-label text-success">Rata-rata Laba</span>
               </div>
-              <p className="stat-value text-emerald-300 text-sm">{loading.products ? '...' : formatRupiah(avgProfit)}</p>
+              <p className="stat-value text-success text-sm">{loading.products ? '...' : formatRupiah(avgProfit)}</p>
               {!loading.products && avgMargin > 0 && (
-                <p className="text-[11px] text-emerald-500 mt-1">+{avgMargin.toFixed(1)}% margin</p>
+                <p className="text-[11px] text-success mt-1">+{avgMargin.toFixed(1)}% margin</p>
               )}
             </div>
           </div>
@@ -139,19 +139,19 @@ const Dashboard = () => {
           {/* Total Nilai Bisnis */}
           {!loading.products && totalProducts > 0 && (
             <div className="glass-panel p-4 mb-4">
-              <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Total Nilai Bisnis</h3>
+              <h3 className="text-xs font-semibold text-ink-muted uppercase tracking-wider mb-3">Total Nilai Bisnis</h3>
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <p className="text-[10px] text-slate-500 mb-1">Total HPP</p>
+                  <p className="text-[10px] text-ink-muted mb-1">Total HPP</p>
                   <p className="text-sm font-bold text-white">{formatRupiah(totalHPP)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-slate-500 mb-1">Total Jual</p>
-                  <p className="text-sm font-bold text-accent-emerald">{formatRupiah(totalJual)}</p>
+                  <p className="text-[10px] text-ink-muted mb-1">Total Jual</p>
+                  <p className="text-sm font-bold text-success">{formatRupiah(totalJual)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-slate-500 mb-1">Potensi Laba</p>
-                  <p className="text-sm font-bold text-emerald-300">{formatRupiah(totalLaba)}</p>
+                  <p className="text-[10px] text-ink-muted mb-1">Potensi Laba</p>
+                  <p className="text-sm font-bold text-success">{formatRupiah(totalLaba)}</p>
                 </div>
               </div>
             </div>
@@ -159,31 +159,31 @@ const Dashboard = () => {
 
           {/* Insight Otomatis */}
           {!loading.products && totalProducts > 0 && (
-            <div className="glass-panel p-4 mb-4 border-primary-500/20 bg-primary-500/5">
-              <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-primary-400" />
+            <div className="glass-panel p-4 mb-4">
+              <h3 className="text-sm font-semibold text-ink mb-3 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-ink-muted" />
                 Insight Bisnis
               </h3>
               <div className="space-y-3">
                 <div className="flex items-start gap-2.5">
-                  <TrendingUp className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-slate-300">
-                    Margin rata-rata produk kamu <span className="font-semibold text-emerald-400">{avgMargin.toFixed(1)}%</span>
+                  <TrendingUp className="w-4 h-4 text-success flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-ink">
+                    Margin rata-rata produk kamu <span className="font-semibold text-success">{avgMargin.toFixed(1)}%</span>
                   </p>
                 </div>
                 {topProduct && (
                   <div className="flex items-start gap-2.5">
-                    <Trophy className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-slate-300">
+                    <Trophy className="w-4 h-4 text-warning flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-ink">
                       Laba tertinggi: <span className="font-semibold text-white">{topProduct.name}</span>
-                      {' '}— <span className="text-emerald-400">{formatRupiah(topProduct.gross_profit_per_unit)}</span>
+                      {' '}— <span className="text-success">{formatRupiah(topProduct.gross_profit_per_unit)}</span>
                     </p>
                   </div>
                 )}
                 <div className="flex items-start gap-2.5">
-                  <ShoppingBag className="w-4 h-4 text-primary-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-slate-300">
-                    Potensi laba seluruh produk: <span className="font-semibold text-emerald-400">{formatRupiah(totalLaba)}</span>
+                  <ShoppingBag className="w-4 h-4 text-ink-muted flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-ink">
+                    Potensi laba seluruh produk: <span className="font-semibold text-success">{formatRupiah(totalLaba)}</span>
                   </p>
                 </div>
               </div>
@@ -197,8 +197,8 @@ const Dashboard = () => {
 
           {/* Cost Summary + Progress Bar */}
           <div className="glass-panel p-4 mb-4">
-            <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-primary-400" />
+            <h3 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-ink-muted" />
               Rata-rata Biaya & Harga
             </h3>
 
@@ -206,12 +206,12 @@ const Dashboard = () => {
               {/* HPP */}
               <div>
                 <div className="flex justify-between items-center mb-1.5">
-                  <span className="text-xs text-slate-400">HPP Rata-rata</span>
+                  <span className="text-xs text-ink-muted">HPP Rata-rata</span>
                   <span className="text-sm font-semibold text-white">{formatRupiah(avgProductionCost)}</span>
                 </div>
-                <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-1.5 bg-surface-2 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-slate-500 rounded-full transition-all duration-700"
+                    className="h-full bg-ink-muted rounded-full transition-all duration-700"
                     style={{ width: `${hppBarPct}%` }}
                   />
                 </div>
@@ -220,19 +220,19 @@ const Dashboard = () => {
               {/* Harga Jual */}
               <div>
                 <div className="flex justify-between items-center mb-1.5">
-                  <span className="text-xs text-slate-400">Harga Jual Rata-rata</span>
-                  <span className="text-sm font-semibold text-accent-emerald">{formatRupiah(avgSellingPrice)}</span>
+                  <span className="text-xs text-ink-muted">Harga Jual Rata-rata</span>
+                  <span className="text-sm font-semibold text-success">{formatRupiah(avgSellingPrice)}</span>
                 </div>
-                <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full bg-emerald-500 rounded-full w-full" />
+                <div className="h-1.5 bg-surface-2 rounded-full overflow-hidden">
+                  <div className="h-full bg-success rounded-full w-full" />
                 </div>
               </div>
 
-              <div className="h-px bg-slate-800" />
+              <div className="h-px bg-hairline" />
 
               <div className="flex justify-between items-center">
-                <span className="text-sm text-slate-400">Margin Rata-rata</span>
-                <span className="font-bold text-accent-cyan text-base">
+                <span className="text-sm text-ink-muted">Margin Rata-rata</span>
+                <span className="font-bold text-success text-base">
                   {avgSellingPrice > 0 ? avgMargin.toFixed(1) : 0}%
                 </span>
               </div>
@@ -242,15 +242,15 @@ const Dashboard = () => {
           {/* Produk Terbaru */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold text-slate-300">Produk Terbaru</h3>
-              <a href="/products" className="text-xs text-primary-400 flex items-center gap-1">
+              <h3 className="text-sm font-semibold text-ink">Produk Terbaru</h3>
+              <a href="/products" className="text-xs text-accent-blue flex items-center gap-1">
                 Lihat Semua <ArrowUpRight className="w-3 h-3" />
               </a>
             </div>
 
             {loading.products ? (
               <div className="flex justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ink-muted"></div>
               </div>
             ) : recentProducts.length === 0 ? (
               <div className="empty-state">
@@ -276,16 +276,16 @@ const Dashboard = () => {
                             className="w-9 h-9 rounded-lg object-cover flex-shrink-0"
                           />
                         ) : (
-                          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-500/20 to-accent-violet/20 flex items-center justify-center flex-shrink-0">
-                            <Camera className="w-4 h-4 text-primary-400" />
+                          <div className="w-9 h-9 rounded-lg bg-surface-2 flex items-center justify-center flex-shrink-0">
+                            <Camera className="w-4 h-4 text-ink-muted" />
                           </div>
                         )
                       })()}
                       <p className="font-medium text-white text-sm truncate">{product.name}</p>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className="text-sm font-bold text-accent-emerald">{formatRupiah(product.estimated_selling_price)}</p>
-                      <p className="text-[11px] text-slate-500">+{formatRupiah(product.gross_profit_per_unit)}</p>
+                      <p className="text-sm font-bold text-success">{formatRupiah(product.estimated_selling_price)}</p>
+                      <p className="text-[11px] text-ink-muted">+{formatRupiah(product.gross_profit_per_unit)}</p>
                     </div>
                   </a>
                 ))}

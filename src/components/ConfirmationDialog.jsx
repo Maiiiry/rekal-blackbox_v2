@@ -26,14 +26,14 @@ const ConfirmationDialog = ({
       border: 'border-accent-rose/30'
     },
     warning: {
-      icon: 'bg-amber-500/20 text-amber-400',
-      button: 'bg-amber-500 hover:bg-amber-500/90 text-white',
-      border: 'border-amber-500/30'
+      icon: 'bg-warning/20 text-warning',
+      button: 'bg-warning hover:bg-warning/90 text-white',
+      border: 'border-warning/30'
     },
     info: {
-      icon: 'bg-primary-500/20 text-primary-400',
-      button: 'bg-primary-500 hover:bg-primary-500/90 text-white',
-      border: 'border-primary-500/30'
+      icon: 'bg-accent-blue/20 text-accent-blue',
+      button: 'bg-accent-blue hover:bg-accent-blue/90 text-white',
+      border: 'border-accent-blue/30'
     }
   }
 
@@ -44,14 +44,14 @@ const ConfirmationDialog = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-canvas/80 backdrop-blur-sm"
         onClick={onCancel}
       />
       
       {/* Dialog */}
-      <div className="relative w-full max-w-md bg-slate-900 rounded-2xl border border-slate-700 shadow-2xl animate-slide-up">
+      <div className="relative w-full max-w-md bg-surface-1 rounded-2xl border border-hairline shadow-2xl animate-slide-up">
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-800">
+        <div className="flex items-center justify-between p-5 border-b border-hairline-soft">
           <div className="flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl ${colorScheme.icon} flex items-center justify-center`}>
               <Icon className="w-5 h-5" />
@@ -60,7 +60,7 @@ const ConfirmationDialog = ({
           </div>
           <button
             onClick={onCancel}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            className="p-2 text-ink-muted hover:text-white hover:bg-surface-1 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -68,7 +68,7 @@ const ConfirmationDialog = ({
 
         {/* Content */}
         <div className="p-5">
-          <p className="text-slate-300 leading-relaxed">{message}</p>
+          <p className="text-ink leading-relaxed">{message}</p>
         </div>
 
         {/* Actions */}

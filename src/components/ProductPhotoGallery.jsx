@@ -114,12 +114,12 @@ const ProductPhotoGallery = ({
 
   if (!hasPhotos) {
     return (
-      <div 
-        className="w-full bg-slate-800/50 rounded-2xl border-2 border-dashed border-slate-700 flex flex-col items-center justify-center"
+      <div
+        className="w-full bg-surface-1/50 rounded-2xl border-2 border-dashed border-hairline flex flex-col items-center justify-center"
         style={{ height: maxHeight }}
       >
-        <ImageIcon className="w-16 h-16 text-slate-600 mb-4" />
-        <p className="text-slate-500 text-sm">Belum ada foto produk</p>
+        <ImageIcon className="w-16 h-16 text-ink-muted mb-4" />
+        <p className="text-ink-muted text-sm">Belum ada foto produk</p>
       </div>
     )
   }
@@ -128,7 +128,7 @@ const ProductPhotoGallery = ({
     <div className="w-full">
       {/* Main Image Viewer */}
       <div 
-        className="relative w-full bg-slate-900 rounded-2xl overflow-hidden group"
+        className="relative w-full bg-surface-1 rounded-2xl overflow-hidden group"
         style={{ height: maxHeight }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
@@ -146,13 +146,13 @@ const ProductPhotoGallery = ({
           <>
             <button
               onClick={handlePrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-canvas/50 hover:bg-canvas/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-canvas/50 hover:bg-canvas/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -163,14 +163,14 @@ const ProductPhotoGallery = ({
         <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
             onClick={() => handleDownload(currentPhoto, currentIndex)}
-            className="p-2 bg-black/50 hover:bg-black/70 text-white rounded-lg transition-colors"
+            className="p-2 bg-canvas/50 hover:bg-canvas/70 text-white rounded-lg transition-colors"
             title="Download foto"
           >
             <Download className="w-4 h-4" />
           </button>
           <button
             onClick={() => setLightboxOpen(true)}
-            className="p-2 bg-black/50 hover:bg-black/70 text-white rounded-lg transition-colors"
+            className="p-2 bg-canvas/50 hover:bg-canvas/70 text-white rounded-lg transition-colors"
             title="Lihat fullscreen"
           >
             <ZoomIn className="w-4 h-4" />
@@ -179,7 +179,7 @@ const ProductPhotoGallery = ({
 
         {/* Photo Counter */}
         {sortedPhotos.length > 1 && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/50 rounded-full text-white text-sm">
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-canvas/50 rounded-full text-white text-sm">
             {currentIndex + 1} / {sortedPhotos.length}
           </div>
         )}
@@ -187,7 +187,7 @@ const ProductPhotoGallery = ({
 
       {/* Thumbnails */}
       {sortedPhotos.length > 1 && (
-        <div className="flex gap-2 mt-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-transparent">
+        <div className="flex gap-2 mt-3 overflow-x-auto pb-2 scrollbar-thin">
           {sortedPhotos.map((photo, index) => (
             <div
               key={photo.id}
@@ -199,15 +199,15 @@ const ProductPhotoGallery = ({
             >
               {editable && (
                 <div className="absolute -left-1 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                  <GripVertical className="w-4 h-4 text-slate-400" />
+                  <GripVertical className="w-4 h-4 text-ink-muted" />
                 </div>
               )}
               <button
                 onClick={() => handleThumbnailClick(index)}
                 className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${
                   index === currentIndex 
-                    ? 'border-primary-500 ring-2 ring-primary-500/30' 
-                    : 'border-slate-700 hover:border-slate-500'
+                    ? 'border-accent-blue ring-2 ring-accent-blue/30'
+                    : 'border-hairline hover:border-ink-muted'
                 }`}
               >
                 <img
@@ -232,7 +232,7 @@ const ProductPhotoGallery = ({
       {/* Lightbox */}
       {lightboxOpen && (
         <div 
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-canvas/95 flex items-center justify-center p-4"
           onClick={() => setLightboxOpen(false)}
         >
           <button
