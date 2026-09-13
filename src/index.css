@@ -25,6 +25,17 @@
   #root {
     @apply min-h-screen;
   }
+
+  /* Hilangkan native spinner arrow di input type=number */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
 }
 
 @layer components {
@@ -168,7 +179,7 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .list-item {
+  .list-row {
     background: #141414;
     border: 1px solid #262626;
     border-radius: 15px;
@@ -179,7 +190,7 @@
   }
 
   @media (hover: hover) {
-    .list-item:hover {
+    .list-row:hover {
       background: #1c1c1c;
     }
   }
