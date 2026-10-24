@@ -1,22 +1,24 @@
 # STATE.md — Project State
 
-> Updated: 2026-09-13
+> Updated: 2026-10-24
 
 ## Current Position
 
 Milestone: v0.5 Framer UI Redesign — **IN PROGRESS**
-Phase: 10 (detail-views) — In Progress
-Plan: 10-01 awaiting APPLY, 10-02 COMPLETE ✅
-Status: 10-02 loop closed, 10-01 pending
-Last activity: 2026-09-13 — UNIFY 10-02 complete (SUMMARY tersimpan)
+Phase: 10 (detail-views) — In Progress (10-01 masih pending)
+Phase: 12 (pdf-export) — APPLY complete, awaiting UNIFY ◀
+Plan: 10-01 awaiting APPLY | 12-01 APPLY complete, awaiting UNIFY
+Status: 12-01 APPLY complete — tombol export + PDF template + Vite config
+Last activity: 2026-10-24 — APPLY 12-01 complete (3/3 tasks PASS, build ✅)
 
 Progress:
 - Phase 1–6: [██████████] 100% (v0.1–v0.4 complete)
 - Phase 7 (design-system):     [██████████] 100% ✅
 - Phase 8 (shell-navigation):  [██████████] 100% ✅
 - Phase 9 (list-views):        [██████████] 100% ✅
-- Phase 10 (detail-views):     [█████░░░░░] 50% — 10-02 complete, 10-01 pending ◀
+- Phase 10 (detail-views):     [█████░░░░░] 50% — 10-02 complete, 10-01 pending
 - Phase 11 (color-scheme-fix): [██████████] 100% ✅
+- Phase 12 (pdf-export):       [████████░░] 80% — APPLY complete, UNIFY pending ◀
 
 ## Loop Position
 
@@ -31,14 +33,16 @@ PLAN ──▶ APPLY ──▶ UNIFY
   ✓        ✓        ✓     [Loop 11-02 complete — 7 page files dimigrasikan, seluruh app bersih]
   ✓        ○        ○     [Loop 10-01 — PLAN created, awaiting APPLY]
   ✓        ✓        ✓     [Loop 10-02 complete — input number polish (spinner + scroll wheel)]
+  ✓        ✓        ○     [Loop 12-01 — APPLY complete, awaiting UNIFY]
 ```
 
 ## Session Continuity
 
-Last session: 2026-09-13
-Stopped at: Phase 10 detail-views — Loop 10-02 CLOSED, 10-01 masih pending
-Next action: /stitch-design untuk ProductDetail + ProductForm + PriceSimulation, lalu /paul:apply .paul/phases/10-detail-views/10-01-PLAN.md
-Resume file: .paul/phases/10-detail-views/10-01-PLAN.md
+Last session: 2026-10-24
+Stopped at: Phase 12 pdf-export — PLAN 12-01 created, siap untuk APPLY
+Next action: /paul:unify .paul/phases/12-pdf-export/12-01-PLAN.md
+Resume file: .paul/phases/12-pdf-export/12-01-PLAN.md
+Pending juga: .paul/phases/10-detail-views/10-01-PLAN.md (Phase 10 belum selesai)
 
 ## Decisions
 
@@ -58,6 +62,7 @@ Resume file: .paul/phases/10-detail-views/10-01-PLAN.md
 | CHART_COLORS dikecualikan dari token migration | Data chart (intentionally hardcoded), bukan UI color scheme | Tepat sasaran |
 | Input number polish sebagai PLAN 10-02 terpisah | Quick-fix track, parallel Wave 1 dengan 10-01 | Separation of concerns, PLAN 10-01 stays intact |
 | Scroll wheel disable via `el.blur()` bukan `preventDefault` | Passive listener, tidak block page scroll | Zero perf impact, UX-correct |
+| Override: Proceed tanpa stitch-design di 12-01 | btn-secondary existing class, bukan komponen visual baru | Tidak ada Stitch reference untuk tombol Export PDF |
 
 ## Phase Summary
 
