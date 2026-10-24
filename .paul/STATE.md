@@ -5,20 +5,20 @@
 ## Current Position
 
 Milestone: v0.5 Framer UI Redesign — **IN PROGRESS**
-Phase: 10 (detail-views) — In Progress (10-01 masih pending)
-Phase: 12 (pdf-export) — APPLY complete, awaiting UNIFY ◀
-Plan: 10-01 awaiting APPLY | 12-01 APPLY complete, awaiting UNIFY
-Status: 12-01 APPLY complete — tombol export + PDF template + Vite config
-Last activity: 2026-10-24 — APPLY 12-01 complete (3/3 tasks PASS, build ✅)
+Phase: 10 (detail-views) — In Progress (10-01 masih pending) ◀
+Phase: 12 (pdf-export) — COMPLETE ✅
+Plan: 10-01 awaiting APPLY
+Status: Phase 12 selesai. Phase 10 satu-satunya yang masih pending.
+Last activity: 2026-10-24 — UNIFY 12-01 complete (loop closed, SUMMARY dibuat)
 
 Progress:
 - Phase 1–6: [██████████] 100% (v0.1–v0.4 complete)
 - Phase 7 (design-system):     [██████████] 100% ✅
 - Phase 8 (shell-navigation):  [██████████] 100% ✅
 - Phase 9 (list-views):        [██████████] 100% ✅
-- Phase 10 (detail-views):     [█████░░░░░] 50% — 10-02 complete, 10-01 pending
+- Phase 10 (detail-views):     [█████░░░░░] 50% — 10-02 complete, 10-01 pending ◀
 - Phase 11 (color-scheme-fix): [██████████] 100% ✅
-- Phase 12 (pdf-export):       [████████░░] 80% — APPLY complete, UNIFY pending ◀
+- Phase 12 (pdf-export):       [██████████] 100% ✅
 
 ## Loop Position
 
@@ -33,16 +33,16 @@ PLAN ──▶ APPLY ──▶ UNIFY
   ✓        ✓        ✓     [Loop 11-02 complete — 7 page files dimigrasikan, seluruh app bersih]
   ✓        ○        ○     [Loop 10-01 — PLAN created, awaiting APPLY]
   ✓        ✓        ✓     [Loop 10-02 complete — input number polish (spinner + scroll wheel)]
-  ✓        ✓        ○     [Loop 12-01 — APPLY complete, awaiting UNIFY]
+  ✓        ✓        ✓     [Loop 12-01 complete — PDF export tombol + template A4 + direct download]
 ```
 
 ## Session Continuity
 
 Last session: 2026-10-24
-Stopped at: Phase 12 pdf-export — PLAN 12-01 created, siap untuk APPLY
-Next action: /paul:unify .paul/phases/12-pdf-export/12-01-PLAN.md
-Resume file: .paul/phases/12-pdf-export/12-01-PLAN.md
-Pending juga: .paul/phases/10-detail-views/10-01-PLAN.md (Phase 10 belum selesai)
+Stopped at: Phase 12 pdf-export — UNIFY 12-01 complete, Phase 12 selesai
+Next action: /paul:apply .paul/phases/10-detail-views/10-01-PLAN.md (Phase 10 detail-views)
+Resume file: .paul/phases/10-detail-views/10-01-PLAN.md
+Note: 10-01 membutuhkan /stitch-design sebelum APPLY — generate reference untuk 3 halaman detail
 
 ## Decisions
 
@@ -83,16 +83,18 @@ Pending juga: .paul/phases/10-detail-views/10-01-PLAN.md (Phase 10 belum selesai
 ### Phase 11: color-scheme-fix — COMPLETE ✅
 **Outcome:** 14 files (tailwind.config.js + 6 komponen + Login + 7 pages) dimigrasikan. Seluruh aplikasi: 0 slate-* classes, 0 primary-[0-9] refs, 0 hardcoded hex di UI layer. Token baru ditambahkan: accent-rose, accent-emerald, accent-cyan, accent-violet, warning, primary palette bridge.
 
+### Phase 12: pdf-export — COMPLETE ✅
+**Outcome:** @react-pdf/renderer v4.9.0 diinstall. `products-pdf-template.jsx` (A4 white, tabel 5 kolom: No/Nama Produk/HPP/Harga Jual/Margin%). Tombol "Export PDF" di Products header (conditional, filteredProducts). Direct download tanpa preview. Build clean.
+
 ## Git State
 
-Last commit: db6538f — feat(11-color-scheme-fix): Framer token migration — seluruh aplikasi bersih dari slate/emerald/amber
+Last commit: 76ac4d9 — feat(12-pdf-export): Ekspor daftar produk HPP ke PDF
 Branch: main
 Feature branches merged: none
 
 ## Next Actions
 
-Phase 10 punya 2 plan pararel di Wave 1:
-- **10-02 (quick-fix)**: `/paul:apply .paul/phases/10-detail-views/10-02-PLAN.md` — input number polish, ~5 menit
-- **10-01 (standard)**: `/stitch-design` untuk 3 halaman lalu `/paul:apply .paul/phases/10-detail-views/10-01-PLAN.md`
+Phase 12 selesai. Satu-satunya yang pending:
+- **10-01 (standard)**: `/stitch-design` untuk 3 halaman (ProductDetail, ProductForm, PriceSimulation) lalu `/paul:apply .paul/phases/10-detail-views/10-01-PLAN.md`
 
-Rekomendasi: eksekusi 10-02 dulu (quick win, unblocks nothing), lalu 10-01.
+Catatan: 10-02 sudah complete sebelumnya. 10-01 adalah satu-satunya plan tersisa di Phase 10.

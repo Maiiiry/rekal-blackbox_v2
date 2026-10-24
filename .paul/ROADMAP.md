@@ -67,7 +67,7 @@ Total visual overhaul menggunakan Framer design system sebagai referensi. Hapus 
 | 09 | list-views | Dashboard, Products, Materials, Categories — design baru | ✅ Complete |
 | 10 | detail-views | ProductDetail, ProductForm, PriceSimulation — detail + form | 🔵 Planning |
 | 11 | color-scheme-fix | Fix missing tokens + migrate slate→Framer + formalisasi semantic colors | ✅ Complete |
-| 12 | pdf-export | Ekspor daftar produk (HPP + harga jual) ke PDF — direct download | 🔵 Planning |
+| 12 | pdf-export | Ekspor daftar produk (HPP + harga jual) ke PDF — direct download | ✅ Complete |
 
 **Success criteria:**
 - Seluruh UI menggunakan Framer design system (canvas #090909, pill CTAs, Inter Variable)
